@@ -19,7 +19,7 @@ namespace MyLib
             }
             this.createSheet(source, 0, headerIndex);
             MemoryStream stream = new MemoryStream();
-            this.workbook.Write(stream);
+            this.workbook.Write(stream, false);
             stream.Flush();
             byte[] result = stream.ToArray();
             return result;
@@ -37,7 +37,7 @@ namespace MyLib
                 this.createSheet(dt, i);
             }
             MemoryStream stream = new MemoryStream();
-            this.workbook.Write(stream);
+            this.workbook.Write(stream, false);
             stream.Flush();
             byte[] result = stream.ToArray();
             return result;
@@ -70,7 +70,7 @@ namespace MyLib
                 }
             }
             MemoryStream stream = new MemoryStream();
-            this.workbook.Write(stream);
+            this.workbook.Write(stream, false);
             stream.Flush();
             byte[] result = stream.ToArray();
             stream.Close();
