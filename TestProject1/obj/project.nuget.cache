@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3T9OAYnp/YnHza4y5isFjvn7alWKPFI9nagtDroWjynqaNsk9rt/Q4HDr8LdSADNLABI4kpGGenwt6DNucvVFQ==",
+  "dgSpecHash": "qt1QHGtUgZm5mnnCFuvPF0TAdH67aQV7xmxa9I2iQNZMbSEvjkYyH2avWOWMf+ANWRA5sGo52pbLysJH4UeQmA==",
   "success": true,
-  "projectFilePath": "D:\\Test\\MyLib\\TestProject1\\TestProject1.csproj",
+  "projectFilePath": "D:\\SideProject\\MyLib\\TestProject1\\TestProject1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\11107063\\.nuget\\packages\\coverlet.collector\\3.0.2\\coverlet.collector.3.0.2.nupkg.sha512",
     "C:\\Users\\11107063\\.nuget\\packages\\microsoft.codecoverage\\16.9.4\\microsoft.codecoverage.16.9.4.nupkg.sha512",

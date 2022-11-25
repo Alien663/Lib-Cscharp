@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "g4RhCb8LsOAZ7V/nunPkpBLdkWdCsyl+x6ovfe0x/zsoDwgy3MtYRR7VFGQb27uTy67eQQu37BycfmX7h6xbww==",
+  "dgSpecHash": "BveViKJWa4y0fQO4o56mbPUczCwnrovzyLAZE3OCuFydqLE1XhkNiRGGIpa0Bf6phsAt2SVIBOTiAsK5v6pLIA==",
   "success": true,
-  "projectFilePath": "D:\\Test\\MyLib\\MyLib\\MyLib.csproj",
+  "projectFilePath": "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\11107063\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "C:\\Users\\11107063\\.nuget\\packages\\microsoft.win32.systemevents\\4.5.0\\microsoft.win32.systemevents.4.5.0.nupkg.sha512",

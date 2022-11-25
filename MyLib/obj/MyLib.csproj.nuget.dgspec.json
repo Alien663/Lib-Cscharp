@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Test\\MyLib\\MyLib\\MyLib.csproj": {}
+    "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj": {}
   },
   "projects": {
-    "D:\\Test\\MyLib\\MyLib\\MyLib.csproj": {
+    "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Test\\MyLib\\MyLib\\MyLib.csproj",
+        "projectUniqueName": "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj",
         "projectName": "MyLib",
-        "projectPath": "D:\\Test\\MyLib\\MyLib\\MyLib.csproj",
+        "projectPath": "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj",
         "packagesPath": "C:\\Users\\11107063\\.nuget\\packages\\",
-        "outputPath": "D:\\Test\\MyLib\\MyLib\\obj\\",
+        "outputPath": "D:\\SideProject\\MyLib\\MyLib\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -69,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

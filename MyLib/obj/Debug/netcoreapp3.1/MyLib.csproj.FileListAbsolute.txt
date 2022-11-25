@@ -8,3 +8,13 @@ D:\Test\MyLib\MyLib\obj\Debug\netcoreapp3.1\MyLib.AssemblyInfo.cs
 D:\Test\MyLib\MyLib\obj\Debug\netcoreapp3.1\MyLib.csproj.CoreCompileInputs.cache
 D:\Test\MyLib\MyLib\obj\Debug\netcoreapp3.1\MyLib.dll
 D:\Test\MyLib\MyLib\obj\Debug\netcoreapp3.1\MyLib.pdb
+D:\SideProject\MyLib\MyLib\bin\Debug\netcoreapp3.1\MyLib.deps.json
+D:\SideProject\MyLib\MyLib\bin\Debug\netcoreapp3.1\MyLib.dll
+D:\SideProject\MyLib\MyLib\bin\Debug\netcoreapp3.1\MyLib.pdb
+D:\SideProject\MyLib\MyLib\obj\Debug\netcoreapp3.1\MyLib.csproj.AssemblyReference.cache
+D:\SideProject\MyLib\MyLib\obj\Debug\netcoreapp3.1\MyLib.GeneratedMSBuildEditorConfig.editorconfig
+D:\SideProject\MyLib\MyLib\obj\Debug\netcoreapp3.1\MyLib.AssemblyInfoInputs.cache
+D:\SideProject\MyLib\MyLib\obj\Debug\netcoreapp3.1\MyLib.AssemblyInfo.cs
+D:\SideProject\MyLib\MyLib\obj\Debug\netcoreapp3.1\MyLib.csproj.CoreCompileInputs.cache
+D:\SideProject\MyLib\MyLib\obj\Debug\netcoreapp3.1\MyLib.dll
+D:\SideProject\MyLib\MyLib\obj\Debug\netcoreapp3.1\MyLib.pdb
