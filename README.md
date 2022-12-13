@@ -10,3 +10,14 @@ There are only basic functions to use :
 6. read DataModel data from excel file
 
 If you wants to use this component to read/write excel file, you can see the sample code in TestProject1 project.There are all unit test about this component.
+
+Now you can define your data model as bellow, when it exports file from data model, it will use "DisplayName" as column name in excel file automatically.
+```csharp
+public class TestModel
+{
+  public string ID { get; set; }
+  
+  [DisplayName("Test Name")]
+  public string Name { get; set; }
+}
+```
