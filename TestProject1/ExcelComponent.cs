@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using NUnit.Framework;
 using MyLib;
+using System.ComponentModel;
 
 namespace TestProject1
 {
@@ -13,8 +14,11 @@ namespace TestProject1
     {
         private class Student
         {
+            [DisplayName("Student Name")]
             public string Name { get; set; }
+            [DisplayName("Student ID")]
             public int StudentId { get; set; }
+            [DisplayName("Student Age")]
             public int? Age { get; set; }
         }
         private DataTable dtStudent = new DataTable();

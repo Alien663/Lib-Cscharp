@@ -2,10 +2,13 @@
 using System.IO;
 using System.Data;
 using System.Reflection;
+using System.ComponentModel;
 using System.Collections.Generic;
 using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 using System.Linq;
+
+
 namespace MyLib
 {
     public class ExcelComponent
@@ -56,7 +59,11 @@ namespace MyLib
             foreach (PropertyInfo prop in Props)
             {
                 ICell cell = header.CreateCell(i++);
-                cell.SetCellValue(prop.Name);
+                var attr = prop.GetCustomAttribute<DisplayNameAttribute>(false);
+                if (attr == null)
+                    cell.SetCellValue(prop.Name);
+                else
+                    cell.SetCellValue(attr.DisplayName);
             }
             i = 0;
             foreach (var item in items)
