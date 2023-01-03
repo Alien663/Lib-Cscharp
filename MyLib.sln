@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32630.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLib", "MyLib\MyLib.csproj", "{CC4EEB8E-CFE5-4138-8435-96D80F9CDDDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyLib", "MyLib\MyLib.csproj", "{CC4EEB8E-CFE5-4138-8435-96D80F9CDDDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{6ADE7AF6-5A14-487D-A9B8-D3EA558174D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMyLib", "TestProject1\TestMyLib.csproj", "{6ADE7AF6-5A14-487D-A9B8-D3EA558174D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

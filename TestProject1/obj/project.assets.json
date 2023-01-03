@@ -1957,9 +1957,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SideProject\\MyLib\\TestProject1\\TestProject1.csproj",
-      "projectName": "TestProject1",
-      "projectPath": "D:\\SideProject\\MyLib\\TestProject1\\TestProject1.csproj",
+      "projectUniqueName": "D:\\SideProject\\MyLib\\TestProject1\\TestMyLib.csproj",
+      "projectName": "TestMyLib",
+      "projectPath": "D:\\SideProject\\MyLib\\TestProject1\\TestMyLib.csproj",
       "packagesPath": "C:\\Users\\11107063\\.nuget\\packages\\",
       "outputPath": "D:\\SideProject\\MyLib\\TestProject1\\obj\\",
       "projectStyle": "PackageReference",
@@ -2037,7 +2037,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   },

@@ -7,20 +7,20 @@ using System.Collections.Generic;
 using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 using System.Linq;
-
+using NPOI.Util;
 
 namespace MyLib
 {
     public class ExcelComponent
     {
         private IWorkbook workbook = null;
-        public byte[] export(DataTable source, int headerIndex = 0)
+        public byte[] export(DataTable source, int headerIndex = 0, bool isHeader=true)
         {
             if (this.workbook is null)
             {
                 this.workbook = new XSSFWorkbook();
             }
-            this.createSheet(source, 0, headerIndex);
+            this.createSheet(source, 0, headerIndex, isHeader);
             MemoryStream stream = new MemoryStream();
             this.workbook.Write(stream, false);
             stream.Flush();
@@ -28,7 +28,7 @@ namespace MyLib
             return result;
         }
 
-        public byte[] export(DataSet source)
+        public byte[] export(DataSet source, bool isHeader = true)
         {
             if(this.workbook is null)
             {
@@ -46,7 +46,7 @@ namespace MyLib
             return result;
         }
 
-        public byte[] export<T>(List<T> items)
+        public byte[] export<T>(List<T> items, bool isHeader = true)
         {
             if (this.workbook is null)
             {
@@ -56,14 +56,17 @@ namespace MyLib
             IRow header = sheet.CreateRow(0);
             PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             int i = 0;
-            foreach (PropertyInfo prop in Props)
+            if(isHeader)
             {
-                ICell cell = header.CreateCell(i++);
-                var attr = prop.GetCustomAttribute<DisplayNameAttribute>(false);
-                if (attr == null)
-                    cell.SetCellValue(prop.Name);
-                else
-                    cell.SetCellValue(attr.DisplayName);
+                foreach (PropertyInfo prop in Props)
+                {
+                    ICell cell = header.CreateCell(i++);
+                    var attr = prop.GetCustomAttribute<DisplayNameAttribute>(false);
+                    if (attr == null)
+                        cell.SetCellValue(prop.Name);
+                    else
+                        cell.SetCellValue(attr.DisplayName);
+                }
             }
             i = 0;
             foreach (var item in items)
@@ -73,6 +76,7 @@ namespace MyLib
                 {
                     ICell cell = rows.CreateCell(j);
                     var the_value = Props[j].GetValue(item, null);
+                    cell.SetCellType(getCellTypeFromType(Props.GetType().Name));
                     cell.SetCellValue(the_value is null? "" : the_value.ToString());
                 }
             }
@@ -149,16 +153,18 @@ namespace MyLib
             return dmResult;
         }
 
-        private void createSheet(DataTable source, int sheetIndex, int headerIndex = 0)
+        private void createSheet(DataTable source, int sheetIndex, int headerIndex = 0, bool isHeader = true)
         {
             ISheet sheet = string.IsNullOrEmpty(source.TableName) ? this.workbook.CreateSheet("Sheet" + sheetIndex.ToString()) : this.workbook.CreateSheet(source.TableName);
             IRow header = sheet.CreateRow(headerIndex);
-            for (int i = 0; i < source.Columns.Count; i++)
+            if(isHeader)
             {
-                ICell cell = header.CreateCell(i);
-                cell.SetCellValue(source.Columns[i].ColumnName);
+                for (int i = 0; i < source.Columns.Count; i++)
+                {
+                    ICell cell = header.CreateCell(i);
+                    cell.SetCellValue(source.Columns[i].ColumnName);
+                }
             }
-
             // data
             for (int i = 0; i < source.Rows.Count; i++)
             {
@@ -167,6 +173,7 @@ namespace MyLib
                 {
                     ICell cell = rows.CreateCell(j);
                     cell.SetCellValue(source.Rows[i][j].ToString());
+                    cell.SetCellType(getCellTypeFromType(source.Columns[j].DataType.Name));
                 }
             }
         }
@@ -205,6 +212,24 @@ namespace MyLib
                 dt.Rows.Add(dr);
             }
             return dt;
+        }
+
+        private CellType getCellTypeFromType(string datatypename)
+        {
+            switch (datatypename)
+            {
+                case "UInt16":
+                case "UInt32":
+                case "UInt64":
+                case "Int16":
+                case "Int32":
+                case "Int64":
+                    return CellType.Numeric;
+                case "Boolean":
+                    return CellType.Boolean;
+                default:
+                    return CellType.String;
+            }
         }
     }
 }
