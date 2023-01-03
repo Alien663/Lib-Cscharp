@@ -28,7 +28,7 @@ namespace TestMyLib
         public void DataTable2Excel()
         {
             ExcelComponent myexcel = new ExcelComponent();
-            byte[] data = myexcel.export(this.dtStudent);
+            byte[] data = myexcel.export(this.dtStudent, headerIndex:-1);
             using (FileStream fs = File.Create(this.folder + "test.xlsx"))
             {
                 fs.Write(data, 0, data.Length);
