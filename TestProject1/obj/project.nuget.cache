@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qt1QHGtUgZm5mnnCFuvPF0TAdH67aQV7xmxa9I2iQNZMbSEvjkYyH2avWOWMf+ANWRA5sGo52pbLysJH4UeQmA==",
+  "dgSpecHash": "xeUG62RE7iJN5xfKcjs1BbXR23Vher26ZR0/h95u56B+HV6BfgMpbznXlc8qicaxhOuQtrV+slqcSnSVvFXDag==",
   "success": true,
   "projectFilePath": "D:\\SideProject\\MyLib\\TestProject1\\TestProject1.csproj",
   "expectedPackageFiles": [
@@ -78,8 +78,7 @@
     "C:\\Users\\11107063\\.nuget\\packages\\system.xml.xdocument\\4.0.11\\system.xml.xdocument.4.0.11.nupkg.sha512",
     "C:\\Users\\11107063\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\11107063\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
-    "C:\\Users\\11107063\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.3.0\\system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\11107063\\.nuget\\packages\\mylib\\1.0.0\\mylib.1.0.0.nupkg.sha512"
+    "C:\\Users\\11107063\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.3.0\\system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
   ],
   "logs": [
     {
