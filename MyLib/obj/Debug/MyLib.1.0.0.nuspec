@@ -12,6 +12,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\Test\MyLib\MyLib\bin\Debug\netcoreapp3.1\MyLib.dll" target="lib\netcoreapp3.1\MyLib.dll" />
+    <file src="D:\SideProject\MyLib\MyLib\bin\Debug\netcoreapp3.1\MyLib.dll" target="lib\netcoreapp3.1\MyLib.dll" />
   </files>
 </package>
