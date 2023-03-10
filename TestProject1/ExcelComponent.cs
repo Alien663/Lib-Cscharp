@@ -18,17 +18,18 @@ namespace TestMyLib
         [SetUp]
         public void Setup()
         {
-            this.Students.Add(new Student() { Name = "Jack", Age = 15, StudentId = 100 });
-            this.Students.Add(new Student() { Name = "Smith", Age = 17, StudentId = 101 });
-            this.Students.Add(new Student() { Name = "Smit", Age = 20, StudentId = 102 });
-            dtStudent = this.ToDataTable(Students);
+            DataModelExtensions dmConvertor = new DataModelExtensions();
+            Students.Add(new Student() { Name = "Jack", Age = 15, StudentId = 100 });
+            Students.Add(new Student() { Name = "Smith", Age = 17, StudentId = 101 });
+            Students.Add(new Student() { Name = "Karoro", Age = 20, StudentId = 102 });
+            dtStudent = dmConvertor.ToDataTable(Students);
         }
 
         [Test]
         public void DataTable2Excel()
         {
             ExcelComponent myexcel = new ExcelComponent();
-            byte[] data = myexcel.export(this.dtStudent, headerIndex:-1);
+            byte[] data = myexcel.export(this.dtStudent);
             using (FileStream fs = File.Create(this.folder + "test.xlsx"))
             {
                 fs.Write(data, 0, data.Length);
@@ -50,7 +51,7 @@ namespace TestMyLib
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass("DataSet export out excel file success");
+            Assert.Pass(message:"DataSet export out excel file success");
         }
 
         [Test]
@@ -63,30 +64,6 @@ namespace TestMyLib
                 fs.Write(data, 0, data.Length);
             }
             Assert.Pass("DataModel export out excel file success");
-        }
-
-        private DataTable ToDataTable<T>(List<T> items)
-        {
-            DataTable dataTable = new DataTable(typeof(T).Name);
-            //Get all the properties
-            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (PropertyInfo prop in Props)
-            {
-                //Setting column names as Property names
-                dataTable.Columns.Add(prop.Name, prop.PropertyType);
-            }
-            foreach (T item in items)
-            {
-                var values = new object[Props.Length];
-                for (int i = 0; i < Props.Length; i++)
-                {
-                    //inserting property values to datatable rows
-                    values[i] = Props[i].GetValue(item, null);
-                }
-                dataTable.Rows.Add(values);
-            }
-            //put a breakpoint here and check datatable
-            return dataTable;
         }
     }
 
@@ -101,8 +78,14 @@ namespace TestMyLib
             FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
             ExcelComponent myexcel = new ExcelComponent();
             DataTable dt = myexcel.readFileDT(fs);
-            Console.WriteLine(dt);
-            Assert.Pass("It can read data from excel to DataTable");
+            if(dt.Rows.Count > 0)
+            {
+                Assert.Pass("It can read data from excel to DataTable");
+            }
+            else
+            {
+                Assert.Fail("DataTable is empty");
+            }
         }
 
         [Test]
@@ -111,9 +94,16 @@ namespace TestMyLib
             string filepath = this.folder + "test2.xlsx";
             FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
             ExcelComponent myexcel = new ExcelComponent();
-            DataSet dt = myexcel.readFileDS(fs);
-            Console.WriteLine(dt);
-            Assert.Pass("It can read data from exlcel to DataSet");
+            DataSet ds = myexcel.readFileDS(fs);
+            if (ds.Tables.Count > 0)
+            {
+                Assert.Pass("It can read data from exlcel to DataSet");
+            }
+            else
+            {
+                Assert.Fail("DataSet is empty");
+            }
+            
         }
 
         [Test]
@@ -123,18 +113,14 @@ namespace TestMyLib
             FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
             ExcelComponent myexcel = new ExcelComponent();
             List<Student> dm = myexcel.readFileDM<Student>(fs, 0, 0);
-            Console.WriteLine(dm);
-            Assert.Pass("It can read data from excel to DataModel list");
+            if(dm.Count > 0)
+            {
+                Assert.Pass("It can read data from excel to DataModel list");
+            }
+            else
+            {
+                Assert.Fail("DataModel is empty");
+            }
         }
-    }
-
-    public class Student
-    {
-        [DisplayName("Student Name")]
-        public string Name { get; set; }
-        [DisplayName("Student ID")]
-        public int StudentId { get; set; }
-        [DisplayName("Student Age")]
-        public int Age { get; set; }
     }
 }
