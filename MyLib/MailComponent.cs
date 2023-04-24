@@ -24,10 +24,10 @@ namespace MyLib
 
         public void SendMail(string title, string context, bool isHTML = true)
         {
-            #if DEBUG
+#if DEBUG
             title = "[Test]" + title;
             context = "It's a test mail" + context;
-            #endif
+#endif
             this.mail.Subject = title;
             this.mail.Body = context;
             this.mail.IsBodyHtml = isHTML;
@@ -41,7 +41,7 @@ namespace MyLib
         }
         public void SetReceiver(string[] receivers)
         {
-            foreach(string receiver in receivers)
+            foreach (string receiver in receivers)
             {
                 this.SetReceiver(receiver);
             }
@@ -52,19 +52,35 @@ namespace MyLib
         }
         public void SetCC(string[] ccs)
         {
-            foreach(string cc in ccs)
+            foreach (string cc in ccs)
             {
                 this.SetCC(cc);
             }
         }
-        public void SetPicture(string context, string ID, string filepath, string mime)
+        public void SetPicture(string context, string ID, string FilePath, string Mime)
         {
             AlternateView htmlview = AlternateView.CreateAlternateViewFromString(context, null, MediaTypeNames.Text.Html);
-            LinkedResource imageLink = new LinkedResource(filepath, mime);
+            LinkedResource imageLink = new LinkedResource(FilePath, Mime);
             imageLink.ContentId = ID;
             imageLink.TransferEncoding = TransferEncoding.Base64;
             htmlview.LinkedResources.Add(imageLink);
             this.mail.AlternateViews.Add(htmlview);
+        }
+        public void SetPicture(string context, MailPictureModel picture)
+        {
+            AlternateView htmlview = AlternateView.CreateAlternateViewFromString(context, null, MediaTypeNames.Text.Html);
+            LinkedResource imageLink = new LinkedResource(picture.FilePath, picture.Mime);
+            imageLink.ContentId = picture.ID;
+            imageLink.TransferEncoding = TransferEncoding.Base64;
+            htmlview.LinkedResources.Add(imageLink);
+            this.mail.AlternateViews.Add(htmlview);
+        }
+        public void SetPicture(string context, List<MailPictureModel> pictures)
+        {
+            foreach(MailPictureModel picture in pictures)
+            {
+                SetPicture(context, picture);
+            }
         }
         public void SetAttachment(string filepath)
         {
@@ -72,7 +88,7 @@ namespace MyLib
         }
         public void SetAttachment(string[] filepaths)
         {
-            foreach(string filepath in filepaths)
+            foreach (string filepath in filepaths)
             {
                 this.SetAttachment(filepath);
             }
@@ -83,10 +99,17 @@ namespace MyLib
         }
         public void SetAttachment(List<Attachment> attachments)
         {
-            foreach(Attachment attachment in attachments)
+            foreach (Attachment attachment in attachments)
             {
                 this.SetAttachment(attachment);
             }
         }
+    }
+
+    public class MailPictureModel
+    {
+        public string ID { get; set; }
+        public string FilePath { get; set; }
+        public string Mime { get; set; }
     }
 }

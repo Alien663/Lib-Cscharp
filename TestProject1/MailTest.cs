@@ -13,7 +13,6 @@ namespace TestMyLib
         [SetUp]
         private void Setup()
         {
-
         }
 
         [Test]
