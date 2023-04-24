@@ -16,7 +16,7 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test()
+        public void Test1()
         {
             string context = @"
 <img src='cid:logo'></img><br>
@@ -27,6 +27,26 @@ Test Send Mail<br>
             _mail.SetCC("CC to some one");
             _mail.SetPicture(context, "logo", "picture path", "memetype, ex: img/png");
             _mail.SetAttachment("file path");
+            _mail.SendMail("Test Mail", context);
+        }
+        
+        public void Test2()
+        {
+            string context = @"
+<img src='cid:logo'></img><br>
+Test Send Mail<br>
+";
+
+            MailPictureModel _picture = new MailPictureModel
+            {
+                ID = "logo",
+                FilePath = "picture path",
+                Mime = "img/png",
+            };
+
+            MailComponent _mail = new MailComponent("SMTP Server", "Sender");
+            _mail.SetReceiver("Mail Receiver");
+            _mail.SetPicture(context, _picture);
             _mail.SendMail("Test Mail", context);
         }
     }
