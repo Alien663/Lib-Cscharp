@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SideProject\\MyLib\\TestProject1\\TestMyLib.csproj": {}
+    "D:\\SideProject\\MyLib\\C#\\TestProject1\\TestMyLib.csproj": {}
   },
   "projects": {
-    "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj": {
+    "D:\\SideProject\\MyLib\\C#\\MyLib\\MyLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj",
+        "projectUniqueName": "D:\\SideProject\\MyLib\\C#\\MyLib\\MyLib.csproj",
         "projectName": "MyLib",
-        "projectPath": "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj",
+        "projectPath": "D:\\SideProject\\MyLib\\C#\\MyLib\\MyLib.csproj",
         "packagesPath": "C:\\Users\\11107063\\.nuget\\packages\\",
-        "outputPath": "D:\\SideProject\\MyLib\\MyLib\\obj\\",
+        "outputPath": "D:\\SideProject\\MyLib\\C#\\MyLib\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -73,14 +73,14 @@
         }
       }
     },
-    "D:\\SideProject\\MyLib\\TestProject1\\TestMyLib.csproj": {
+    "D:\\SideProject\\MyLib\\C#\\TestProject1\\TestMyLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SideProject\\MyLib\\TestProject1\\TestMyLib.csproj",
+        "projectUniqueName": "D:\\SideProject\\MyLib\\C#\\TestProject1\\TestMyLib.csproj",
         "projectName": "TestMyLib",
-        "projectPath": "D:\\SideProject\\MyLib\\TestProject1\\TestMyLib.csproj",
+        "projectPath": "D:\\SideProject\\MyLib\\C#\\TestProject1\\TestMyLib.csproj",
         "packagesPath": "C:\\Users\\11107063\\.nuget\\packages\\",
-        "outputPath": "D:\\SideProject\\MyLib\\TestProject1\\obj\\",
+        "outputPath": "D:\\SideProject\\MyLib\\C#\\TestProject1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -105,8 +105,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj": {
-                "projectPath": "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj"
+              "D:\\SideProject\\MyLib\\C#\\MyLib\\MyLib.csproj": {
+                "projectPath": "D:\\SideProject\\MyLib\\C#\\MyLib\\MyLib.csproj"
               }
             }
           }

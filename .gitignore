@@ -33,5 +33,13 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
-# Visual Studio 2015
 .vs/
+
+TestProject1/[Bb]in/
+TestProject1/[Oo]bj/
+TestProject1/[Oo]ut/
+TestResults/
+
+MyLib/[Bb]in/
+MyLib/[Oo]bj/
+MyLib/[Oo]ut/

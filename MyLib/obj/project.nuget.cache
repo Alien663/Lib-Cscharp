@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yCxCFlrkAAZWNKxZEUgBI5mR+L4pcLRjeeMjhNneu9+jGGOHMfrAj1v5bsef5CFYhcRf7bHCpEbOHAxOiiVlrQ==",
+  "dgSpecHash": "gXVH2HVYAie3j5n8LpSs+OcIjzep0RMsmHUAM2tcUYDj0jK9oFavRs7kUpo9hy7tSzna3cqFydVEg2rfEZj74A==",
   "success": true,
-  "projectFilePath": "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj",
+  "projectFilePath": "D:\\SideProject\\MyLib\\C#\\MyLib\\MyLib.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\11107063\\.nuget\\packages\\enums.net\\4.0.0\\enums.net.4.0.0.nupkg.sha512",
     "C:\\Users\\11107063\\.nuget\\packages\\mathnet.numerics.signed\\4.15.0\\mathnet.numerics.signed.4.15.0.nupkg.sha512",

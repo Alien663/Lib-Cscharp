@@ -20,8 +20,7 @@ namespace TestMyLib
         {
             string context = @"
 <img src='cid:logo'></img><br>
-Test Send Mail<br>
-";
+Test Send Mail<br>";
             MailComponent _mail = new MailComponent("SMTP Server", "Sender");
             _mail.SetReceiver("Mail Receiver");
             _mail.SetCC("CC to some one");
@@ -34,8 +33,7 @@ Test Send Mail<br>
         {
             string context = @"
 <img src='cid:logo'></img><br>
-Test Send Mail<br>
-";
+Test Send Mail<br>";
 
             MailPictureModel _picture = new MailPictureModel
             {
@@ -43,7 +41,6 @@ Test Send Mail<br>
                 FilePath = "picture path",
                 Mime = "img/png",
             };
-
             MailComponent _mail = new MailComponent("SMTP Server", "Sender");
             _mail.SetReceiver("Mail Receiver");
             _mail.SetPicture(context, _picture);

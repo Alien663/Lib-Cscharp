@@ -39,7 +39,10 @@ namespace MyLib
             T item = new T();
             foreach (var property in properties)
             {
-                property.SetValue(item, row[property.Name], null);
+                if (row.Table.Columns.Contains(property.Name))
+                {
+                    property.SetValue(item, row[property.Name], null);
+                }
             }
             return item;
         }
@@ -50,11 +53,12 @@ namespace MyLib
             foreach (var property in properties)
             {
                 if (mappings.ContainsKey(property.Name))
+                {
                     property.SetValue(item, row[mappings[property.Name]], null);
+                }
             }
             return item;
         }
-        
     }
     public class DataModelExtensions
     {

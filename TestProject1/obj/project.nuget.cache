@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b9PB0+bn6gKGq+MMK4aeHFP/uqAxWSY920ZtFavujz00CBcuMCmsdFg5o51yuFhwUa3QorUrSwF1ve0PhTznRA==",
+  "dgSpecHash": "vy1pqgrBBUjp9t3nKbvCGpt6Cmb5qtW0N2v9W2qO2Rb/xkBALAeeaD8fsl3Wl4oKQWCesVb1af/oJnMbEQAGmg==",
   "success": true,
-  "projectFilePath": "D:\\SideProject\\MyLib\\TestProject1\\TestMyLib.csproj",
+  "projectFilePath": "D:\\SideProject\\MyLib\\C#\\TestProject1\\TestMyLib.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\11107063\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
     "C:\\Users\\11107063\\.nuget\\packages\\enums.net\\4.0.0\\enums.net.4.0.0.nupkg.sha512",
