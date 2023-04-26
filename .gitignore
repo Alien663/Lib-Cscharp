@@ -33,7 +33,7 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
-.vs/
+.vs/*
 
 TestProject1/[Bb]in/
 TestProject1/[Oo]bj/
