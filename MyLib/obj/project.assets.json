@@ -545,11 +545,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj",
+      "projectUniqueName": "D:\\SideProject\\MyLib\\C#\\MyLib\\MyLib.csproj",
       "projectName": "MyLib",
-      "projectPath": "D:\\SideProject\\MyLib\\MyLib\\MyLib.csproj",
+      "projectPath": "D:\\SideProject\\MyLib\\C#\\MyLib\\MyLib.csproj",
       "packagesPath": "C:\\Users\\11107063\\.nuget\\packages\\",
-      "outputPath": "D:\\SideProject\\MyLib\\MyLib\\obj\\",
+      "outputPath": "D:\\SideProject\\MyLib\\C#\\MyLib\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -607,7 +607,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   },
