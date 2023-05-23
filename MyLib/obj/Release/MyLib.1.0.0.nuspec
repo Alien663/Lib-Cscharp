@@ -5,13 +5,14 @@
     <version>1.0.0</version>
     <authors>MyLib</authors>
     <description>Package Description</description>
+    <tags>Excel</tags>
     <dependencies>
-      <group targetFramework=".NETCoreApp3.1">
-        <dependency id="NPOI" version="2.5.6" exclude="Build,Analyzers" />
+      <group targetFramework="net6.0">
+        <dependency id="NPOI" version="2.6.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\Test\MyLib\MyLib\bin\Release\netcoreapp3.1\MyLib.dll" target="lib\netcoreapp3.1\MyLib.dll" />
+    <file src="D:\SideProject\MyLib\MyLib\bin\Release\net6.0\MyLib.dll" target="lib\net6.0\MyLib.dll" />
   </files>
 </package>

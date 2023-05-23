@@ -6,29 +6,23 @@ using System.Reflection;
 using System.Collections.Generic;
 using NUnit.Framework;
 using MyLib;
+using System.ComponentModel;
 
-namespace TestProject1
+namespace TestMyLib
 {
-    public class Tests
+    public class TestExportExcel
     {
-        private class Student
-        {
-            public string Name { get; set; }
-            public int StudentId { get; set; }
-            public int? Age { get; set; }
-        }
         private DataTable dtStudent = new DataTable();
-
-        private string folder = @"D:\Test\";
-
+        private readonly string folder = @"D:\Test\";
         private List<Student> Students = new List<Student>();
         [SetUp]
         public void Setup()
         {
-            this.Students.Add(new Student() { Name = "Jack", Age = 15, StudentId = 100 });
-            this.Students.Add(new Student() { Name = "Smith", Age = 15, StudentId = 101 });
-            this.Students.Add(new Student() { Name = "Smit", Age = null, StudentId = 102 });
-            dtStudent = this.ToDataTable(Students);
+            DataModelExtensions dmConvertor = new DataModelExtensions();
+            Students.Add(new Student() { Name = "Jack", Age = 15, StudentId = 100 });
+            Students.Add(new Student() { Name = "Smith", Age = 17, StudentId = 101 });
+            Students.Add(new Student() { Name = "Karoro", Age = 20, StudentId = 102 });
+            dtStudent = dmConvertor.ToDataTable(Students);
         }
 
         [Test]
@@ -40,7 +34,7 @@ namespace TestProject1
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass();
+            Assert.Pass("DataTable export out excel file success");
         }
 
         [Test]
@@ -57,7 +51,7 @@ namespace TestProject1
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass();
+            Assert.Pass(message:"DataSet export out excel file success");
         }
 
         [Test]
@@ -69,8 +63,13 @@ namespace TestProject1
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass();
+            Assert.Pass("DataModel export out excel file success");
         }
+    }
+
+    public class TestReadFromExcel
+    {
+        private readonly string folder = @"D:\Test\";
 
         [Test]
         public void TestReadFile2DataTable()
@@ -79,8 +78,14 @@ namespace TestProject1
             FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
             ExcelComponent myexcel = new ExcelComponent();
             DataTable dt = myexcel.readFileDT(fs);
-            Console.WriteLine(dt);
-            Assert.Pass();
+            if(dt.Rows.Count > 0)
+            {
+                Assert.Pass("It can read data from excel to DataTable");
+            }
+            else
+            {
+                Assert.Fail("DataTable is empty");
+            }
         }
 
         [Test]
@@ -89,9 +94,16 @@ namespace TestProject1
             string filepath = this.folder + "test2.xlsx";
             FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
             ExcelComponent myexcel = new ExcelComponent();
-            DataSet dt = myexcel.readFileDS(fs);
-            Console.WriteLine(dt);
-            Assert.Pass();
+            DataSet ds = myexcel.readFileDS(fs);
+            if (ds.Tables.Count > 0)
+            {
+                Assert.Pass("It can read data from exlcel to DataSet");
+            }
+            else
+            {
+                Assert.Fail("DataSet is empty");
+            }
+            
         }
 
         [Test]
@@ -101,32 +113,14 @@ namespace TestProject1
             FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
             ExcelComponent myexcel = new ExcelComponent();
             List<Student> dm = myexcel.readFileDM<Student>(fs, 0, 0);
-            Console.WriteLine(dm);
-            Assert.Pass();
-        }
-
-        private DataTable ToDataTable<T>(List<T> items)
-        {
-            DataTable dataTable = new DataTable(typeof(T).Name);
-            //Get all the properties
-            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (PropertyInfo prop in Props)
+            if(dm.Count > 0)
             {
-                //Setting column names as Property names
-                dataTable.Columns.Add(prop.Name);
+                Assert.Pass("It can read data from excel to DataModel list");
             }
-            foreach (T item in items)
+            else
             {
-                var values = new object[Props.Length];
-                for (int i = 0; i < Props.Length; i++)
-                {
-                    //inserting property values to datatable rows
-                    values[i] = Props[i].GetValue(item, null);
-                }
-                dataTable.Rows.Add(values);
+                Assert.Fail("DataModel is empty");
             }
-            //put a breakpoint here and check datatable
-            return dataTable;
         }
     }
 }
