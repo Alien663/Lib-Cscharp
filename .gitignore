@@ -36,11 +36,11 @@ msbuild.wrn
 .vs/
 
 
-TestProject1/[Bb]in/
-TestProject1/[Oo]bj/
-TestProject1/[Oo]ut/
-TestResults/
+TestProject1/[Bb]in/*
+TestProject1/[Oo]bj/*
+TestProject1/[Oo]ut/*
+TestResults/*
 
-MyLib/[Bb]in/
-MyLib/[Oo]bj/
-MyLib/[Oo]ut/
+MyLib/[Bb]in/*
+MyLib/[Oo]bj/*
+MyLib/[Oo]ut/*
