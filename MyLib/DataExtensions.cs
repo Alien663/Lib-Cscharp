@@ -87,4 +87,103 @@ namespace MyLib
         }
     }
     
+    public class Tokenization
+    {
+        public List<TokenModel> Segment(string context)
+        {
+            string temp = context;
+            List<TokenModel> result = new List<TokenModel>();
+            List<PunctuationModel> AllPunctuationMarks = new List<PunctuationModel>
+        {
+            new PunctuationModel {Marks= ","},
+            new PunctuationModel {Marks= "."},
+            new PunctuationModel {Marks= "?"},
+            new PunctuationModel {Marks= "!"},
+            new PunctuationModel {Marks= "，"},
+            new PunctuationModel {Marks= "。"},
+            new PunctuationModel {Marks= "？"},
+            new PunctuationModel {Marks= "！"},
+            new PunctuationModel {Marks= ";"},
+            new PunctuationModel {Marks= ":"},
+            new PunctuationModel {Marks= "："},
+            new PunctuationModel {Marks= "；"},
+            new PunctuationModel {Marks= "'"},
+            new PunctuationModel {Marks= "\""},
+            new PunctuationModel {Marks= "("},
+            new PunctuationModel {Marks= ")"},
+            new PunctuationModel {Marks= "["},
+            new PunctuationModel {Marks= "]"},
+            new PunctuationModel {Marks= "{"},
+            new PunctuationModel {Marks= "}"},
+            new PunctuationModel {Marks= "（"},
+            new PunctuationModel {Marks= "）"},
+            new PunctuationModel {Marks= "［"},
+            new PunctuationModel {Marks= "］"},
+            new PunctuationModel {Marks= "｛"},
+            new PunctuationModel {Marks= "｝"},
+            new PunctuationModel {Marks= "「"},
+            new PunctuationModel {Marks= "」"},
+            new PunctuationModel {Marks= "『"},
+            new PunctuationModel {Marks= "』"},
+            new PunctuationModel {Marks= "\n"},
+        };
+            List<PunctuationModel> PunctuationMarks = AllPunctuationMarks.Where(p => context.IndexOf(p.Marks) >= 0).ToList();
+            int ID = 1;
+            while (temp.Length > 0)
+            {
+                int min_index = int.MaxValue;
+                string mark = "";
+                PunctuationMarks.ForEach(item =>
+                {
+                    int indexof = temp.IndexOf(item.Marks);
+                    if (indexof >= 0 && indexof < min_index)
+                    {
+                        min_index = indexof;
+                        mark = item.Marks;
+                    }
+                });
+
+                if (min_index == int.MaxValue)
+                {
+                    min_index = temp.Length;
+                }
+                if (!string.IsNullOrWhiteSpace(temp.Substring(0, min_index)))
+                    result.Add(new TokenModel
+                    {
+                        ID = ID++,
+                        Context = temp.Substring(0, min_index),
+                        Mark = mark,
+                    });
+                if (min_index == int.MaxValue) break;
+                temp = temp.Substring(min_index + 1);
+            }
+            return result;
+        }
+
+        public List<TokenModel> Tokenize(string context, int window = 6)
+        {
+            List<TokenModel> result = new List<TokenModel>();
+            int ID = 1;
+            for (int i = 1; i <= window; i++)
+            {
+                for (int j = 0; j <= context.Length - i; j++)
+                {
+                    result.Add(new TokenModel { ID = ID++, Context = context.Substring(j, i) });
+                }
+            }
+            return result;
+        }
+    }
+
+    public class TokenModel
+    {
+        public int ID { get; set; }
+        public string Context { get; set; }
+        public string Mark { get; set; }
+    }
+    public class PunctuationModel
+    {
+        public string Marks { get; set; }
+        public int index { get; set; } = -999;
+    }
 }
