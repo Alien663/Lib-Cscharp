@@ -76,8 +76,32 @@ namespace MyLib
                 {
                     ICell cell = rows.CreateCell(j);
                     var the_value = Props[j].GetValue(item, null);
-                    cell.SetCellType(getCellTypeFromType(Props.GetType().Name));
-                    cell.SetCellValue(the_value is null? "" : the_value.ToString());
+                    switch (Props.GetType().Name)
+                    {
+                        case "UInt16":
+                        case "UInt32":
+                        case "UInt64":
+                        case "Int16":
+                        case "Int32":
+                        case "Int64":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(int.Parse(the_value.ToString()));
+                            break;
+                        case "Boolean":
+                            cell.SetCellType(CellType.Boolean);
+                            cell.SetCellValue(Convert.ToBoolean(the_value.ToString()));
+                            break;
+                        case "Double":
+                        case "Decimal":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToDouble(the_value.ToString()));
+                            break;
+
+                        default:
+                            cell.SetCellType(CellType.String);
+                            cell.SetCellValue(the_value.ToString());
+                            break;
+                    }
                 }
             }
             MemoryStream stream = new MemoryStream();
@@ -172,8 +196,32 @@ namespace MyLib
                 for (int j = 0; j < source.Columns.Count; j++)
                 {
                     ICell cell = rows.CreateCell(j);
-                    cell.SetCellValue(source.Rows[i][j].ToString());
-                    cell.SetCellType(getCellTypeFromType(source.Columns[j].DataType.Name));
+                    switch (source.Columns[j].DataType.Name)
+                    {
+                        case "UInt16":
+                        case "UInt32":
+                        case "UInt64":
+                        case "Int16":
+                        case "Int32":
+                        case "Int64":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(int.Parse(source.Rows[i][j].ToString()));
+                            break;
+                        case "Boolean":
+                            cell.SetCellType(CellType.Boolean);
+                            cell.SetCellValue(Convert.ToBoolean(source.Rows[i][j].ToString()));
+                            break;
+                        case "Double":
+                        case "Decimal":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToDouble(source.Rows[i][j].ToString()));
+                            break;
+
+                        default:
+                            cell.SetCellType(CellType.String);
+                            cell.SetCellValue(source.Rows[i][j].ToString());
+                            break;
+                    }
                 }
             }
         }
@@ -212,24 +260,6 @@ namespace MyLib
                 dt.Rows.Add(dr);
             }
             return dt;
-        }
-
-        private CellType getCellTypeFromType(string datatypename)
-        {
-            switch (datatypename)
-            {
-                case "UInt16":
-                case "UInt32":
-                case "UInt64":
-                case "Int16":
-                case "Int32":
-                case "Int64":
-                    return CellType.Numeric;
-                case "Boolean":
-                    return CellType.Boolean;
-                default:
-                    return CellType.String;
-            }
         }
     }
 }
