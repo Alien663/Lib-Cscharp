@@ -35,7 +35,6 @@ msbuild.wrn
 
 .vs/*
 
-
 TestProject1/[Bb]in/*
 TestProject1/[Oo]bj/*
 TestProject1/[Oo]ut/*
