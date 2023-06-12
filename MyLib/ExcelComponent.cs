@@ -76,7 +76,7 @@ namespace MyLib
                 {
                     ICell cell = rows.CreateCell(j);
                     var the_value = Props[j].GetValue(item, null);
-                    switch (Props.GetType().Name)
+                    switch (Props[j].PropertyType.Name)
                     {
                         case "UInt16":
                         case "UInt32":
@@ -91,12 +91,15 @@ namespace MyLib
                             cell.SetCellType(CellType.Boolean);
                             cell.SetCellValue(Convert.ToBoolean(the_value.ToString()));
                             break;
+                        case "Float":
                         case "Double":
                         case "Decimal":
+                            ICellStyle _doublestyle = workbook.CreateCellStyle();
+                            _doublestyle.DataFormat = workbook.CreateDataFormat().GetFormat("0.0000");
+                            cell.CellStyle = _doublestyle;
                             cell.SetCellType(CellType.Numeric);
                             cell.SetCellValue(Convert.ToDouble(the_value.ToString()));
                             break;
-
                         default:
                             cell.SetCellType(CellType.String);
                             cell.SetCellValue(the_value.ToString());
@@ -213,10 +216,12 @@ namespace MyLib
                             break;
                         case "Double":
                         case "Decimal":
+                            ICellStyle _doublestyle = workbook.CreateCellStyle();
+                            _doublestyle.DataFormat = workbook.CreateDataFormat().GetFormat("0.0000");
+                            cell.CellStyle = _doublestyle;
                             cell.SetCellType(CellType.Numeric);
                             cell.SetCellValue(Convert.ToDouble(source.Rows[i][j].ToString()));
                             break;
-
                         default:
                             cell.SetCellType(CellType.String);
                             cell.SetCellValue(source.Rows[i][j].ToString());
