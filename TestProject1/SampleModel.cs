@@ -14,6 +14,6 @@ namespace TestMyLib
         [DisplayName("Student ID")]
         public int StudentId { get; set; }
         [DisplayName("Student Age")]
-        public int Age { get; set; }
+        public double Age { get; set; }
     }
 }

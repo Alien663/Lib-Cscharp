@@ -19,9 +19,9 @@ namespace TestMyLib
         public void Setup()
         {
             DataModelExtensions dmConvertor = new DataModelExtensions();
-            Students.Add(new Student() { Name = "Jack", Age = 15, StudentId = 100 });
-            Students.Add(new Student() { Name = "Smith", Age = 17, StudentId = 101 });
-            Students.Add(new Student() { Name = "Karoro", Age = 20, StudentId = 102 });
+            Students.Add(new Student() { Name = "Jack", Age = 15.00, StudentId = 100 });
+            Students.Add(new Student() { Name = "Smith", Age = 17.02, StudentId = 101 });
+            Students.Add(new Student() { Name = "Karoro", Age = 20.321, StudentId = 102 });
             dtStudent = dmConvertor.ToDataTable(Students);
         }
 
