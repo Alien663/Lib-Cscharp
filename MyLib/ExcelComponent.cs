@@ -128,7 +128,7 @@ namespace MyLib
             return result;
         }
 
-        public List<T> readFileDM<T>(FileStream fs) where T : new ()
+        private List<T> readFileDM<T>(FileStream fs) where T : new ()
         {
             this.workbook = new XSSFWorkbook(fs);
             ISheet sheet = this.workbook.GetSheetAt(this.sheetRange.MinSheetIndex);

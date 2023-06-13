@@ -205,40 +205,40 @@ namespace TestMyLib
         }
         
         // Excel file to data model's method is not provide now
-        public void TestReadFile2DataModel()
-        {
-            string filepath = this.folder + "test3.xlsx";
-            FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
-            ExcelComponent myexcel = new ExcelComponent();
-            List<Student> dm = myexcel.readFileDM<Student>(fs);
-            if(dm.Count > 0)
-            {
-                Assert.Pass("It can read data from excel to DataModel list");
-            }
-            else
-            {
-                Assert.Fail("DataModel is empty");
-            }
-        }
-        public void TestReadFile2DataModel_StartWith()
-        {
-            string filepath = this.folder + "test3_StartWith.xlsx";
-            FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
-            ExcelComponent myexcel = new ExcelComponent();
-            myexcel.SetRange(new SheetRange
-            {
-                MinRowIndex = 2,
-                MinColIndex = 2,
-            });
-            List<Student> dm = myexcel.readFileDM<Student>(fs);
-            if (dm.Count > 0)
-            {
-                Assert.Pass("It can read data from excel to DataModel list");
-            }
-            else
-            {
-                Assert.Fail("DataModel is empty");
-            }
-        }
+        //public void TestReadFile2DataModel()
+        //{
+        //    string filepath = this.folder + "test3.xlsx";
+        //    FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
+        //    ExcelComponent myexcel = new ExcelComponent();
+        //    List<Student> dm = myexcel.readFileDM<Student>(fs);
+        //    if(dm.Count > 0)
+        //    {
+        //        Assert.Pass("It can read data from excel to DataModel list");
+        //    }
+        //    else
+        //    {
+        //        Assert.Fail("DataModel is empty");
+        //    }
+        //}
+        //public void TestReadFile2DataModel_StartWith()
+        //{
+        //    string filepath = this.folder + "test3_StartWith.xlsx";
+        //    FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
+        //    ExcelComponent myexcel = new ExcelComponent();
+        //    myexcel.SetRange(new SheetRange
+        //    {
+        //        MinRowIndex = 2,
+        //        MinColIndex = 2,
+        //    });
+        //    List<Student> dm = myexcel.readFileDM<Student>(fs);
+        //    if (dm.Count > 0)
+        //    {
+        //        Assert.Pass("It can read data from excel to DataModel list");
+        //    }
+        //    else
+        //    {
+        //        Assert.Fail("DataModel is empty");
+        //    }
+        //}
     }
 }
