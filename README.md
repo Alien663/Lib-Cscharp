@@ -7,7 +7,7 @@ There are only basic functions to use :
 3. export excel file from DataModel
 4. read DataTable data from excel file
 5. read DataSet data from excel file(with multiple sheet)
-6. read DataModel data from excel file
+6. read DataModel data from excel file (Work on it now)
 
 If you wants to use this component to read/write excel file, you can see the sample code in TestProject1 project.There are all unit test about this component.
 
