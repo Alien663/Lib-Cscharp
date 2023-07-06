@@ -5,8 +5,8 @@ using System.Data;
 using System.Reflection;
 using System.Collections.Generic;
 using NUnit.Framework;
-using MyLib;
 using System.ComponentModel;
+using ExcelTableLocator;
 
 namespace TestMyLib
 {
