@@ -1,5 +1,4 @@
 ﻿using MathNet.Numerics.Distributions;
-using MyLib;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Asn1.BC;
+using TableConverter;
+
 
 namespace TestMyLib
 {
