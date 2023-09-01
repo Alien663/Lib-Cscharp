@@ -4,7 +4,25 @@
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageTags>Excel</PackageTags>
+    <Description>This Bryan's library</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackAsTool>True</PackAsTool>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
+    <PackageIcon>icon2-black.png</PackageIcon>
+	<PackageVersion>1.0.1</PackageVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\Document\Template\icon2-black.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NPOI" Version="2.6.0" />
