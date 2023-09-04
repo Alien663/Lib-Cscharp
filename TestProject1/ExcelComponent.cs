@@ -13,7 +13,7 @@ namespace TestMyLib
     public class TestExportExcel
     {
         private DataTable dtStudent = new DataTable();
-        private readonly string folder = @"D:\Test\";
+        private readonly string folder = @".\";
         private List<Student> Students = new List<Student>();
         [SetUp]
         public void Setup()
@@ -34,7 +34,6 @@ namespace TestMyLib
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass("DataTable export out excel file success");
         }
 
         [Test]
@@ -51,7 +50,6 @@ namespace TestMyLib
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass(message:"DataSet export out excel file success");
         }
 
         [Test]
@@ -63,13 +61,12 @@ namespace TestMyLib
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass("DataModel export out excel file success");
         }
     }
 
     public class TestReadFromExcel
     {
-        private readonly string folder = @"D:\Test\";
+        private readonly string folder = @".\";
 
         [Test]
         public void TestReadFile2DataTable()
@@ -78,11 +75,7 @@ namespace TestMyLib
             FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
             ExcelComponent myexcel = new ExcelComponent();
             DataTable dt = myexcel.readFileDT(fs);
-            if(dt.Rows.Count > 0)
-            {
-                Assert.Pass("It can read data from excel to DataTable");
-            }
-            else
+            if(dt.Rows.Count == 0)
             {
                 Assert.Fail("DataTable is empty");
             }
@@ -95,15 +88,10 @@ namespace TestMyLib
             FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
             ExcelComponent myexcel = new ExcelComponent();
             DataSet ds = myexcel.readFileDS(fs);
-            if (ds.Tables.Count > 0)
-            {
-                Assert.Pass("It can read data from exlcel to DataSet");
-            }
-            else
+            if (ds.Tables.Count == 0)
             {
                 Assert.Fail("DataSet is empty");
             }
-            
         }
 
         [Test]
@@ -113,11 +101,7 @@ namespace TestMyLib
             FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
             ExcelComponent myexcel = new ExcelComponent();
             List<Student> dm = myexcel.readFileDM<Student>(fs, 0, 0);
-            if(dm.Count > 0)
-            {
-                Assert.Pass("It can read data from excel to DataModel list");
-            }
-            else
+            if(dm.Count == 0)
             {
                 Assert.Fail("DataModel is empty");
             }

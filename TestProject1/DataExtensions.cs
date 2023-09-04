@@ -19,7 +19,11 @@ namespace TestMyLib
         [SetUp]
         public void Setup()
         {
-            dtStudent.Columns.AddRange(new DataColumn[3] { new DataColumn("Name"), new DataColumn("StudentId"), new DataColumn("Age") });
+            dtStudent = new DataTable();
+            dtStudent.Columns.AddRange(new DataColumn[3] {
+                new DataColumn("Name"), 
+                new DataColumn("StudentId", Type.GetType("System.Int32")), 
+                new DataColumn("Age", Type.GetType("System.Int32")) });
             dtStudent.Rows.Add("Jack", 15, 100);
             dtStudent.Rows.Add("Smith", 17, 101);
             dtStudent.Rows.Add("Karoro", 20, 102);
@@ -33,11 +37,7 @@ namespace TestMyLib
         public void Table2Model()
         {
             List<Student> dmData = (List<Student>)dtStudent.ToList<Student>();
-            if(dmData.Count> 0)
-            {
-                Assert.Pass("DataModel transfer success");
-            }
-            else
+            if(dmData.Count == 0)
             {
                 Assert.Fail("DataModel is empty");
             }
@@ -49,11 +49,7 @@ namespace TestMyLib
         {
             DataModelExtensions dmConvertor = new DataModelExtensions();
             DataTable dtData = dmConvertor.ToDataTable(dmStudent);
-            if (dtData.Rows.Count > 0)
-            {
-                Assert.Pass("DataModel transfer success");
-            }
-            else
+            if (dtData.Rows.Count == 0)
             {
                 Assert.Fail("DataModel is empty");
             }
