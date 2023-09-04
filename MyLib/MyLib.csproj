@@ -10,7 +10,7 @@
     <AssemblyVersion>1.0.1</AssemblyVersion>
     <FileVersion>1.0.1</FileVersion>
     <PackageIcon>icon2-blue.png</PackageIcon>
-	<PackageVersion>1.0.1</PackageVersion>
+	<PackageVersion>1.0.2</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
