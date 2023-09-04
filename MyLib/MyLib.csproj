@@ -9,12 +9,12 @@
     <PackAsTool>True</PackAsTool>
     <AssemblyVersion>1.0.1</AssemblyVersion>
     <FileVersion>1.0.1</FileVersion>
-    <PackageIcon>icon2-black.png</PackageIcon>
+    <PackageIcon>icon2-blue.png</PackageIcon>
 	<PackageVersion>1.0.1</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\Document\Template\icon2-black.png">
+    <None Include="..\icon2-blue.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
