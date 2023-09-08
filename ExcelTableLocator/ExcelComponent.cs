@@ -8,8 +8,9 @@ using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.HSSF.UserModel;
 using System.Net.Http.Headers;
+using Microsoft.VisualBasic;
 
-namespace MyLib
+namespace ExcelTableLocator
 {
     public class ExcelComponent
     {
@@ -44,7 +45,7 @@ namespace MyLib
             ISheet sheet = this.workbook.CreateSheet(typeof(T).Name);
             PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             int i = this.sheetRange.MinColIndex;
-            if(this.sheetRange.MinRowIndex >= 0)
+            if (this.sheetRange.MinRowIndex >= 0)
             {
                 IRow header = sheet.CreateRow(this.sheetRange.MinRowIndex);
                 foreach (PropertyInfo prop in Props)
@@ -61,7 +62,7 @@ namespace MyLib
             foreach (var item in items)
             {
                 IRow rows = sheet.CreateRow(++i);
-                for (int j = 0; j <  Props.Length; j++)
+                for (int j = 0; j < Props.Length; j++)
                 {
                     ICell cell = rows.CreateCell(j + this.sheetRange.MinColIndex);
                     var the_value = Props[j].GetValue(item, null);
@@ -128,7 +129,7 @@ namespace MyLib
             return result;
         }
 
-        private List<T> readFileDM<T>(FileStream fs) where T : new ()
+        private List<T> readFileDM<T>(FileStream fs) where T : new()
         {
             this.workbook = new XSSFWorkbook(fs);
             ISheet sheet = this.workbook.GetSheetAt(this.sheetRange.MinSheetIndex);
@@ -136,12 +137,12 @@ namespace MyLib
             List<T> dmResult = new List<T>();
             List<string> columns = new List<string>();
 
-            for (int i = this.sheetRange.MinColIndex; i < (this.sheetRange.MaxColIndex ?? row.LastCellNum) ; i++)
+            for (int i = this.sheetRange.MinColIndex; i < (this.sheetRange.MaxColIndex ?? row.LastCellNum); i++)
             {
                 columns.Add(row.GetCell(i).ToString());
             }
 
-            for (int i = this.sheetRange.MinRowIndex + 1; i <= (this.sheetRange.MaxRowIndex ?? sheet.LastRowNum) ; i++)
+            for (int i = this.sheetRange.MinRowIndex + 1; i <= (this.sheetRange.MaxRowIndex ?? sheet.LastRowNum); i++)
             {
                 T t = new T();
                 PropertyInfo[] propertys = t.GetType().GetProperties();
@@ -186,7 +187,7 @@ namespace MyLib
         private void createSheet(DataTable source, int sheetIndex)
         {
             ISheet sheet = string.IsNullOrEmpty(source.TableName) ? this.workbook.CreateSheet("Sheet" + sheetIndex.ToString()) : this.workbook.CreateSheet(source.TableName);
-            if(this.sheetRange.MinRowIndex >= 0)
+            if (this.sheetRange.MinRowIndex >= 0)
             {
                 IRow header = sheet.CreateRow(this.sheetRange.MinRowIndex);
                 for (int i = 0; i < source.Columns.Count; i++)
@@ -198,7 +199,7 @@ namespace MyLib
             for (int i = 0; i < source.Rows.Count; i++)
             {
                 IRow rows = sheet.CreateRow(i + this.sheetRange.MinRowIndex + 1);
-                for (int j = 0 ; j < source.Columns.Count; j++)
+                for (int j = 0; j < source.Columns.Count; j++)
                 {
                     ICell cell = rows.CreateCell(j + this.sheetRange.MinColIndex);
                     var tt = source.Columns[j].ColumnName;
@@ -212,7 +213,7 @@ namespace MyLib
                         case "Int64":
                             ICellStyle _intstyle = workbook.CreateCellStyle();
                             _intstyle.DataFormat = workbook.CreateDataFormat().GetFormat("#,##0");
-                            cell.CellStyle = _intstyle; 
+                            cell.CellStyle = _intstyle;
                             cell.SetCellType(CellType.Numeric);
                             cell.SetCellValue(int.Parse(source.Rows[i][j].ToString()));
                             break;
@@ -244,12 +245,12 @@ namespace MyLib
             DataTable dt = new DataTable();
             dt.TableName = sheet.SheetName;
 
-            for (int i = this.sheetRange.MinColIndex; i < (this.sheetRange.MaxColIndex ?? row.LastCellNum) ; i++)
+            for (int i = this.sheetRange.MinColIndex; i < (this.sheetRange.MaxColIndex ?? row.LastCellNum); i++)
             {
                 string cellValue = row.GetCell(i).ToString();
                 dt.Columns.Add(cellValue);
             }
-            for (int i = 0; i < (this.sheetRange.MaxRowIndex == null? sheet.LastRowNum - this.sheetRange.MinRowIndex : this.sheetRange.MaxRowIndex - this.sheetRange.MinRowIndex); i++)
+            for (int i = 0; i < (this.sheetRange.MaxRowIndex == null ? sheet.LastRowNum - this.sheetRange.MinRowIndex : this.sheetRange.MaxRowIndex - this.sheetRange.MinRowIndex); i++)
             {
                 DataRow dr = dt.NewRow();
                 row = sheet.GetRow(i + 1 + this.sheetRange.MinRowIndex);

@@ -35,6 +35,7 @@ msbuild.wrn
 
 .vs/
 
+<<<<<<< HEAD
 [Bb]in/
 [Oo]bj/
 [Oo]ut/
@@ -44,3 +45,9 @@ TestResults/
 */[Oo]bj/
 */[Oo]ut/
 */TestResults/
+=======
+*/[Bb]in/*
+*/[Oo]bj/*
+*/[Oo]ut/*
+TestResults/*
+>>>>>>> 63f67b401c58fba39a9ab5c563d1ae39d4013734

@@ -14,6 +14,12 @@ namespace TestMyLib
         [DisplayName("Student ID")]
         public int StudentId { get; set; }
         [DisplayName("Student Age")]
-        public int Age { get; set; }
+        public double Age { get; set; }
+        [DisplayName("Birth Date")]
+        public DateOnly Birth { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+        [DisplayName("Test Time")]
+        public TimeOnly TestTime { get; set; } = TimeOnly.FromDateTime(DateTime.Now);
+        [DisplayName("Last Update")]
+        public DateTime UpdateTime { get; set; } = DateTime.Now;
     }
 }

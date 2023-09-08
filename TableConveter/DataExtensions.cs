@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyLib
+namespace TableConverter
 {
     public static class DataTableExtensions
     {
@@ -86,7 +86,7 @@ namespace MyLib
             return dataTable;
         }
     }
-    
+
     public class Tokenization
     {
         public List<TokenModel> Segment(string context)
