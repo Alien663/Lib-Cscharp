@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vy1pqgrBBUjp9t3nKbvCGpt6Cmb5qtW0N2v9W2qO2Rb/xkBALAeeaD8fsl3Wl4oKQWCesVb1af/oJnMbEQAGmg==",
+  "dgSpecHash": "KyDrUbM3HSM+zJCYTMIMz8ScpgM4ZcDVeX3v+uUtr1Q5WSTvF9i3DvtHaOHV4V8M90ND7mNIiqsXV2ZQ4pLa7Q==",
   "success": true,
   "projectFilePath": "D:\\SideProject\\MyLib\\C#\\TestProject1\\TestMyLib.csproj",
   "expectedPackageFiles": [
@@ -35,14 +35,15 @@
     "C:\\Users\\11107063\\.nuget\\packages\\system.security.cryptography.xml\\6.0.1\\system.security.cryptography.xml.6.0.1.nupkg.sha512",
     "C:\\Users\\11107063\\.nuget\\packages\\system.security.permissions\\6.0.0\\system.security.permissions.6.0.0.nupkg.sha512",
     "C:\\Users\\11107063\\.nuget\\packages\\system.text.encoding.codepages\\6.0.0\\system.text.encoding.codepages.6.0.0.nupkg.sha512",
-    "C:\\Users\\11107063\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+    "C:\\Users\\11107063\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\11107063\\.nuget\\packages\\mylib\\1.0.0\\mylib.1.0.0.nupkg.sha512"
   ],
   "logs": [
     {
       "code": "NU1803",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://tdsap29/OF_Nuget/nuget/'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+      "message": "您正在使用 'HTTP' 來源 'http://tdsap29/OF_Nuget/nuget/' 執行 'restore' 作業。未來的版本將移除非 HTTPS 存取。請考慮移轉至 'HTTPS' 來源。"
     }
   ]
 }
