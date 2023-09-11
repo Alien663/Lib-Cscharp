@@ -20,7 +20,7 @@ namespace SimpleMail
             this.mail.From = new MailAddress(Sender);
         }
 
-        public void SendMail(string title, string context, bool isHTML = true)
+        public void sendMail(string title, string context, bool isHTML = true)
         {
 #if DEBUG
             title = "[Test]" + title;
@@ -33,29 +33,29 @@ namespace SimpleMail
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtp.Send(this.mail);
         }
-        public void SetReceiver(string receiver)
+        public void setReceiver(string receiver)
         {
             this.mail.To.Add(receiver);
         }
-        public void SetReceiver(string[] receivers)
+        public void setReceiver(string[] receivers)
         {
             foreach (string receiver in receivers)
             {
-                this.SetReceiver(receiver);
+                this.setReceiver(receiver);
             }
         }
-        public void SetCC(string cc)
+        public void setCC(string cc)
         {
             this.mail.CC.Add(cc);
         }
-        public void SetCC(string[] ccs)
+        public void setCC(string[] ccs)
         {
             foreach (string cc in ccs)
             {
-                this.SetCC(cc);
+                this.setCC(cc);
             }
         }
-        public void SetPicture(string context, string ID, string FilePath, string Mime)
+        public void setPicture(string context, string ID, string FilePath, string Mime)
         {
             AlternateView htmlview = AlternateView.CreateAlternateViewFromString(context, null, MediaTypeNames.Text.Html);
             LinkedResource imageLink = new LinkedResource(FilePath, Mime);
@@ -64,7 +64,7 @@ namespace SimpleMail
             htmlview.LinkedResources.Add(imageLink);
             this.mail.AlternateViews.Add(htmlview);
         }
-        public void SetPicture(string context, MailPictureModel picture)
+        public void setPicture(string context, MailPictureModel picture)
         {
             AlternateView htmlview = AlternateView.CreateAlternateViewFromString(context, null, MediaTypeNames.Text.Html);
             LinkedResource imageLink = new LinkedResource(picture.FilePath, picture.Mime);
@@ -73,33 +73,33 @@ namespace SimpleMail
             htmlview.LinkedResources.Add(imageLink);
             this.mail.AlternateViews.Add(htmlview);
         }
-        public void SetPicture(string context, List<MailPictureModel> pictures)
+        public void setPicture(string context, List<MailPictureModel> pictures)
         {
             foreach (MailPictureModel picture in pictures)
             {
-                SetPicture(context, picture);
+                setPicture(context, picture);
             }
         }
-        public void SetAttachment(string filepath)
+        public void setAttachment(string filepath)
         {
             this.mail.Attachments.Add(new Attachment(filepath));
         }
-        public void SetAttachment(string[] filepaths)
+        public void setAttachment(string[] filepaths)
         {
             foreach (string filepath in filepaths)
             {
-                this.SetAttachment(filepath);
+                this.setAttachment(filepath);
             }
         }
-        public void SetAttachment(Attachment attachment)
+        public void setAttachment(Attachment attachment)
         {
             this.mail.Attachments.Add(attachment);
         }
-        public void SetAttachment(List<Attachment> attachments)
+        public void setAttachment(List<Attachment> attachments)
         {
             foreach (Attachment attachment in attachments)
             {
-                this.SetAttachment(attachment);
+                this.setAttachment(attachment);
             }
         }
     }

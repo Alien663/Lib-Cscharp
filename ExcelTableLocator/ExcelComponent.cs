@@ -10,15 +10,28 @@ using NPOI.HSSF.UserModel;
 using System.Net.Http.Headers;
 using Microsoft.VisualBasic;
 
-namespace ExcelTableLocator
+namespace ExcelConverter
 {
     public class ExcelComponent
     {
         private IWorkbook workbook = new XSSFWorkbook();
         private SheetRange sheetRange = new SheetRange();
+        private Dictionary<string, string> DataTypeStyle = new Dictionary<string, string>
+        {
+            { "UInt16", "#,##0" },
+            { "UInt32", "#,##0" },
+            { "UInt64", "#,##0" },
+            { "Int16", "#,##0" },
+            { "Int32", "#,##0" },
+            { "Int64", "#,##0" },
+            { "Float", "#,##0.00" },
+            { "Double", "#,##0.00" },
+            { "Decimal", "#,##0.00" },
+        };
+
         public byte[] export(DataTable source)
         {
-            this.createSheet(source, this.sheetRange.MinSheetIndex);
+            this.createSheet(source, 0);
             MemoryStream stream = new MemoryStream();
             this.workbook.Write(stream, false);
             stream.Flush();
@@ -65,20 +78,39 @@ namespace ExcelTableLocator
                 for (int j = 0; j < Props.Length; j++)
                 {
                     ICell cell = rows.CreateCell(j + this.sheetRange.MinColIndex);
+                    if (DataTypeStyle.ContainsKey(Props[j].PropertyType.Name))
+                    {
+                        ICellStyle _datastyle = workbook.CreateCellStyle();
+                        _datastyle.DataFormat = workbook.CreateDataFormat()
+                                    .GetFormat(DataTypeStyle[Props[j].PropertyType.Name]);
+                        cell.CellStyle = _datastyle;
+                    }
                     var the_value = Props[j].GetValue(item, null);
                     switch (Props[j].PropertyType.Name)
                     {
                         case "UInt16":
-                        case "UInt32":
-                        case "UInt64":
-                        case "Int16":
-                        case "Int32":
-                        case "Int64":
-                            ICellStyle _intstyle = workbook.CreateCellStyle();
-                            _intstyle.DataFormat = workbook.CreateDataFormat().GetFormat("#,##0");
-                            cell.CellStyle = _intstyle;
                             cell.SetCellType(CellType.Numeric);
-                            cell.SetCellValue(int.Parse(the_value.ToString()));
+                            cell.SetCellValue(Convert.ToUInt16(the_value.ToString()));
+                            break;
+                        case "UInt32":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToUInt32(the_value.ToString()));
+                            break;
+                        case "UInt64":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToUInt64(the_value.ToString()));
+                            break;
+                        case "Int16":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToInt16(the_value.ToString()));
+                            break;
+                        case "Int32":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToInt32(the_value.ToString()));
+                            break;
+                        case "Int64":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToInt64(the_value.ToString()));
                             break;
                         case "Boolean":
                             cell.SetCellType(CellType.Boolean);
@@ -87,9 +119,6 @@ namespace ExcelTableLocator
                         case "Float":
                         case "Double":
                         case "Decimal":
-                            ICellStyle _doublestyle = workbook.CreateCellStyle();
-                            _doublestyle.DataFormat = workbook.CreateDataFormat().GetFormat("#,##0.00");
-                            cell.CellStyle = _doublestyle;
                             cell.SetCellType(CellType.Numeric);
                             cell.SetCellValue(Convert.ToDouble(the_value.ToString()));
                             break;
@@ -129,7 +158,7 @@ namespace ExcelTableLocator
             return result;
         }
 
-        private List<T> readFileDM<T>(FileStream fs) where T : new()
+        public List<T> readFileDM<T>(FileStream fs) where T : new()
         {
             this.workbook = new XSSFWorkbook(fs);
             ISheet sheet = this.workbook.GetSheetAt(this.sheetRange.MinSheetIndex);
@@ -155,25 +184,81 @@ namespace ExcelTableLocator
                         if (columns.Contains(pi.Name) || columns.Contains(attr.DisplayName))
                         {
                             if (!pi.CanWrite) continue;
-                            ICell value = columns.IndexOf(pi.Name) == -1 ? row.GetCell(columns.IndexOf(attr.DisplayName)) : row.GetCell(columns.IndexOf(pi.Name));
-                            switch (value.CellType)
+                            ICell cell = columns.IndexOf(pi.Name) == -1 ? 
+                                row.GetCell(this.sheetRange.MinColIndex + columns.IndexOf(attr.DisplayName)) : 
+                                row.GetCell(this.sheetRange.MinColIndex + columns.IndexOf(pi.Name));
+
+                            string value = "";
+                            switch (cell.CellType)
                             {
-                                case CellType.Blank:
-                                    pi.SetValue(t, "", null);
-                                    break;
-                                case CellType.Numeric when DateUtil.IsCellDateFormatted(value):
-                                    pi.SetValue(t, value.DateCellValue, null);
+                                case CellType.String:
+                                    value = cell.StringCellValue;
                                     break;
                                 case CellType.Numeric:
-                                    pi.SetValue(t, value.NumericCellValue, null);
+                                    value = cell.NumericCellValue.ToString();
                                     break;
                                 case CellType.Boolean:
-                                    pi.SetValue(t, value.BooleanCellValue, null);
+                                    value = cell.BooleanCellValue.ToString();
+                                    break;
+                                case CellType.Formula:
+                                    value = cell.CachedFormulaResultType.ToString();
+                                    break;
+                                case CellType.Unknown:
+                                    value = cell.StringCellValue;
                                     break;
                                 case CellType.Error:
-                                    throw new Exception($"Parse cell of index (${value.Address}) fail");
+                                    value = cell.ErrorCellValue.ToString();
+                                    break;
+
+                            }
+
+                            switch (pi.PropertyType.Name)
+                            {
+                                case "UInt16":
+                                    pi.SetValue(t, Convert.ToUInt16(value), null);
+                                    break;
+                                case "UInt32":
+                                    pi.SetValue(t, Convert.ToUInt32(value), null);
+                                    break;
+                                case "UInt64":
+                                    pi.SetValue(t, Convert.ToUInt64(value), null);
+                                    break;
+                                case "Int16":
+                                    pi.SetValue(t, Convert.ToInt16(value), null);
+                                    break;
+                                case "Int32":
+                                    pi.SetValue(t, Convert.ToInt32(value), null);
+                                    break;
+                                case "Single":
+                                    pi.SetValue(t, Convert.ToSingle(value), null);
+                                    break;
+                                case "Double":
+                                    pi.SetValue(t, Convert.ToDouble(value), null);
+                                    break;
+                                case "Decimal":
+                                    pi.SetValue(t, Convert.ToDecimal(value), null);
+                                    break;
+                                case "Int64":
+                                case "BigInteger":
+                                    pi.SetValue(t, Convert.ToInt64(value), null);
+                                    break;
+                                case "Boolean":
+                                    pi.SetValue(t, Convert.ToBoolean(value), null);
+                                    break;
+                                case "DateTime":
+                                    pi.SetValue(t, Convert.ToDateTime(value), null);
+                                    break;
+                                case "DateOnly":
+                                    pi.SetValue(t, DateOnly.FromDateTime(Convert.ToDateTime(value)), null);
+                                    break;
+                                case "TimeOnly":
+                                    pi.SetValue(t, TimeOnly.FromDateTime(Convert.ToDateTime(value)), null);
+                                    break;
+                                case "Guid":
+                                    pi.SetValue(t, Guid.Parse(value), null);
+                                    break;
                                 default:
-                                    pi.SetValue(t, value.StringCellValue, null);
+                                    pi.SetValue(t, value, null);
                                     break;
                             }
                         }
@@ -186,7 +271,9 @@ namespace ExcelTableLocator
 
         private void createSheet(DataTable source, int sheetIndex)
         {
-            ISheet sheet = string.IsNullOrEmpty(source.TableName) ? this.workbook.CreateSheet("Sheet" + sheetIndex.ToString()) : this.workbook.CreateSheet(source.TableName);
+            ISheet sheet = string.IsNullOrEmpty(source.TableName) ? 
+                this.workbook.CreateSheet("Sheet" + sheetIndex.ToString()) : 
+                this.workbook.CreateSheet(source.TableName);
             if (this.sheetRange.MinRowIndex >= 0)
             {
                 IRow header = sheet.CreateRow(this.sheetRange.MinRowIndex);
@@ -202,30 +289,46 @@ namespace ExcelTableLocator
                 for (int j = 0; j < source.Columns.Count; j++)
                 {
                     ICell cell = rows.CreateCell(j + this.sheetRange.MinColIndex);
-                    var tt = source.Columns[j].ColumnName;
+                    if (DataTypeStyle.ContainsKey(source.Columns[j].DataType.Name))
+                    {
+                        ICellStyle _datastyle = workbook.CreateCellStyle();
+                        _datastyle.DataFormat = workbook.CreateDataFormat()
+                                    .GetFormat(DataTypeStyle[source.Columns[j].DataType.Name]);
+                        cell.CellStyle = _datastyle;
+                    }
                     switch (source.Columns[j].DataType.Name)
                     {
                         case "UInt16":
-                        case "UInt32":
-                        case "UInt64":
-                        case "Int16":
-                        case "Int32":
-                        case "Int64":
-                            ICellStyle _intstyle = workbook.CreateCellStyle();
-                            _intstyle.DataFormat = workbook.CreateDataFormat().GetFormat("#,##0");
-                            cell.CellStyle = _intstyle;
                             cell.SetCellType(CellType.Numeric);
-                            cell.SetCellValue(int.Parse(source.Rows[i][j].ToString()));
+                            cell.SetCellValue(Convert.ToUInt16(source.Rows[i][j].ToString()));
+                            break;
+                        case "UInt32":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToUInt32(source.Rows[i][j].ToString()));
+                            break;
+                        case "UInt64":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToUInt64(source.Rows[i][j].ToString()));
+                            break;
+                        case "Int16":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToInt16(source.Rows[i][j].ToString()));
+                            break;
+                        case "Int32":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToInt32(source.Rows[i][j].ToString()));
+                            break;
+                        case "Int64":
+                            cell.SetCellType(CellType.Numeric);
+                            cell.SetCellValue(Convert.ToInt64(source.Rows[i][j].ToString()));
                             break;
                         case "Boolean":
                             cell.SetCellType(CellType.Boolean);
                             cell.SetCellValue(Convert.ToBoolean(source.Rows[i][j].ToString()));
                             break;
+                        case "Float":
                         case "Double":
                         case "Decimal":
-                            ICellStyle _doublestyle = workbook.CreateCellStyle();
-                            _doublestyle.DataFormat = workbook.CreateDataFormat().GetFormat("#,##0.00");
-                            cell.CellStyle = _doublestyle;
                             cell.SetCellType(CellType.Numeric);
                             cell.SetCellValue(Convert.ToDouble(source.Rows[i][j].ToString()));
                             break;
@@ -296,6 +399,21 @@ namespace ExcelTableLocator
             this.sheetRange.MaxRowIndex = _sr.MaxRowIndex;
             this.sheetRange.MinColIndex = _sr.MinColIndex;
             this.sheetRange.MaxColIndex = _sr.MaxColIndex;
+        }
+
+        public void setDataTypeStyle(Dictionary<string, string> pairs)
+        {
+            foreach(string pair in pairs.Keys)
+            {
+                if (DataTypeStyle.ContainsKey(pair))
+                {
+                    DataTypeStyle[pair] = pairs[pair];
+                }
+                else
+                {
+                    DataTypeStyle.Add(pair, pairs[pair]);
+                }
+            }
         }
     }
 

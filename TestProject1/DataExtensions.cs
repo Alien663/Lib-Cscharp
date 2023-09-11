@@ -9,7 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Asn1.BC;
 using TableConverter;
-
+using System.Numerics;
+using System.Reflection;
 
 namespace TestMyLib
 {
@@ -20,7 +21,16 @@ namespace TestMyLib
         [SetUp]
         public void Setup()
         {
-            dtStudent.Columns.AddRange(new DataColumn[3] { new DataColumn("Name"), new DataColumn("StudentId"), new DataColumn("Age") });
+            dtStudent = new DataTable();
+            dmStudent = new List<Student>();
+            dtStudent.Columns.AddRange(
+                new DataColumn[3] {
+                    new DataColumn("Name"),
+                    new DataColumn("StudentId", Type.GetType("System.Int32")),
+                    new DataColumn("Age", Type.GetType("System.Int32"))
+                }
+            );
+
             dtStudent.Rows.Add("Jack", 15, 100);
             dtStudent.Rows.Add("Smith", 17, 101);
             dtStudent.Rows.Add("Karoro", 20, 102);
@@ -34,7 +44,7 @@ namespace TestMyLib
         public void Table2Model()
         {
             List<Student> dmData = (List<Student>)dtStudent.ToList<Student>();
-            if(dmData.Count> 0)
+            if (dmData.Count > 0)
             {
                 Assert.Pass("DataModel transfer success");
             }
@@ -43,7 +53,6 @@ namespace TestMyLib
                 Assert.Fail("DataModel is empty");
             }
         }
-
 
         [Test]
         public void Model2Table()
