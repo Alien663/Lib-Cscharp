@@ -1,12 +1,8 @@
-using System;
-using System.Linq;
-using System.IO;
-using System.Data;
-using System.Reflection;
-using System.Collections.Generic;
-using NUnit.Framework;
-using System.ComponentModel;
 using ExcelConverter;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using TableConverter;
 
 namespace TestMyLib
@@ -117,6 +113,18 @@ namespace TestMyLib
                 fs.Write(data, 0, data.Length);
             }
         }
+
+        [Test]
+        public void Test07_SetDataTypeStyle()
+        {
+            ExcelComponent myexcel = new ExcelComponent();
+            myexcel.setDataTypeStyle(new Dictionary<string, string> { { "Double", "#,##0.0000" } });
+            var data = myexcel.export(this.Students);
+            using (FileStream fs = File.Create(this.folder + "test4.xlsx"))
+            {
+                fs.Write(data, 0, data.Length);
+            }
+        }
     }
 
     public class Test2_ReadFromExcel
@@ -129,7 +137,7 @@ namespace TestMyLib
             FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
             ExcelComponent myexcel = new ExcelComponent();
             DataTable dt = myexcel.readFileDT(fs);
-            if(dt.Rows.Count == 0)
+            if (dt.Rows.Count == 0)
             {
                 Assert.Fail("DataTable is empty");
             }

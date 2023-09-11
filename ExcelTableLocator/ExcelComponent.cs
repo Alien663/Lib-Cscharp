@@ -1,14 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using System.ComponentModel;
 using System.Data;
 using System.Reflection;
-using System.ComponentModel;
-using System.Collections.Generic;
-using NPOI.XSSF.UserModel;
-using NPOI.SS.UserModel;
-using NPOI.HSSF.UserModel;
-using System.Net.Http.Headers;
-using Microsoft.VisualBasic;
 
 namespace ExcelConverter
 {
@@ -184,8 +179,8 @@ namespace ExcelConverter
                         if (columns.Contains(pi.Name) || columns.Contains(attr.DisplayName))
                         {
                             if (!pi.CanWrite) continue;
-                            ICell cell = columns.IndexOf(pi.Name) == -1 ? 
-                                row.GetCell(this.sheetRange.MinColIndex + columns.IndexOf(attr.DisplayName)) : 
+                            ICell cell = columns.IndexOf(pi.Name) == -1 ?
+                                row.GetCell(this.sheetRange.MinColIndex + columns.IndexOf(attr.DisplayName)) :
                                 row.GetCell(this.sheetRange.MinColIndex + columns.IndexOf(pi.Name));
 
                             string value = "";
@@ -271,8 +266,8 @@ namespace ExcelConverter
 
         private void createSheet(DataTable source, int sheetIndex)
         {
-            ISheet sheet = string.IsNullOrEmpty(source.TableName) ? 
-                this.workbook.CreateSheet("Sheet" + sheetIndex.ToString()) : 
+            ISheet sheet = string.IsNullOrEmpty(source.TableName) ?
+                this.workbook.CreateSheet("Sheet" + sheetIndex.ToString()) :
                 this.workbook.CreateSheet(source.TableName);
             if (this.sheetRange.MinRowIndex >= 0)
             {
@@ -403,7 +398,7 @@ namespace ExcelConverter
 
         public void setDataTypeStyle(Dictionary<string, string> pairs)
         {
-            foreach(string pair in pairs.Keys)
+            foreach (string pair in pairs.Keys)
             {
                 if (DataTypeStyle.ContainsKey(pair))
                 {

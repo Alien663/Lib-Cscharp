@@ -1,16 +1,9 @@
-﻿using MathNet.Numerics.Distributions;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using NUnit.Framework;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Org.BouncyCastle.Asn1.BC;
 using TableConverter;
-using System.Numerics;
-using System.Reflection;
 
 namespace TestMyLib
 {
@@ -21,8 +14,8 @@ namespace TestMyLib
         [SetUp]
         public void Setup()
         {
-            dtStudent = new DataTable();
             dmStudent = new List<Student>();
+            dtStudent = new DataTable();
             dtStudent.Columns.AddRange(
                 new DataColumn[3] {
                     new DataColumn("Name"),
@@ -44,13 +37,36 @@ namespace TestMyLib
         public void Table2Model()
         {
             List<Student> dmData = (List<Student>)dtStudent.ToList<Student>();
-            if (dmData.Count > 0)
-            {
-                Assert.Pass("DataModel transfer success");
-            }
-            else
+            if (dmData.Count == 0)
             {
                 Assert.Fail("DataModel is empty");
+            }
+        }
+
+        [Test]
+        public void Table2ModelMapping()
+        {
+            dtStudent = new DataTable();
+            dtStudent.Columns.AddRange(
+                new DataColumn[3] {
+                    new DataColumn("Name"),
+                    new DataColumn("ID", Type.GetType("System.Int32")),
+                    new DataColumn("Age", Type.GetType("System.Int32"))
+                }
+            );
+
+            dtStudent.Rows.Add("Jack", 15, 100);
+            dtStudent.Rows.Add("Smith", 17, 101);
+            dtStudent.Rows.Add("Karoro", 20, 102);
+            List<Student> dmData = (List<Student>)dtStudent.ToList<Student>(new Dictionary<string, string>
+            {
+                { "Name", "Name" },
+                { "StudentId", "ID" },
+                { "Age", "Age" },
+            });
+            if (dmData[0].StudentId == 0)
+            {
+                Assert.Fail("DataTable Transfer to Class Model with Mapping Fail.");
             }
         }
 
@@ -59,11 +75,7 @@ namespace TestMyLib
         {
             DataModelExtensions dmConvertor = new DataModelExtensions();
             DataTable dtData = dmConvertor.ToDataTable(dmStudent);
-            if (dtData.Rows.Count > 0)
-            {
-                Assert.Pass("DataModel transfer success");
-            }
-            else
+            if (dtData.Rows.Count == 0)
             {
                 Assert.Fail("DataModel is empty");
             }
