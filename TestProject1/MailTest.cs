@@ -5,11 +5,6 @@ namespace TestMyLib
 {
     public class MailTest
     {
-        [SetUp]
-        private void Setup()
-        {
-        }
-
         [Test]
         public void Test1()
         {
