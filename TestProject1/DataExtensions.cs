@@ -97,7 +97,6 @@ namespace TestMyLib
 客喜而笑，洗盞更酌。肴核既盡，杯盤狼籍，相與枕藉乎舟中，不知東方之既白。";
             Tokenization _token = new();
             List<TokenModel> _result = _token.Segment(test);
-            Assert.Pass("Segment Pass");
         }
 
         [Test]
@@ -106,7 +105,6 @@ namespace TestMyLib
             string test = @"蘇子與客泛舟遊於赤壁之下";
             Tokenization _token = new();
             List<TokenModel> _result = _token.Tokenize(test);
-            Assert.Pass("Token Pass");
         }
     }
 }

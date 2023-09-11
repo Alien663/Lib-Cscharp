@@ -88,41 +88,13 @@ namespace TableConverter
         {
             string temp = context;
             List<TokenModel> result = new List<TokenModel>();
-            List<PunctuationModel> AllPunctuationMarks = new List<PunctuationModel>
-        {
-            new PunctuationModel {Marks= ","},
-            new PunctuationModel {Marks= "."},
-            new PunctuationModel {Marks= "?"},
-            new PunctuationModel {Marks= "!"},
-            new PunctuationModel {Marks= "，"},
-            new PunctuationModel {Marks= "。"},
-            new PunctuationModel {Marks= "？"},
-            new PunctuationModel {Marks= "！"},
-            new PunctuationModel {Marks= ";"},
-            new PunctuationModel {Marks= ":"},
-            new PunctuationModel {Marks= "："},
-            new PunctuationModel {Marks= "；"},
-            new PunctuationModel {Marks= "'"},
-            new PunctuationModel {Marks= "\""},
-            new PunctuationModel {Marks= "("},
-            new PunctuationModel {Marks= ")"},
-            new PunctuationModel {Marks= "["},
-            new PunctuationModel {Marks= "]"},
-            new PunctuationModel {Marks= "{"},
-            new PunctuationModel {Marks= "}"},
-            new PunctuationModel {Marks= "（"},
-            new PunctuationModel {Marks= "）"},
-            new PunctuationModel {Marks= "［"},
-            new PunctuationModel {Marks= "］"},
-            new PunctuationModel {Marks= "｛"},
-            new PunctuationModel {Marks= "｝"},
-            new PunctuationModel {Marks= "「"},
-            new PunctuationModel {Marks= "」"},
-            new PunctuationModel {Marks= "『"},
-            new PunctuationModel {Marks= "』"},
-            new PunctuationModel {Marks= "\n"},
-        };
-            List<PunctuationModel> PunctuationMarks = AllPunctuationMarks.Where(p => context.IndexOf(p.Marks) >= 0).ToList();
+            List<string> AllPunctuationMarks = new List<string>
+            {
+                ",",".","?","!","，","。","？","！",";",":","：",
+                "；","'","\"","(",")","[","]","{","}","（","）",
+                "［","］","｛","｝","「","」","『","』","\n",
+            };
+            List<string> PunctuationMarks = AllPunctuationMarks.Where(p => context.IndexOf(p) >= 0).ToList();
             int ID = 1;
             while (temp.Length > 0)
             {
@@ -130,11 +102,11 @@ namespace TableConverter
                 string mark = "";
                 PunctuationMarks.ForEach(item =>
                 {
-                    int indexof = temp.IndexOf(item.Marks);
+                    int indexof = temp.IndexOf(item);
                     if (indexof >= 0 && indexof < min_index)
                     {
                         min_index = indexof;
-                        mark = item.Marks;
+                        mark = item;
                     }
                 });
 
@@ -175,10 +147,5 @@ namespace TableConverter
         public int ID { get; set; }
         public string Context { get; set; }
         public string Mark { get; set; }
-    }
-    public class PunctuationModel
-    {
-        public string Marks { get; set; }
-        public int index { get; set; } = -999;
     }
 }
