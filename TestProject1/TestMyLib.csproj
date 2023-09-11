@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyLib\MyLib.csproj" />
+    <ProjectReference Include="..\ExcelTableLocator\ExcelConverter.csproj" />
+    <ProjectReference Include="..\SimpleMail\SimpleMail.csproj" />
+    <ProjectReference Include="..\TableConveter\TableConveter.csproj" />
   </ItemGroup>
 
 </Project>

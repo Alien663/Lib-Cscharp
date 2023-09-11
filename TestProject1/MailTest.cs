@@ -1,36 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyLib;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using SimpleMail;
 
 namespace TestMyLib
 {
     public class MailTest
     {
-//        [SetUp]
-//        private void Setup()
-//        {
-//        }
+        [SetUp]
+        private void Setup()
+        {
+        }
 
-//        [Test]
-//        public void Test1()
-//        {
+        [Test]
+        public void Test1()
+        {
 //            string context = @"
 //<img src='cid:logo'></img><br>
 //Test Send Mail<br>";
 //            MailComponent _mail = new MailComponent("SMTP Server", "Sender");
-//            _mail.SetReceiver("Mail Receiver");
-//            _mail.SetCC("CC to some one");
-//            _mail.SetPicture(context, "logo", "picture path", "memetype, ex: img/png");
-//            _mail.SetAttachment("file path");
-//            _mail.SendMail("Test Mail", context);
-//        }
-        
-//        public void Test2()
-//        {
+//            _mail.setReceiver("Mail Receiver");
+//            _mail.setCC("CC to some one");
+//            _mail.setPicture(context, "logo", "picture path", "memetype, ex: img/png");
+//            _mail.setAttachment("file path");
+//            _mail.sendMail("Test Mail", context);
+        }
+
+        [Test]
+        public void Test2()
+        {
 //            string context = @"
 //<img src='cid:logo'></img><br>
 //Test Send Mail<br>";
@@ -42,9 +38,9 @@ namespace TestMyLib
 //                Mime = "img/png",
 //            };
 //            MailComponent _mail = new MailComponent("SMTP Server", "Sender");
-//            _mail.SetReceiver("Mail Receiver");
-//            _mail.SetPicture(context, _picture);
-//            _mail.SendMail("Test Mail", context);
-//        }
+//            _mail.setReceiver("Mail Receiver");
+//            _mail.setPicture(context, _picture);
+//            _mail.sendMail("Test Mail", context);
+        }
     }
 }
