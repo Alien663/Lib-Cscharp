@@ -38,7 +38,6 @@ namespace TestMyLib
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass("DataTable export out excel file success");
         }
         [Test]
         public void Test02_DataTable2Excel_StartWith()
@@ -54,7 +53,6 @@ namespace TestMyLib
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass("DataTable export out excel file success");
         }
 
         [Test]
@@ -71,7 +69,6 @@ namespace TestMyLib
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass(message:"DataSet export out excel file success");
         }
 
         [Test]
@@ -93,7 +90,6 @@ namespace TestMyLib
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass(message: "DataSet export out excel file success");
         }
 
         [Test]
@@ -105,7 +101,6 @@ namespace TestMyLib
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass("DataModel export out excel file success");
         }
         [Test]
         public void Test06_DataModel2Excel_StartWith()
@@ -121,7 +116,6 @@ namespace TestMyLib
             {
                 fs.Write(data, 0, data.Length);
             }
-            Assert.Pass("DataModel export out excel file success");
         }
     }
 

@@ -7,11 +7,18 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PackageVersion>1.0.1</PackageVersion>
 	<PackageIcon>icon.png</PackageIcon>
-	<PackageReadmeFile></PackageReadmeFile>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
