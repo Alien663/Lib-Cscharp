@@ -65,3 +65,18 @@ using (FileStream fs = File.Create(this.folder + "test2.xlsx"))
     fs.Write(data, 0, data.Length);
 }
 ```
+
+### Set DataType's Style
+
+You can change the style to output.
+I use this function to change the style of double originally.
+
+```csharp
+ExcelComponent myexcel = new ExcelComponent();
+myexcel.setDataTypeStyle(new Dictionary<string, string> { { "Double", "#,##0.0000" } });
+var data = myexcel.export(this.Students);
+using (FileStream fs = File.Create(this.folder + "test4.xlsx"))
+{
+    fs.Write(data, 0, data.Length);
+}
+```
