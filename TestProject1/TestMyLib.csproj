@@ -22,4 +22,10 @@
     <ProjectReference Include="..\TableConveter\TableConveter.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
