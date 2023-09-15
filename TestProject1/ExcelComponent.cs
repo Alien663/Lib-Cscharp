@@ -1,9 +1,13 @@
 using ExcelConverter;
+using NPOI.SS.Formula.Functions;
 using NUnit.Framework;
+using Org.BouncyCastle.Asn1.BC;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using TableConverter;
+using static ICSharpCode.SharpZipLib.Zip.ExtendedUnixData;
 
 namespace TestMyLib
 {
@@ -23,6 +27,77 @@ namespace TestMyLib
                 new Student { Name = "Keroro", Age = 20.321, StudentId = 10200 }
             };
             dtStudent = dmConvertor.ToDataTable(Students);
+        }
+
+        [Test]
+        public void Test00_DataTypeTest()
+        {
+            List<DataTypeTest> list = new List<DataTypeTest>
+            {
+                new DataTypeTest
+                {
+                    Int=0,
+                    String="Test",
+                    DateTime=DateTime.Now,
+                    DateOnly=DateOnly.FromDateTime(DateTime.Now),
+                    TimeOnly = TimeOnly.FromDateTime(DateTime.Now),
+                    Int16 = 1,
+                    Int32 = 2,
+                    Int64 = 3,
+                    UInt16 = 4,
+                    UInt32 = 5,
+                    UInt64 = 6,
+                    Flag1 = false,
+                    Flag2 = true,
+                    Double = 0.1,
+                    Float = 0.2F,
+                    Decimal = 0.3M,
+                    Single = 0.4F,
+                    BigInteger = 10
+                }
+            };
+            ExcelComponent myexcel = new ExcelComponent();
+            byte[] data = myexcel.export(list);
+            using (FileStream fs = File.Create(this.folder + "datatype1.xlsx"))
+            {
+                fs.Write(data, 0, data.Length);
+            }
+        }
+
+        [Test]
+        public void Test000_DataTypeTest()
+        {
+            List<DataTypeTest> list = new List<DataTypeTest>
+            {
+                new DataTypeTest
+                {
+                    Int=0,
+                    String="Test",
+                    DateTime=DateTime.Now,
+                    DateOnly=DateOnly.FromDateTime(DateTime.Now),
+                    TimeOnly = TimeOnly.FromDateTime(DateTime.Now),
+                    Int16 = 1,
+                    Int32 = 2,
+                    Int64 = 3,
+                    UInt16 = 4,
+                    UInt32 = 5,
+                    UInt64 = 6,
+                    Flag1 = false,
+                    Flag2 = true,
+                    Double = 0.1,
+                    Float = 0.2F,
+                    Decimal = 0.3M,
+                    Single = 0.4F,
+                    BigInteger = 10
+                }
+            };
+            DataModelExtensions dmConvertor = new DataModelExtensions();
+            ExcelComponent myexcel = new ExcelComponent();
+            byte[] data = myexcel.export(dmConvertor.ToDataTable(list));
+            using (FileStream fs = File.Create(this.folder + "datatype2.xlsx"))
+            {
+                fs.Write(data, 0, data.Length);
+            }
         }
 
         [Test]
@@ -130,6 +205,33 @@ namespace TestMyLib
     public class Test2_ReadFromExcel
     {
         private readonly string folder = @".\";
+
+        [Test]
+        public void Test00_ReadDataTypeToClassModel()
+        {
+            string filepath = this.folder + "datatype1.xlsx";
+            FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
+            ExcelComponent myexcel = new ExcelComponent();
+            List<DataTypeTest> list =  myexcel.readFileDM<DataTypeTest>(fs);
+            if(list.Count == 0)
+            {
+                Assert.Fail("Can not read correct data.");
+            }
+        }
+
+        [Test]
+        public void Test00_ReadDataTypeToDataTable()
+        {
+            string filepath = this.folder + "datatype2.xlsx";
+            FileStream fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
+            ExcelComponent myexcel = new ExcelComponent();
+            DataTable dtData = myexcel.readFileDT(fs);
+            if (dtData.Rows.Count == 0)
+            {
+                Assert.Fail("Can not read correct data.");
+            }
+        }
+
         [Test]
         public void Test01_ReadFile2DataTable()
         {

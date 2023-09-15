@@ -3,6 +3,7 @@ using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System.ComponentModel;
 using System.Data;
+using System.Numerics;
 using System.Reflection;
 
 namespace ExcelConverter
@@ -234,8 +235,10 @@ namespace ExcelConverter
                                     pi.SetValue(t, Convert.ToDecimal(value), null);
                                     break;
                                 case "Int64":
-                                case "BigInteger":
                                     pi.SetValue(t, Convert.ToInt64(value), null);
+                                    break;
+                                case "BigInteger":
+                                    pi.SetValue(t, BigInteger.Parse(value), null);
                                     break;
                                 case "Boolean":
                                     pi.SetValue(t, Convert.ToBoolean(value), null);
