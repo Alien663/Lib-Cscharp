@@ -8,6 +8,7 @@
 	<PackageVersion>1.0.2</PackageVersion>
 	<PackageIcon>icon.png</PackageIcon>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<Authors>MailComponent</Authors>
   </PropertyGroup>
 
   <ItemGroup>
