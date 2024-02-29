@@ -606,7 +606,7 @@ namespace TestMyLib
         public void Test06_Excel2DataModel_DataRange()
         {
             #region Arrange
-            string filename = @".\Test03_DataModel2Excel_DataRange.xlsx";
+            string filename = @".\Test01_DataModel2Excel.xlsx";
             FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
             List<StudentModel> result = new List<StudentModel>();
             #endregion
