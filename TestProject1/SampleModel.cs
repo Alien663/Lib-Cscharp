@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace TestMyLib
 {
-    public class Student
+    public class StudentModel
     {
         [DisplayName("Student Name")]
         public string Name { get; set; }
@@ -21,7 +21,7 @@ namespace TestMyLib
         public DateTime UpdateTime { get; set; } = DateTime.Now;
         
     }
-    public class DataTypeTest
+    public class DataTypeTestModel
     {
         public Guid guid { get; set; } = Guid.NewGuid();
         public int Int {  get; set; }

@@ -1,15 +1,16 @@
 ﻿using System.Net.Mail;
 using System.Net.Mime;
 
-namespace SimpleMail
+namespace Mail.Extension
 {
-    public class MailComponent
+    public class MailGenerater : IDisposable
     {
+        private bool _disposed;
         private string SMTPServer;
         private List<Attachment> Attachments = new List<Attachment>();
         private MailMessage mail = new MailMessage();
 
-        public MailComponent(string SMTPServer, string Sender)
+        public MailGenerater(string SMTPServer, string Sender)
         {
             this.SMTPServer = SMTPServer;
             this.mail.From = new MailAddress(Sender);
@@ -97,12 +98,23 @@ namespace SimpleMail
                 this.setAttachment(attachment);
             }
         }
-    }
 
-    public class MailPictureModel
-    {
-        public string ID { get; set; }
-        public string FilePath { get; set; }
-        public string Mime { get; set; }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                if (disposing)
+                {
+                    mail.Dispose();
+                }
+                _disposed = true;
+            }
+        }
     }
 }
