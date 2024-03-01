@@ -36,18 +36,17 @@ public class TestModel
 ### Setting the start with of your exel file
 
 You can defined your table start with a specific location.
-For example, start at cell(2, 2)
+For example, start at cell(2, 3)
 
 ```csharp
-ExcelComponent myexcel = new ExcelComponent();
-myexcel.SetRange(new SheetRange{
-  MinRowIndex = 2,
-  MinColIndex = 2,
-});
-byte[] data = myexcel.export(this.dtStudent);
-using (FileStream fs = File.Create(this.folder + "test.xlsx"))
+using (ExcelConverter excel = new ExcelConverter())
 {
-    fs.Write(data, 0, data.Length);
+    excel.setAnchor(2, 3);
+    byte[] data = excel.export(dtRawData);
+    using (FileStream fs = File.Create(filename))
+    {
+        fs.Write(data, 0, data.Length);
+    }
 }
 ```
 
@@ -59,10 +58,13 @@ dtData2.TableName = "Custom Sheet Name" // custom sheet name by table name
 DataSet stData = new DataSet(); // use DataSet to process multiple sheets
 stData.Add(dtData1);
 stData.Add(dtData2);
-byte[] data = myexcel.export(st);
-using (FileStream fs = File.Create(this.folder + "test2.xlsx"))
+using (ExcelConverter excel = new ExcelConverter())
 {
-    fs.Write(data, 0, data.Length);
+    byte[] data = excel.export(stData);
+    using (FileStream fs = File.Create(filename))
+    {
+        fs.Write(data, 0, data.Length);
+    }
 }
 ```
 
@@ -72,11 +74,13 @@ You can change the style to output.
 I use this function to change the style of double originally.
 
 ```csharp
-ExcelComponent myexcel = new ExcelComponent();
-myexcel.setDataTypeStyle(new Dictionary<string, string> { { "Double", "#,##0.0000" } });
-var data = myexcel.export(this.Students);
-using (FileStream fs = File.Create(this.folder + "test4.xlsx"))
+using (ExcelConverter excel = new ExcelConverter())
 {
-    fs.Write(data, 0, data.Length);
+    excel.setDataTypeStyle(new Dictionary<string, string> { { "Double", "#,##0.0000" } });
+    byte[] data = myexcel.export(this.Students);
+    using (FileStream fs = File.Create(this.folder + "test4.xlsx"))
+    {
+        fs.Write(data, 0, data.Length);
+    }
 }
 ```
