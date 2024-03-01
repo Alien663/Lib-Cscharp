@@ -1,4 +1,4 @@
-# ExcelComponent
+# Excel Extension
 
 I make this tool based on NuGet package NPOI.
 There are kinds of functions :

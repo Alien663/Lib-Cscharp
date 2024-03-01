@@ -1,8 +1,9 @@
-# Mail Module
+# Mail Extension
 
 I write this module because of needs.
 There are several actions can use.
 
+* declare MailGenerater(SMTP, Sender)
 * send mail
 * set receiver
 * set cc
