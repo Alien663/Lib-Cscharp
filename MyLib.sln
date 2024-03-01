@@ -5,11 +5,11 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMyLib", "TestProject1\TestMyLib.csproj", "{6ADE7AF6-5A14-487D-A9B8-D3EA558174D1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelExtension", "ExcelTableLocator\ExcelExtension.csproj", "{1CB4F03F-DE4F-460C-BDF4-4206E046BB42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelExtension", "ExcelExtension\ExcelExtension.csproj", "{1CB4F03F-DE4F-460C-BDF4-4206E046BB42}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailExtension", "SimpleMail\MailExtension.csproj", "{7E6BC371-173B-4CCD-9359-944D90BC2766}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailExtension", "MailExtension\MailExtension.csproj", "{7E6BC371-173B-4CCD-9359-944D90BC2766}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataExtension", "TableConveter\DataExtension.csproj", "{AA84FDCA-9637-481E-801B-024F1AAF83CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataExtension", "DataExtension\DataExtension.csproj", "{AA84FDCA-9637-481E-801B-024F1AAF83CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
