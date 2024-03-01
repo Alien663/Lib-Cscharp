@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExcelTableLocator\ExcelExtension.csproj" />
-    <ProjectReference Include="..\SimpleMail\MailExtension.csproj" />
-    <ProjectReference Include="..\TableConveter\DataExtension.csproj" />
+    <ProjectReference Include="..\DataExtension\DataExtension.csproj" />
+    <ProjectReference Include="..\ExcelExtension\ExcelExtension.csproj" />
+    <ProjectReference Include="..\MailExtension\MailExtension.csproj" />
   </ItemGroup>
 
 </Project>
