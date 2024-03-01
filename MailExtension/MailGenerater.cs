@@ -107,7 +107,7 @@ namespace Mail.Extension
 
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
