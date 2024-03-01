@@ -16,10 +16,10 @@ namespace TestMyLib
         [OneTimeSetUp]
         public void Initialize()
         {
-            smtp = "GLTDSSMTP.quanta.corp";
-            sender = "tds@quantatw.com";
-            receiver = "Bryan_Lin@quantatw.com";
-            cc = "leon-chen@quantatw.com";
+            smtp = "smtp.test";
+            sender = "rite2844@gmail.com";
+            receiver = "rite2844@gmail.com";
+            cc = "rite2844@gmail.com";
         }
 
         [Test]
