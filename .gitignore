@@ -39,3 +39,4 @@ msbuild.wrn
 */[Oo]bj/*
 */[Oo]ut/*
 TestResults/*
+*/TestResults/
