@@ -45,3 +45,4 @@ Better to see sample code in unit test.
 string test = @"蘇子與客泛舟遊於赤壁之下";
 List<TokenModel> _result = ContextIndexing.Tokenize(test);
 ```
+
