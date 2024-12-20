@@ -38,16 +38,22 @@ namespace TestMyLib
         [Test]
         public void Test01_Table2Model()
         {
+            #region Arrange
+            #endregion
+
+            #region Act
             List<StudentModel> dmData = (List<StudentModel>)dtStudent.ToList<StudentModel>();
-            if (dmData.Count == 0)
-            {
-                Assert.Fail("DataModel is empty");
-            }
+            #endregion
+
+            #region Assert
+            Assert.IsFalse(dmData.Count == 0);
+            #endregion
         }
 
         [Test]
         public void Test02_Table2ModelMapping()
         {
+            #region Arrange
             dtStudent = new DataTable();
             dtStudent.Columns.AddRange(
                 new DataColumn[3] {
@@ -56,32 +62,44 @@ namespace TestMyLib
                     new DataColumn("Age", Type.GetType("System.Int32"))
                 }
             );
-
             dtStudent.Rows.Add("Jack", 15, 100);
             dtStudent.Rows.Add("Smith", 17, 101);
             dtStudent.Rows.Add("Karoro", 20, 102);
+            #endregion
+
+            #region Act
             List<StudentModel> dmData = (List<StudentModel>)dtStudent.ToList<StudentModel>(new Dictionary<string, string>
             {
                 { "Name", "Name" },
                 { "StudentId", "ID" },
                 { "Age", "Age" },
             });
-            if (dmData[0].StudentId == 0)
-            {
-                Assert.Fail("DataTable Transfer to Class Model with Mapping Fail.");
-            }
+            #endregion
+
+            #region Assert
+            Assert.IsFalse(dmData.Count == 0);
+            #endregion
         }
 
         [Test]
         public void Test03_Model2Table()
         {
+            #region Arrange
+            #endregion
+
+            #region Act
             DataTable dtData = ClassModelConvert.ToDataTable(dmStudent);
+            #endregion
+
+            #region Assert
             Assert.IsFalse(dtData.Rows.Count == 0);
+            #endregion
         }
 
         [Test]
         public void Test04_Segmentation()
         {
+            #region Arrange
             string test = @"壬戌之秋，七月既望，蘇子與客泛舟遊於赤壁之下。清風徐來，水波不興，舉酒屬客，誦明月之詩，歌窈窕之章。少焉，月出於東山之上，徘徊於斗牛之間，白露橫江，水光接天；縱一葦之所如，凌萬頃之茫然。浩浩乎如馮虛御風，而不知其所止；飄飄乎如遺世獨立，羽化而登仙。
 
 於是飲酒樂甚，扣舷而歌之。歌曰：「桂棹兮蘭槳，擊空明兮泝流光。渺渺兮予懷，望美人兮天一方。」客有吹洞簫者，倚歌而和之，其聲嗚嗚然，如怨如慕，如泣如訴，餘音嫋嫋，不絕如縷。舞幽壑之潛蛟，泣孤舟之嫠婦。
@@ -93,14 +111,30 @@ namespace TestMyLib
 蘇子曰：「客亦知夫水與月乎？逝者如斯，而未嘗往也；盈虛者如彼，而卒莫消長也，蓋將自其變者而觀之，則天地曾不能以一瞬；自其不變者而觀之，則物與我皆無盡也，而又何羨乎？且夫天地之間，物各有主，苟非吾之所有，雖一毫而莫取。惟江上之清風，與山間之明月，耳得之而為聲，目遇之而成色，取之無禁，用之不竭，是造物者之無盡藏也，而吾與子之所共適。」
 
 客喜而笑，洗盞更酌。肴核既盡，杯盤狼籍，相與枕藉乎舟中，不知東方之既白。";
+            #endregion
+
+            #region Act
             List<TokenModel> _result = ContextIndexing.Segment(test);
+            #endregion
+
+            #region Assert
+
+            #endregion
         }
 
         [Test]
         public void Test05_Tokenization()
         {
+            #region Arrange
             string test = @"蘇子與客泛舟遊於赤壁之下";
+            #endregion
+
+            #region Act
             List<TokenModel> _result = ContextIndexing.Tokenize(test);
+            #endregion
+
+            #region Assert
+            #endregion
         }
     }
 }

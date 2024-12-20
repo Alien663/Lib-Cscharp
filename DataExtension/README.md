@@ -1,4 +1,4 @@
-# Table Converter
+# Data Extension
 
 This library is made to convet DataTable and Class Model.
 Thus, I add Segment and Tokenization here.
@@ -26,7 +26,7 @@ List<Student> dmData = (List<Student>)dtStudent.ToList<Student>(
 * Class Model to DataTable
 
 ```csharp
-DataTable dtData = dmConvertor.ToDataTable(dmStudent);
+DataTable dtData = ClassModelConvert.ToDataTable(dmStudent);
 ```
 
 ## Structure A Context
@@ -43,6 +43,6 @@ Better to see sample code in unit test.
 
 ```csharp
 string test = @"蘇子與客泛舟遊於赤壁之下";
-Tokenization _token = new();
-List<TokenModel> _result = _token.Tokenize(test);
+List<TokenModel> _result = ContextIndexing.Tokenize(test);
 ```
+
