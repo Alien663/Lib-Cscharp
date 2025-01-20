@@ -93,7 +93,7 @@ namespace TestMyLib
             {
                 for (int j = 0; j < result.Columns.Count; j++)
                 {
-                    Assert.AreEqual(result.Rows[i][j].ToString(), dtRawData.Rows[i][j].ToString());
+                    Assert.That(result.Rows[i][j].ToString() == dtRawData.Rows[i][j].ToString());
                 }
             }
             Console.WriteLine(JsonConvert.SerializeObject(result));
@@ -122,7 +122,7 @@ namespace TestMyLib
             {
                 for (int j = 0; j < result.Columns.Count; j++)
                 {
-                    Assert.AreEqual(result.Rows[i][j].ToString(), dtRawData.Rows[i][j].ToString());
+                    Assert.That(result.Rows[i][j].ToString() == dtRawData.Rows[i][j].ToString());
                 }
             }
             Console.WriteLine(JsonConvert.SerializeObject(result));
@@ -147,11 +147,11 @@ namespace TestMyLib
             #endregion
 
             #region Assert
-            Assert.IsTrue(result.Rows.Count == 1);
-            Assert.IsTrue(result.Columns.Count == 3);
-            Assert.AreEqual(result.Rows[0]["Name"], "Jack");
-            Assert.AreEqual(result.Rows[0]["StudentId"], "10000");
-            Assert.AreEqual(result.Rows[0]["Age"], "15");
+            Assert.That(result.Rows.Count == 1);
+            Assert.That(result.Columns.Count == 3);
+            Assert.That(result.Rows[0]["Name"].ToString() == "Jack");
+            Assert.That(result.Rows[0]["StudentId"].ToString() == "10000");
+            Assert.That(result.Rows[0]["Age"].ToString() == "15");
             Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
         }
@@ -200,7 +200,7 @@ namespace TestMyLib
             {
                 for (int j = 0; j < result.Columns.Count; j++)
                 {
-                    Assert.AreEqual(result.Rows[i][j].ToString(), dtRawData.Rows[i][j].ToString());
+                    Assert.That(result.Rows[i][j].ToString() == dtRawData.Rows[i][j].ToString());
                 }
             }
             Console.WriteLine(JsonConvert.SerializeObject(result));
@@ -323,7 +323,7 @@ namespace TestMyLib
                 {
                     for (int j = 0; j < result.Tables[k].Columns.Count; j++)
                     {
-                        Assert.AreEqual(result.Tables[k].Rows[i][j].ToString(), dsRawData.Tables[k].Rows[i][j].ToString());
+                        Assert.That(result.Tables[k].Rows[i][j].ToString() == dsRawData.Tables[k].Rows[i][j].ToString());
                     }
                 }
             }
@@ -355,7 +355,7 @@ namespace TestMyLib
                 {
                     for (int j = 0; j < result.Tables[k].Columns.Count; j++)
                     {
-                        Assert.AreEqual(result.Tables[k].Rows[i][j].ToString(), dsRawData.Tables[k].Rows[i][j].ToString());
+                        Assert.That(result.Tables[k].Rows[i][j].ToString() == dsRawData.Tables[k].Rows[i][j].ToString());
                     }
                 }
             }
@@ -383,11 +383,11 @@ namespace TestMyLib
             #region Assert
             for (int i = 0; i < result.Tables.Count; i++)
             {
-                Assert.IsTrue(result.Tables[i].Rows.Count == 1);
-                Assert.IsTrue(result.Tables[i].Columns.Count == 3);
-                Assert.AreEqual(result.Tables[i].Rows[0]["Name"], "Jack");
-                Assert.AreEqual(result.Tables[i].Rows[0]["StudentId"], "100");
-                Assert.AreEqual(result.Tables[i].Rows[0]["Age"], "15");
+                Assert.That(result.Tables[i].Rows.Count == 1);
+                Assert.That(result.Tables[i].Columns.Count == 3);
+                Assert.That(result.Tables[i].Rows[0]["Name"].ToString() == "Jack");
+                Assert.That(result.Tables[i].Rows[0]["StudentId"].ToString() == "100");
+                Assert.That(result.Tables[i].Rows[0]["Age"].ToString() == "15");
             }
             Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
@@ -416,7 +416,7 @@ namespace TestMyLib
                 {
                     for (int j = 0; j < result.Tables[k].Columns.Count; j++)
                     {
-                        Assert.AreEqual(result.Tables[k].Rows[i][j].ToString(), dsRawData.Tables[k].Rows[i][j].ToString());
+                        Assert.That(result.Tables[k].Rows[i][j].ToString() == dsRawData.Tables[k].Rows[i][j].ToString());
                     }
                 }
             }
@@ -470,7 +470,7 @@ namespace TestMyLib
                 {
                     for (int j = 0; j < result.Tables[k].Columns.Count; j++)
                     {
-                        Assert.AreEqual(result.Tables[k].Rows[i][j].ToString(), dsRawData.Tables[k].Rows[i][j].ToString());
+                        Assert.That(result.Tables[k].Rows[i][j].ToString() == dsRawData.Tables[k].Rows[i][j].ToString());
                     }
                 }
             }
@@ -559,12 +559,12 @@ namespace TestMyLib
             #region Assert
             for(int i = 0; i < result.Count; i++)
             {
-                Assert.AreEqual(rawData[i].Name, result[i].Name);   
-                Assert.AreEqual(rawData[i].StudentId, result[i].StudentId);
-                Assert.AreEqual(rawData[i].Age, result[i].Age);
-                Assert.AreEqual(rawData[i].Birth, result[i].Birth);
-                Assert.AreEqual(rawData[i].TestTime.ToString(), result[i].TestTime.ToString());
-                Assert.AreEqual(rawData[i].UpdateTime.ToString(), result[i].UpdateTime.ToString());
+                Assert.That(rawData[i].Name == result[i].Name);   
+                Assert.That(rawData[i].StudentId == result[i].StudentId);
+                Assert.That(rawData[i].Age == result[i].Age);
+                Assert.That(rawData[i].Birth == result[i].Birth);
+                Assert.That(rawData[i].TestTime.ToString() == result[i].TestTime.ToString());
+                Assert.That(rawData[i].UpdateTime.ToString() == result[i].UpdateTime.ToString());
             }
             Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
@@ -590,12 +590,12 @@ namespace TestMyLib
             #region Assert
             for (int i = 0; i < result.Count; i++)
             {
-                Assert.AreEqual(rawData[i].Name, result[i].Name);
-                Assert.AreEqual(rawData[i].StudentId, result[i].StudentId);
-                Assert.AreEqual(rawData[i].Age, result[i].Age);
-                Assert.AreEqual(rawData[i].Birth, result[i].Birth);
-                Assert.AreEqual(rawData[i].TestTime.ToString(), result[i].TestTime.ToString());
-                Assert.AreEqual(rawData[i].UpdateTime.ToString(), result[i].UpdateTime.ToString());
+                Assert.That(rawData[i].Name == result[i].Name);
+                Assert.That(rawData[i].StudentId == result[i].StudentId);
+                Assert.That(rawData[i].Age == result[i].Age);
+                Assert.That(rawData[i].Birth == result[i].Birth);
+                Assert.That(rawData[i].TestTime.ToString() == result[i].TestTime.ToString());
+                Assert.That(rawData[i].UpdateTime.ToString() == result[i].UpdateTime.ToString());
             }
             Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
@@ -619,10 +619,10 @@ namespace TestMyLib
             #endregion
 
             #region Assert
-            Assert.IsTrue(result.Count == 1);
-            Assert.AreEqual(rawData[0].Name, result[0].Name);
-            Assert.AreEqual(rawData[0].StudentId, result[0].StudentId);
-            Assert.AreEqual(rawData[0].Age, result[0].Age);
+            Assert.That(result.Count == 1);
+            Assert.That(rawData[0].Name == result[0].Name);
+            Assert.That(rawData[0].StudentId == result[0].StudentId);
+            Assert.That(rawData[0].Age == result[0].Age);
             Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
         }
@@ -669,12 +669,12 @@ namespace TestMyLib
             #region Assert
             for (int i = 0; i < result.Count; i++)
             {
-                Assert.AreEqual(rawData[i].Name, result[i].Name);
-                Assert.AreEqual(rawData[i].StudentId, result[i].StudentId);
-                Assert.AreEqual(rawData[i].Age, result[i].Age);
-                Assert.AreEqual(rawData[i].Birth, result[i].Birth);
-                Assert.AreEqual(rawData[i].TestTime.ToString(), result[i].TestTime.ToString());
-                Assert.AreEqual(rawData[i].UpdateTime.ToString(), result[i].UpdateTime.ToString());
+                Assert.That(rawData[i].Name == result[i].Name);
+                Assert.That(rawData[i].StudentId == result[i].StudentId);
+                Assert.That(rawData[i].Age == result[i].Age);
+                Assert.That(rawData[i].Birth == result[i].Birth);
+                Assert.That(rawData[i].TestTime.ToString() == result[i].TestTime.ToString());
+                Assert.That(rawData[i].UpdateTime.ToString() == result[i].UpdateTime.ToString());
             }
             Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
