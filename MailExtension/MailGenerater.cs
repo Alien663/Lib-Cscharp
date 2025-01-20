@@ -27,8 +27,6 @@ namespace Mail.Extension
             this.mail.IsBodyHtml = isHTML;
             SmtpClient smtp = new SmtpClient(SMTPServer);
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtp.UseDefaultCredentials = true;
-            smtp.EnableSsl = true;
             smtp.Send(this.mail);
         }
         public void setReceiver(string receiver)
