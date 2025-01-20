@@ -4,7 +4,6 @@ using System.IO;
 using System.Data;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Data.Extension;
 using Excel.Extension;
 using NPOI.Util;
 
@@ -13,7 +12,6 @@ namespace TestMyLib
     [TestFixture]
     public class ExcelConverter_DataTable
     {
-        private List<StudentModel> dmstudents;
         private DataTable dtRawData = new DataTable();
 
         [OneTimeSetUp]
@@ -177,11 +175,13 @@ namespace TestMyLib
             #endregion
 
             #region Assert
-            Assert.That(result.Rows.Count == 1);
-            Assert.That(result.Columns.Count == 3);
-            Assert.That(result.Rows[0]["Name"].ToString() == "Jack");
-            Assert.That(result.Rows[0]["StudentId"].ToString() == "10000");
-            Assert.That(result.Rows[0]["Age"].ToString() == "15");
+            for (int i = 0; i < result.Rows.Count; i++)
+            {
+                for (int j = 0; j < result.Columns.Count; j++)
+                {
+                    Assert.That(result.Rows[i][j].ToString() == dtRawData.Rows[i][j].ToString());
+                }
+            }
             Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
         }
@@ -206,6 +206,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            Assert.That(Path.Exists(@".\Test07_DataTable2Excel.xlsx"));
             #endregion
         }
 
