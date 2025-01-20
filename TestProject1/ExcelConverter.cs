@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Data.Extension;
 using Excel.Extension;
+using NPOI.Util;
 
 namespace TestMyLib
 {
@@ -18,13 +19,40 @@ namespace TestMyLib
         [OneTimeSetUp]
         public void Initailize()
         {
-            dmstudents = new List<StudentModel>
-            {
-                new StudentModel { Name = "Jack", Age = 15.00, StudentId = 10000 },
-                new StudentModel { Name = "Smith", Age = 17.02, StudentId = 10100 },
-                new StudentModel { Name = "Keroro", Age = 20.321, StudentId = 10200 }
-            };
-            dtRawData = ClassModelConvert.ToDataTable(dmstudents);
+            dtRawData.Columns.Add("Student Name", "".GetType());
+            dtRawData.Columns.Add("Student Age", 0.0.GetType());
+            dtRawData.Columns.Add("Student ID", 0.GetType());
+            dtRawData.Columns.Add("Birth Date", DateOnly.FromDateTime(DateTime.Now).GetType());
+            dtRawData.Columns.Add("Test Time", TimeOnly.FromDateTime(DateTime.Now).GetType());
+            dtRawData.Columns.Add("Last Update", DateTime.Now.GetType());
+
+            DataRow dataRow = dtRawData.NewRow();
+            dataRow["Student Name"] = "Jack";
+            dataRow["Student Age"] = 15.00;
+            dataRow["Student ID"] = 100;
+            dataRow["Birth Date"] = DateOnly.FromDateTime(DateTime.Now);
+            dataRow["Test Time"] = TimeOnly.FromDateTime(DateTime.Now);
+            dataRow["Last Update"] = DateTime.Now;
+            dtRawData.Rows.Add(dataRow);
+
+            dataRow = dtRawData.NewRow();
+            dataRow["Student Name"] = "Smith";
+            dataRow["Student Age"] = 17.00;
+            dataRow["Student ID"] = 101;
+            dataRow["Birth Date"] = DateOnly.FromDateTime(DateTime.Now);
+            dataRow["Test Time"] = TimeOnly.FromDateTime(DateTime.Now);
+            dataRow["Last Update"] = DateTime.Now;
+            dtRawData.Rows.Add(dataRow);
+
+            dataRow = dtRawData.NewRow();
+            dataRow["Student Name"] = "Keroro";
+            dataRow["Student Age"] = 20.00;
+            dataRow["Student ID"] = 102;
+            dataRow["Birth Date"] = DateOnly.FromDateTime(DateTime.Now);
+            dataRow["Test Time"] = TimeOnly.FromDateTime(DateTime.Now);
+            dataRow["Last Update"] = DateTime.Now;
+            dtRawData.Rows.Add(dataRow);
+            dtRawData.TableName = "Test 1";
         }
 
         [Test]
@@ -37,7 +65,7 @@ namespace TestMyLib
             #region Act
             using (ExcelConverter excel = new ExcelConverter())
             {
-                byte[] data = excel.export(dtRawData);
+                byte[] data = excel.export(dtRawData.Copy());
                 using (FileStream fs = File.Create(filename))
                 {
                     fs.Write(data, 0, data.Length);
@@ -46,6 +74,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            Assert.That(Path.Exists(@".\Test01_DataTable2Excel.xlsx"));
             #endregion
         }
 
@@ -60,7 +89,7 @@ namespace TestMyLib
             using (ExcelConverter excel = new ExcelConverter())
             {
                 excel.setAnchor(2, 3);
-                byte[] data = excel.export(dtRawData);
+                byte[] data = excel.export(dtRawData.Copy());
                 using (FileStream fs = File.Create(filename))
                 {
                     fs.Write(data, 0, data.Length);
@@ -69,6 +98,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            Assert.That(Path.Exists(@".\Test02_DataTable2Excel_Anchor.xlsx"));
             #endregion
         }
 
@@ -167,7 +197,7 @@ namespace TestMyLib
             using (ExcelConverter excel = new ExcelConverter())
             {
                 excel.setDataTypeStyle(new Dictionary<string, string> { { "Double", "#,##0.0000" } });
-                byte[] data = excel.export(dtRawData);
+                byte[] data = excel.export(dtRawData.Copy());
                 using (FileStream fs = File.Create(filename))
                 {
                     fs.Write(data, 0, data.Length);
@@ -211,25 +241,49 @@ namespace TestMyLib
     [TestFixture]
     public class ExcelConverter_DataSet
     {
-        private List<StudentModel> dmRawData;
         private DataSet dsRawData = new DataSet();
 
         [OneTimeSetUp]
         public void Initailize()
         {
-            dmRawData = new List<StudentModel>
-            {
-                new StudentModel {Name = "Jack", Age = 15, StudentId = 100},
-                new StudentModel {Name = "Smith", Age = 17, StudentId = 101 },
-                new StudentModel {Name = "Karoro", Age = 20, StudentId = 102 },
-            };
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Student Name", "".GetType());
+            dataTable.Columns.Add("Student Age", 0.0.GetType());
+            dataTable.Columns.Add("Student ID", 0.GetType());
+            dataTable.Columns.Add("Birth Date", DateOnly.FromDateTime(DateTime.Now).GetType());
+            dataTable.Columns.Add("Test Time", TimeOnly.FromDateTime(DateTime.Now).GetType());
+            dataTable.Columns.Add("Last Update", DateTime.Now.GetType());
+            
+            DataRow dataRow = dataTable.NewRow();
+            dataRow["Student Name"] = "Jack";
+            dataRow["Student Age"] = 15.00;
+            dataRow["Student ID"] = 100;
+            dataRow["Birth Date"] = DateOnly.FromDateTime(DateTime.Now);
+            dataRow["Test Time"] = TimeOnly.FromDateTime(DateTime.Now);
+            dataRow["Last Update"] = DateTime.Now;
+            dataTable.Rows.Add(dataRow);
 
-            DataTable dtRawData = ClassModelConvert.ToDataTable(dmRawData);
-            DataTable dtRawData2 = dtRawData.Copy();
-            dtRawData.TableName = "Test 1";
-            dtRawData2.TableName = "Test 2";
-            dsRawData.Tables.Add(dtRawData);
-            dsRawData.Tables.Add(dtRawData2);
+            dataRow = dataTable.NewRow();
+            dataRow["Student Name"] = "Smith";
+            dataRow["Student Age"] = 17.00;
+            dataRow["Student ID"] = 101;
+            dataRow["Birth Date"] = DateOnly.FromDateTime(DateTime.Now);
+            dataRow["Test Time"] = TimeOnly.FromDateTime(DateTime.Now);
+            dataRow["Last Update"] = DateTime.Now;
+            dataTable.Rows.Add(dataRow);
+
+            dataRow = dataTable.NewRow();
+            dataRow["Student Name"] = "Keroro";
+            dataRow["Student Age"] = 20.00;
+            dataRow["Student ID"] = 102;
+            dataRow["Birth Date"] = DateOnly.FromDateTime(DateTime.Now);
+            dataRow["Test Time"] = TimeOnly.FromDateTime(DateTime.Now);
+            dataRow["Last Update"] = DateTime.Now;
+            dataTable.Rows.Add(dataRow);
+            dataTable.TableName = "Test 1";
+            dsRawData.Tables.Add(dataTable.Copy());
+            dataTable.TableName = "Test 2";
+            dsRawData.Tables.Add(dataTable.Copy());
         }
 
         [Test]
@@ -242,7 +296,7 @@ namespace TestMyLib
             #region Act
             using (ExcelConverter excel = new ExcelConverter())
             {
-                byte[] data = excel.export(dsRawData);
+                byte[] data = excel.export(dsRawData.Copy());
                 using (FileStream fs = File.Create(filename))
                 {
                     fs.Write(data, 0, data.Length);
@@ -251,6 +305,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            Assert.That(Path.Exists(@".\Test01_DataSet2Excel.xlsx"));
             #endregion
         }
 
@@ -265,7 +320,7 @@ namespace TestMyLib
             using (ExcelConverter excel = new ExcelConverter())
             {
                 excel.setAnchor(2, 3);
-                byte[] data = excel.export(dsRawData);
+                byte[] data = excel.export(dsRawData.Copy());
                 using (FileStream fs = File.Create(filename))
                 {
                     fs.Write(data, 0, data.Length);
@@ -274,6 +329,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            Assert.That(Path.Exists(@".\Test02_DataSet2Excel_Anchor.xlsx"));
             #endregion
         }
 
@@ -288,7 +344,7 @@ namespace TestMyLib
             using (ExcelConverter excel = new ExcelConverter())
             {
                 excel.setSheetRange(0, 1);
-                byte[] data = excel.export(dsRawData);
+                byte[] data = excel.export(dsRawData.Copy());
                 using (FileStream fs = File.Create(filename))
                 {
                     fs.Write(data, 0, data.Length);
@@ -297,6 +353,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            Assert.That(Path.Exists(@".\Test04_DataSet2Excel_SheetRange.xlsx"));
             #endregion
         }
 
@@ -381,13 +438,15 @@ namespace TestMyLib
             #endregion
 
             #region Assert
-            for (int i = 0; i < result.Tables.Count; i++)
+            for (int k = 0; k < result.Tables.Count; k++)
             {
-                Assert.That(result.Tables[i].Rows.Count == 1);
-                Assert.That(result.Tables[i].Columns.Count == 3);
-                Assert.That(result.Tables[i].Rows[0]["Name"].ToString() == "Jack");
-                Assert.That(result.Tables[i].Rows[0]["StudentId"].ToString() == "100");
-                Assert.That(result.Tables[i].Rows[0]["Age"].ToString() == "15");
+                for (int i = 0; i < result.Tables[k].Rows.Count; i++)
+                {
+                    for (int j = 0; j < result.Tables[k].Columns.Count; j++)
+                    {
+                        Assert.That(result.Tables[k].Rows[i][j].ToString() == dsRawData.Tables[k].Rows[i][j].ToString());
+                    }
+                }
             }
             Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
@@ -425,7 +484,7 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test09_Excel2DataSet_DataType()
+        public void Test09_DataSet2Excel_DataType()
         {
             #region Arrange
             string filename = @".\Test09_Excel2DataSet_DataType.xlsx";
@@ -435,7 +494,7 @@ namespace TestMyLib
             using (ExcelConverter excel = new ExcelConverter())
             {
                 excel.setDataTypeStyle(new Dictionary<string, string> { { "Double", "#,##0.0000" } });
-                byte[] data = excel.export(dsRawData);
+                byte[] data = excel.export(dsRawData.Copy());
                 using (FileStream fs = File.Create(filename))
                 {
                     fs.Write(data, 0, data.Length);
@@ -444,6 +503,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            Assert.That(Path.Exists(@".\Test09_Excel2DataSet_DataType.xlsx"));
             #endregion
         }
 
@@ -505,7 +565,7 @@ namespace TestMyLib
             #region Act
             using (ExcelConverter excel = new ExcelConverter())
             {
-                byte[] data = excel.export(rawData);
+                byte[] data = excel.export(rawData.Copy());
                 using (FileStream fs = File.Create(filename))
                 {
                     fs.Write(data, 0, data.Length);
@@ -514,6 +574,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            Assert.That(Path.Exists(@".\Test01_DataModel2Excel.xlsx"));
             #endregion
         }
 
@@ -528,7 +589,7 @@ namespace TestMyLib
             using (ExcelConverter excel = new ExcelConverter())
             {
                 excel.setAnchor(2, 3);
-                byte[] data = excel.export(rawData);
+                byte[] data = excel.export(rawData.Copy());
                 using (FileStream fs = File.Create(filename))
                 {
                     fs.Write(data, 0, data.Length);
@@ -537,6 +598,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            Assert.That(Path.Exists(@".\Test02_DataModel2Excel_Anchor.xlsx"));
             #endregion
         }
 
@@ -638,7 +700,7 @@ namespace TestMyLib
             using (ExcelConverter excel = new ExcelConverter())
             {
                 excel.setDataTypeStyle(new Dictionary<string, string> { { "Double", "#,##0.0000" } });
-                byte[] data = excel.export(rawData);
+                byte[] data = excel.export(rawData.Copy());
                 using (FileStream fs = File.Create(filename))
                 {
                     fs.Write(data, 0, data.Length);

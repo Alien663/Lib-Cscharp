@@ -33,7 +33,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
-            Assert.That(encrypted == "");
+            Assert.That(encrypted == "JeYrjV9buz+kZ902e0pD");
             #endregion
         }
 
@@ -41,12 +41,16 @@ namespace TestMyLib
         public void Test02_AESDecrypt()
         {
             #region Arrange
+            string encryped = "JeYrjV9buz+kZ902e0pD";
+            using AESCrypto crypto = new AESCrypto();
             #endregion
 
             #region Action
+            string decrypted = crypto.Decrypt(encryped);
             #endregion
 
             #region Assert
+            Assert.That(decrypted == "This is a test");
             #endregion
         }
     }

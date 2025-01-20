@@ -46,7 +46,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
-            Assert.That(dmData.Count == 0);
+            Assert.That(dmData.Count == 3);
             #endregion
         }
 
@@ -77,7 +77,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
-            Assert.That(dmData.Count == 0);
+            Assert.That(dmData.Count == 3);
             #endregion
         }
 
@@ -92,7 +92,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
-            Assert.That(dtData.Rows.Count == 0);
+            Assert.That(dtData.Rows.Count == 3);
             #endregion
         }
 
