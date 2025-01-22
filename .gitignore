@@ -33,10 +33,9 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
-.vs/
+.vs/*
 
 */[Bb]in/*
 */[Oo]bj/*
 */[Oo]ut/*
 TestResults/*
-*/TestResults/

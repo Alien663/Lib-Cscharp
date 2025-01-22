@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<PackageVersion>2.0.0</PackageVersion>
+	<PackageVersion>2.1.0</PackageVersion>
 	<PackageIcon>icon.png</PackageIcon>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
+	  <Description>此次更新改變所有套件的namespace名稱，主要修改集中在UnitTest，並沒有新增Feature或是補上漏洞，因此舊版本可以使用就不要更新至此版本</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NPOI" Version="2.6.0" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
+    <PackageReference Include="NPOI" Version="2.7.2" />
   </ItemGroup>
 
   <ItemGroup>

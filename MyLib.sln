@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailExtension", "MailExtens
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataExtension", "DataExtension\DataExtension.csproj", "{AA84FDCA-9637-481E-801B-024F1AAF83CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigExtension", "ConfigExtention\ConfigExtension.csproj", "{641C1923-8DD7-4906-8E32-59A1635E9DF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{AA84FDCA-9637-481E-801B-024F1AAF83CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA84FDCA-9637-481E-801B-024F1AAF83CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA84FDCA-9637-481E-801B-024F1AAF83CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{641C1923-8DD7-4906-8E32-59A1635E9DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{641C1923-8DD7-4906-8E32-59A1635E9DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{641C1923-8DD7-4906-8E32-59A1635E9DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{641C1923-8DD7-4906-8E32-59A1635E9DF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

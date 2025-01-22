@@ -19,12 +19,12 @@ namespace TestMyLib
         public TimeOnly TestTime { get; set; } = TimeOnly.FromDateTime(DateTime.Now);
         [DisplayName("Last Update")]
         public DateTime UpdateTime { get; set; } = DateTime.Now;
-
+        
     }
     public class DataTypeTestModel
     {
         public Guid guid { get; set; } = Guid.NewGuid();
-        public int Int { get; set; }
+        public int Int {  get; set; }
         public string String { get; set; }
         public DateTime DateTime { get; set; }
         public DateOnly DateOnly { get; set; }
