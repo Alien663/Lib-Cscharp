@@ -1,28 +1,31 @@
 ﻿using NUnit.Framework;
 using Config.Extention;
 using Config.Extension;
+using System;
 
 namespace TestMyLib
 {
     public class ConfigExtension
     {
         [Test]
-        public void Test01_ReadAppconfig()
+        [Order(1)]
+        public void ReadAppconfig()
         {
             #region Arrange
+            AppConfig _config = new AppConfig("appsettings.dev.json");
             #endregion
 
             #region Action
-            AppConfig _config = new AppConfig("appsettings.dev.json");
-            string tt = AppConfig.Config["ConnectionStrings:DefaultConnection"];
             #endregion
 
             #region Assert
-            Assert.That(tt == "This is dev");
+            Assert.That(_config.Configuration["ConnectionStrings:DefaultConnection"] == "This is dev");
             #endregion
         }
+        
         [Test]
-        public void Test02_AESEncryp()
+        [Order(2)]
+        public void AESEncryp()
         {
             #region Arrange
             using AESCrypto crypto = new AESCrypto();
@@ -30,23 +33,28 @@ namespace TestMyLib
 
             #region Action
             string encrypted = crypto.Encrypt("This is a test");
+            Console.WriteLine(encrypted);
             #endregion
 
             #region Assert
-            Assert.That(encrypted == "");
+            Assert.That(encrypted == "JeYrjV9buz+kZ902e0pD");
             #endregion
         }
 
         [Test]
-        public void Test02_AESDecrypt()
+        [Order(3)]
+        public void AESDecrypt()
         {
             #region Arrange
+            using AESCrypto crypto = new AESCrypto();
             #endregion
 
             #region Action
+            string decrypted = crypto.Decrypt("JeYrjV9buz+kZ902e0pD");
             #endregion
 
             #region Assert
+            Assert.That(decrypted == "This is a test");
             #endregion
         }
     }

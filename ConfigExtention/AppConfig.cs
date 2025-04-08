@@ -1,22 +1,23 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
-namespace Config.Extention
+namespace Config.Extention;
+
+public class AppConfig
 {
-    public class AppConfig
+    private string _filename;
+    private Lazy<IConfiguration> LazyConfig;
+    public IConfiguration Configuration { get { return LazyConfig.Value; } }
+
+    public AppConfig(string filename = "appsettings.json")
     {
-        private static string _filename = "appsettings.json";
-
-        public AppConfig(string filename) 
+        _filename = filename;
+        LazyConfig = new Lazy<IConfiguration>(() =>
         {
-            _filename = filename;
-        }
-
-        public static IConfigurationRoot Config => LazyConfig.Value;
-
-        private static readonly Lazy<IConfigurationRoot> LazyConfig = new Lazy<IConfigurationRoot>(() => new ConfigurationBuilder()
-            .SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!)
-            .AddJsonFile(_filename)
-            .Build());
+            return new ConfigurationBuilder()
+                .SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!)
+                .AddJsonFile(_filename)
+                .Build();
+        });
     }
 }

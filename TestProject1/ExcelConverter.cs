@@ -10,6 +10,7 @@ using Excel.Extension;
 namespace TestMyLib
 {
     [TestFixture]
+    [Order(1)]
     public class ExcelConverter_DataTable
     {
         private List<StudentModel> dmstudents;
@@ -28,7 +29,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test01_DataTable2Excel()
+        [Order(1)]
+        public void DataTable2Excel()
         {
             #region Arrange
             string filename = @".\Test01_DataTable2Excel.xlsx";
@@ -50,7 +52,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test02_DataTable2Excel_Anchor()
+        [Order(2)]
+        public void DataTable2Excel_Anchor()
         {
             #region Arrange
             string filename = @".\Test02_DataTable2Excel_Anchor.xlsx";
@@ -73,7 +76,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test04_Excel2DataTable()
+        [Order(3)]
+        public void Excel2DataTable()
         {
             #region Arrange
             string filename = @".\Test01_DataTable2Excel.xlsx";
@@ -101,7 +105,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test05_Excel2DataTable_Anchor()
+        [Order(4)]
+        public void Excel2DataTable_Anchor()
         {
             #region Arrange
             string filename = @".\Test02_DataTable2Excel_Anchor.xlsx";
@@ -130,7 +135,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test06_Excel2DataTable_DataRange()
+        [Order(5)]
+        public void Excel2DataTable_DataRange()
         {
             #region Arrange
             string filename = @".\Test01_DataTable2Excel.xlsx";
@@ -149,15 +155,16 @@ namespace TestMyLib
             #region Assert
             Assert.That(result.Rows.Count == 1);
             Assert.That(result.Columns.Count == 3);
-            Assert.That(result.Rows[0]["Name"].ToString() == "Jack");
-            Assert.That(result.Rows[0]["StudentId"].ToString() == "10000");
-            Assert.That(result.Rows[0]["Age"].ToString() == "15");
+            Assert.That(result.Rows[0]["Name"].ToString() == "Smith");
+            Assert.That(result.Rows[0]["StudentId"].ToString() == "10100");
+            Assert.That(result.Rows[0]["Age"].ToString() == "17.02");
             Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
         }
 
         [Test]
-        public void Test07_Excel2DataTable_DataType()
+        [Order(6)]
+        public void Excel2DataTable_DataType()
         {
             #region Arrange
             string filename = @".\Test07_DataTable2Excel.xlsx";
@@ -180,7 +187,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test08_Excel2DataTable_DataType()
+        [Order(7)]
+        public void Excel2DataTable_DataType2()
         {
             #region Arrange
             string filename = @".\Test07_DataTable2Excel.xlsx";
@@ -209,6 +217,7 @@ namespace TestMyLib
     }
 
     [TestFixture]
+    [Order(2)]
     public class ExcelConverter_DataSet
     {
         private List<StudentModel> dmRawData;
@@ -233,7 +242,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test01_DataSet2Excel()
+        [Order(1)]
+        public void DataSet2Excel()
         {
             #region Arrange
             string filename = @".\Test01_DataSet2Excel.xlsx";
@@ -255,7 +265,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test02_DataSet2Excel_Anchor()
+        [Order(2)]
+        public void DataSet2Excel_Anchor()
         {
             #region Arrange
             string filename = @".\Test02_DataSet2Excel_Anchor.xlsx";
@@ -278,7 +289,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test04_DataSet2Excel_SheetRange()
+        [Order(3)]
+        public void DataSet2Excel_SheetRange()
         {
             #region Arrange
             string filename = @".\Test04_DataSet2Excel_SheetRange.xlsx";
@@ -301,7 +313,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test05_Excel2DataSet()
+        [Order(4)]
+        public void Excel2DataSet()
         {
             #region Arrange
             string filename = @".\Test01_DataSet2Excel.xlsx";
@@ -332,7 +345,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test06_Excel2DataSet_Anchor()
+        [Order(5)]
+        public void Excel2DataSet_Anchor()
         {
             #region Arrange
             string filename = @".\Test02_DataSet2Excel_Anchor.xlsx";
@@ -364,7 +378,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test07_Excel2DataSet_DataRange()
+        [Order(6)]
+        public void Excel2DataSet_DataRange()
         {
             #region Arrange
             string filename = @".\Test01_DataSet2Excel.xlsx";
@@ -385,16 +400,17 @@ namespace TestMyLib
             {
                 Assert.That(result.Tables[i].Rows.Count == 1);
                 Assert.That(result.Tables[i].Columns.Count == 3);
-                Assert.That(result.Tables[i].Rows[0]["Name"].ToString() == "Jack");
-                Assert.That(result.Tables[i].Rows[0]["StudentId"].ToString() == "100");
-                Assert.That(result.Tables[i].Rows[0]["Age"].ToString() == "15");
+                Assert.That(result.Tables[i].Rows[0]["Name"].ToString() == "Karoro");
+                Assert.That(result.Tables[i].Rows[0]["StudentId"].ToString() == "102");
+                Assert.That(result.Tables[i].Rows[0]["Age"].ToString() == "20");
             }
             Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
         }
 
         [Test]
-        public void Test08_Excel2DataSet_SheetRange()
+        [Order(7)]
+        public void Excel2DataSet_SheetRange()
         {
             #region Arrange
             string filename = @".\Test04_DataSet2Excel_SheetRange.xlsx";
@@ -425,7 +441,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test09_Excel2DataSet_DataType()
+        [Order(8)]
+        public void Excel2DataSet_DataType()
         {
             #region Arrange
             string filename = @".\Test09_Excel2DataSet_DataType.xlsx";
@@ -448,7 +465,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test10_Excel2DataSet_DataType()
+        [Order(9)]
+        public void Excel2DataSet_DataType2()
         {
             #region Arrange
             string filename = @".\Test09_Excel2DataSet_DataType.xlsx";
@@ -480,6 +498,7 @@ namespace TestMyLib
     }
 
     [TestFixture]
+    [Order(3)]
     public class ExcelConverter_ClassModel
     {
         private List<StudentModel> rawData;
@@ -496,7 +515,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test01_DataModel2Excel()
+        [Order(1)]
+        public void DataModel2Excel()
         {
             #region Arrange
             string filename = @".\Test01_DataModel2Excel.xlsx";
@@ -518,7 +538,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test02_DataModel2Excel_Anchor()
+        [Order(2)]
+        public void DataModel2Excel_Anchor()
         {
             #region Arrange
             string filename = @".\Test02_DataModel2Excel_Anchor.xlsx";
@@ -541,7 +562,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test04_Excel2DataModel()
+        [Order(3)]
+        public void Excel2DataModel()
         {
             #region Arrange
             string filename = @".\Test01_DataModel2Excel.xlsx";
@@ -571,7 +593,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test05_Excel2DataModel_Anchor()
+        [Order(4)]
+        public void Excel2DataModel_Anchor()
         {
             #region Arrange
             string filename = @".\Test02_DataModel2Excel_Anchor.xlsx";
@@ -602,7 +625,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test06_Excel2DataModel_DataRange()
+        [Order(5)]
+        public void Excel2DataModel_DataRange()
         {
             #region Arrange
             string filename = @".\Test01_DataModel2Excel.xlsx";
@@ -628,7 +652,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test07_Excel2DataModel_DataType()
+        [Order(6)]
+        public void Excel2DataModel_DataType()
         {
             #region Arrange
             string filename = @".\Test07_Excel2DataModel_DataType.xlsx";
@@ -651,7 +676,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test08_Excel2DataModel_DataType()
+        [Order(7)]
+        public void Excel2DataModel_DataType2()
         {
             #region Arrange
             string filename = @".\Test07_Excel2DataModel_DataType.xlsx";

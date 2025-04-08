@@ -8,7 +8,7 @@ using Data.Extension;
 namespace TestMyLib
 {
     [TestFixture]
-    public class TestDataExtensions
+    public class DataExtensions
     {
         private DataTable dtStudent = new DataTable();
         private List<StudentModel> dmStudent = new List<StudentModel>();
@@ -36,7 +36,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test01_Table2Model()
+        [Order(1)]
+        public void Table2Model()
         {
             #region Arrange
             #endregion
@@ -46,12 +47,13 @@ namespace TestMyLib
             #endregion
 
             #region Assert
-            Assert.That(dmData.Count == 0);
+            Assert.That(dmData.Any());
             #endregion
         }
 
         [Test]
-        public void Test02_Table2ModelMapping()
+        [Order(2)]
+        public void Table2ModelMapping()
         {
             #region Arrange
             dtStudent = new DataTable();
@@ -77,12 +79,13 @@ namespace TestMyLib
             #endregion
 
             #region Assert
-            Assert.That(dmData.Count == 0);
+            Assert.That(dmData.Any());
             #endregion
         }
 
         [Test]
-        public void Test03_Model2Table()
+        [Order(3)]
+        public void Model2Table()
         {
             #region Arrange
             #endregion
@@ -92,12 +95,13 @@ namespace TestMyLib
             #endregion
 
             #region Assert
-            Assert.That(dtData.Rows.Count == 0);
+            Assert.That(dtData.Rows.Count > 0);
             #endregion
         }
 
         [Test]
-        public void Test04_Segmentation()
+        [Order(4)]
+        public void Segmentation()
         {
             #region Arrange
             string test = @"壬戌之秋，七月既望，蘇子與客泛舟遊於赤壁之下。清風徐來，水波不興，舉酒屬客，誦明月之詩，歌窈窕之章。少焉，月出於東山之上，徘徊於斗牛之間，白露橫江，水光接天；縱一葦之所如，凌萬頃之茫然。浩浩乎如馮虛御風，而不知其所止；飄飄乎如遺世獨立，羽化而登仙。
@@ -123,7 +127,8 @@ namespace TestMyLib
         }
 
         [Test]
-        public void Test05_Tokenization()
+        [Order(5)]
+        public void Tokenization()
         {
             #region Arrange
             string test = @"蘇子與客泛舟遊於赤壁之下";
