@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
-    <PackageReference Include="NPOI" Version="2.7.2" />
+    <PackageReference Include="NPOI" Version="2.7.3" />
   </ItemGroup>
 
   <ItemGroup>
