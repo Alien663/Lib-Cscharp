@@ -19,7 +19,7 @@ public class MailTest
         smtp = "GLTDSSMTP.quanta.corp";
         sender = "tds@quantatw.com";
         receiver = "Bryan_Lin@quantatw.com";
-        cc = "leon-chen@quantatw.com";
+        cc = "Bryan_Lin@quantatw.com";
     }
 
     [Test]

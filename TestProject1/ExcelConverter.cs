@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Data.Extension;
 using Excel.Extension;
+using NUnit.Framework.Legacy;
 
 namespace TestMyLib
 {
@@ -48,6 +49,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            FileAssert.Exists(filename);
             #endregion
         }
 
@@ -72,6 +74,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            FileAssert.Exists(filename);
             #endregion
         }
 
@@ -100,7 +103,6 @@ namespace TestMyLib
                     Assert.That(result.Rows[i][j].ToString() == dtRawData.Rows[i][j].ToString());
                 }
             }
-            Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
         }
 
@@ -130,7 +132,6 @@ namespace TestMyLib
                     Assert.That(result.Rows[i][j].ToString() == dtRawData.Rows[i][j].ToString());
                 }
             }
-            Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
         }
 
@@ -158,7 +159,6 @@ namespace TestMyLib
             Assert.That(result.Rows[0]["Name"].ToString() == "Smith");
             Assert.That(result.Rows[0]["StudentId"].ToString() == "10100");
             Assert.That(result.Rows[0]["Age"].ToString() == "17.02");
-            Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
         }
 
@@ -261,6 +261,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            FileAssert.Exists(filename);
             #endregion
         }
 
@@ -285,6 +286,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            FileAssert.Exists(filename);
             #endregion
         }
 
@@ -309,6 +311,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            FileAssert.Exists(filename);
             #endregion
         }
 
@@ -534,6 +537,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            FileAssert.Exists(filename);
             #endregion
         }
 
@@ -558,6 +562,7 @@ namespace TestMyLib
             #endregion
 
             #region Assert
+            FileAssert.Exists(filename);
             #endregion
         }
 
