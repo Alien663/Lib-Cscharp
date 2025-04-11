@@ -39,7 +39,7 @@ namespace Config.Extension
             }
         }
 
-        public string? Decrypt(string cipherText)
+        public string Decrypt(string cipherText)
         {
             try
             {
@@ -65,8 +65,7 @@ namespace Config.Extension
             }
             catch (Exception)
             {
-                return null;
-
+                return "";
             }
         }
 
