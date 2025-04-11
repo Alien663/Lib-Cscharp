@@ -35,8 +35,7 @@ namespace TestMyLib
             dmStudent.Add(new StudentModel() { Name = "Karoro", Age = 20, StudentId = 102 });
         }
 
-        [Test]
-        [Order(1)]
+        [Test, Order(1)]
         public void Table2Model()
         {
             #region Arrange
@@ -51,8 +50,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(2)]
+        [Test, Order(2)]
         public void Table2ModelMapping()
         {
             #region Arrange
@@ -83,8 +81,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(3)]
+        [Test, Order(3)]
         public void Model2Table()
         {
             #region Arrange
@@ -99,8 +96,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(4)]
+        [Test, Order(4)]
         public void Segmentation()
         {
             #region Arrange
@@ -126,8 +122,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(5)]
+        [Test, Order(5)]
         public void Tokenization()
         {
             #region Arrange

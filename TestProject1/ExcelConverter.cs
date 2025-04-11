@@ -10,27 +10,56 @@ using NUnit.Framework.Legacy;
 
 namespace TestMyLib
 {
-    [TestFixture]
-    [Order(1)]
+    [TestFixture, Order(1)]
     public class ExcelConverter_DataTable
     {
-        private List<StudentModel> dmstudents;
         private DataTable dtRawData = new DataTable();
 
         [OneTimeSetUp]
         public void Initailize()
         {
-            dmstudents = new List<StudentModel>
-            {
-                new StudentModel { Name = "Jack", Age = 15.00, StudentId = 10000 },
-                new StudentModel { Name = "Smith", Age = 17.02, StudentId = 10100 },
-                new StudentModel { Name = "Keroro", Age = 20.321, StudentId = 10200 }
-            };
-            dtRawData = ClassModelConvert.ToDataTable(dmstudents);
+            dtRawData.TableName = "Test 1";
+            #region Column Setting
+            DataColumn column;
+            column = new DataColumn();
+            column.ColumnName = "Name";
+            column.DataType = Type.GetType("System.String");
+            dtRawData.Columns.Add(column);
+
+            column = new DataColumn();
+            column.ColumnName = "Age";
+            column.DataType = Type.GetType("System.Double");
+            dtRawData.Columns.Add(column);
+
+            column = new DataColumn();
+            column.ColumnName = "StudentId";
+            column.DataType = Type.GetType("System.Int32");
+            dtRawData.Columns.Add(column);
+            #endregion
+
+            #region Row Add
+            DataRow row;
+            row = dtRawData.NewRow();
+            row["Name"] = "Jack";
+            row["Age"] = 15.00;
+            row["StudentId"] = 10000;
+            dtRawData.Rows.Add(row);
+
+            row = dtRawData.NewRow();
+            row["Name"] = "Smith";
+            row["Age"] = 17.02;
+            row["StudentId"] = 10100;
+            dtRawData.Rows.Add(row);
+
+            row = dtRawData.NewRow();
+            row["Name"] = "Keroro";
+            row["Age"] = 20.321;
+            row["StudentId"] = 10200;
+            dtRawData.Rows.Add(row);
+            #endregion
         }
 
-        [Test]
-        [Order(1)]
+        [Test, Order(1)]
         public void DataTable2Excel()
         {
             #region Arrange
@@ -53,8 +82,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(2)]
+        [Test, Order(2)]
         public void DataTable2Excel_Anchor()
         {
             #region Arrange
@@ -78,8 +106,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(3)]
+        [Test, Order(3)]
         public void Excel2DataTable()
         {
             #region Arrange
@@ -106,8 +133,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(4)]
+        [Test, Order(4)]
         public void Excel2DataTable_Anchor()
         {
             #region Arrange
@@ -135,8 +161,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(5)]
+        [Test, Order(5)]
         public void Excel2DataTable_DataRange()
         {
             #region Arrange
@@ -156,14 +181,13 @@ namespace TestMyLib
             #region Assert
             Assert.That(result.Rows.Count == 1);
             Assert.That(result.Columns.Count == 3);
-            Assert.That(result.Rows[0]["Name"].ToString() == "Smith");
-            Assert.That(result.Rows[0]["StudentId"].ToString() == "10100");
-            Assert.That(result.Rows[0]["Age"].ToString() == "17.02");
+            Assert.That(result.Rows[0]["Name"].ToString() == "Jack");
+            Assert.That(result.Rows[0]["StudentId"].ToString() == "10000");
+            Assert.That(result.Rows[0]["Age"].ToString() == "15");
             #endregion
         }
 
-        [Test]
-        [Order(6)]
+        [Test, Order(6)]
         public void Excel2DataTable_DataType()
         {
             #region Arrange
@@ -186,8 +210,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(7)]
+        [Test, Order(7)]
         public void Excel2DataTable_DataType2()
         {
             #region Arrange
@@ -216,33 +239,64 @@ namespace TestMyLib
         }
     }
 
-    [TestFixture]
-    [Order(2)]
+    [TestFixture, Order(2)]
     public class ExcelConverter_DataSet
     {
         private List<StudentModel> dmRawData;
+        private DataTable dtRawData1 = new DataTable();
+        private DataTable dtRawData2 = new DataTable();
         private DataSet dsRawData = new DataSet();
 
         [OneTimeSetUp]
         public void Initailize()
         {
-            dmRawData = new List<StudentModel>
-            {
-                new StudentModel {Name = "Jack", Age = 15, StudentId = 100},
-                new StudentModel {Name = "Smith", Age = 17, StudentId = 101 },
-                new StudentModel {Name = "Karoro", Age = 20, StudentId = 102 },
-            };
+            dtRawData1.TableName = "Test 1";
+            #region Column Setting
+            DataColumn column;
+            column = new DataColumn();
+            column.ColumnName = "Name";
+            column.DataType = Type.GetType("System.String");
+            dtRawData1.Columns.Add(column);
 
-            DataTable dtRawData = ClassModelConvert.ToDataTable(dmRawData);
-            DataTable dtRawData2 = dtRawData.Copy();
-            dtRawData.TableName = "Test 1";
+            column = new DataColumn();
+            column.ColumnName = "Age";
+            column.DataType = Type.GetType("System.Double");
+            dtRawData1.Columns.Add(column);
+
+            column = new DataColumn();
+            column.ColumnName = "StudentId";
+            column.DataType = Type.GetType("System.Int32");
+            dtRawData1.Columns.Add(column);
+            #endregion
+
+            #region Row Add
+            DataRow row;
+            row = dtRawData1.NewRow();
+            row["Name"] = "Jack";
+            row["Age"] = 15.00;
+            row["StudentId"] = 10000;
+            dtRawData1.Rows.Add(row);
+
+            row = dtRawData1.NewRow();
+            row["Name"] = "Smith";
+            row["Age"] = 17.02;
+            row["StudentId"] = 10100;
+            dtRawData1.Rows.Add(row);
+
+            row = dtRawData1.NewRow();
+            row["Name"] = "Keroro";
+            row["Age"] = 20.321;
+            row["StudentId"] = 10200;
+            dtRawData1.Rows.Add(row);
+            #endregion
+            
+            dtRawData2 = dtRawData1.Copy();
             dtRawData2.TableName = "Test 2";
-            dsRawData.Tables.Add(dtRawData);
+            dsRawData.Tables.Add(dtRawData1);
             dsRawData.Tables.Add(dtRawData2);
         }
 
-        [Test]
-        [Order(1)]
+        [Test, Order(1)]
         public void DataSet2Excel()
         {
             #region Arrange
@@ -265,8 +319,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(2)]
+        [Test, Order(2)]
         public void DataSet2Excel_Anchor()
         {
             #region Arrange
@@ -290,8 +343,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(3)]
+        [Test, Order(3)]
         public void DataSet2Excel_SheetRange()
         {
             #region Arrange
@@ -315,8 +367,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(4)]
+        [Test, Order(4)]
         public void Excel2DataSet()
         {
             #region Arrange
@@ -347,8 +398,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(5)]
+        [Test, Order(5)]
         public void Excel2DataSet_Anchor()
         {
             #region Arrange
@@ -380,8 +430,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(6)]
+        [Test, Order(6)]
         public void Excel2DataSet_DataRange()
         {
             #region Arrange
@@ -403,16 +452,15 @@ namespace TestMyLib
             {
                 Assert.That(result.Tables[i].Rows.Count == 1);
                 Assert.That(result.Tables[i].Columns.Count == 3);
-                Assert.That(result.Tables[i].Rows[0]["Name"].ToString() == "Karoro");
-                Assert.That(result.Tables[i].Rows[0]["StudentId"].ToString() == "102");
-                Assert.That(result.Tables[i].Rows[0]["Age"].ToString() == "20");
+                Assert.That(result.Tables[i].Rows[0]["Name"].ToString() == "Jack");
+                Assert.That(result.Tables[i].Rows[0]["StudentId"].ToString() == "10000");
+                Assert.That(result.Tables[i].Rows[0]["Age"].ToString() == "15");
             }
             Console.WriteLine(JsonConvert.SerializeObject(result));
             #endregion
         }
 
-        [Test]
-        [Order(7)]
+        [Test, Order(7)]
         public void Excel2DataSet_SheetRange()
         {
             #region Arrange
@@ -443,8 +491,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(8)]
+        [Test, Order(8)]
         public void Excel2DataSet_DataType()
         {
             #region Arrange
@@ -467,8 +514,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(9)]
+        [Test, Order(9)]
         public void Excel2DataSet_DataType2()
         {
             #region Arrange
@@ -500,8 +546,7 @@ namespace TestMyLib
         }
     }
 
-    [TestFixture]
-    [Order(3)]
+    [TestFixture, Order(3)]
     public class ExcelConverter_ClassModel
     {
         private List<StudentModel> rawData;
@@ -513,12 +558,11 @@ namespace TestMyLib
             {
                 new StudentModel {Name = "Jack", Age = 15, StudentId = 100},
                 new StudentModel {Name = "Smith", Age = 17, StudentId = 101 },
-                new StudentModel {Name = "Karoro", Age = 20, StudentId = 102 },
+                new StudentModel {Name = "Keroro", Age = 20, StudentId = 102 },
             };
         }
 
-        [Test]
-        [Order(1)]
+        [Test, Order(1)]
         public void DataModel2Excel()
         {
             #region Arrange
@@ -541,8 +585,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(2)]
+        [Test, Order(2)]
         public void DataModel2Excel_Anchor()
         {
             #region Arrange
@@ -566,8 +609,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(3)]
+        [Test, Order(3)]
         public void Excel2DataModel()
         {
             #region Arrange
@@ -597,8 +639,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(4)]
+        [Test, Order(4)]
         public void Excel2DataModel_Anchor()
         {
             #region Arrange
@@ -629,8 +670,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(5)]
+        [Test, Order(5)]
         public void Excel2DataModel_DataRange()
         {
             #region Arrange
@@ -656,8 +696,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(6)]
+        [Test, Order(6)]
         public void Excel2DataModel_DataType()
         {
             #region Arrange
@@ -680,8 +719,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(7)]
+        [Test, Order(7)]
         public void Excel2DataModel_DataType2()
         {
             #region Arrange

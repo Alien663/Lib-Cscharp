@@ -7,8 +7,7 @@ namespace TestMyLib
 {
     public class ConfigExtension
     {
-        [Test]
-        [Order(1)]
+        [Test, Order(1)]
         public void ReadAppconfig()
         {
             #region Arrange
@@ -23,8 +22,7 @@ namespace TestMyLib
             #endregion
         }
         
-        [Test]
-        [Order(2)]
+        [Test, Order(2)]
         public void AESEncryp()
         {
             #region Arrange
@@ -41,8 +39,7 @@ namespace TestMyLib
             #endregion
         }
 
-        [Test]
-        [Order(3)]
+        [Test, Order(3)]
         public void AESDecrypt()
         {
             #region Arrange
