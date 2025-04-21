@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>Alien.Common.All</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>Alien663</Authors>
+		<Description>Meta-package that includes all Alien.Common libraries.</Description>
+		<PackageTags>alien common all meta-package utilities</PackageTags>
+		<RepositoryUrl>https://github.com/Alien663/Lib-Cscharp</RepositoryUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Config\Alien.Common.Config.csproj" />
+		<ProjectReference Include="..\Data\Alien.Common.Data.csproj" />
+		<ProjectReference Include="..\Excel\Alien.Common.Excel.csproj" />
+		<ProjectReference Include="..\Mail\Alien.Common.Mail.csproj" />
+		<ProjectReference Include="..\Utility\Alien.Common.Utility.csproj" />
+	</ItemGroup>
+
+</Project>
