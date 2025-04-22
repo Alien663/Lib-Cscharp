@@ -1,4 +1,4 @@
-﻿using System.Net.Mail;
+﻿using MailKit.Net.Smtp;
 using Alien.Common.Mail.Models;
 
 namespace Alien.Common.Mail;
@@ -10,14 +10,15 @@ internal class MailClient : IMailClient, IDisposable
 
     public MailClient(MailConfigDto config)
     {
-        smtpClient = new SmtpClient(config.SMTPServer, config.Port);
+        smtpClient = new SmtpClient();
+        smtpClient.Connect(config.SMTPServer, config.Port, false);
     }
 
     public void Send(MailDto mail)
     {
         CheckDisposed();
-        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
         smtpClient.Send(mail.message);
+        smtpClient.Disconnect(true);
     }
 
     public void Dispose()

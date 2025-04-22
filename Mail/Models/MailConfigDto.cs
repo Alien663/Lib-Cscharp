@@ -2,6 +2,6 @@
 
 public class MailConfigDto
 {
-    public string SMTPServer { get; set; }
+    public required string SMTPServer { get; set; }
     public int Port { get; set; } = 25;
 }

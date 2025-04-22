@@ -1,31 +1,37 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Net.Mail;
-using System.Net.Mime;
+﻿using MimeKit;
 
 namespace Alien.Common.Mail.Models;
 
 public class MailDto
 {
-    public string Sender { get; set; }
-    public List<string> To { get; set; }
-    public List<string> CC { get; set; }
-    public List<Attachment> attachments { get; set; } = new List<Attachment>();
-    public string Subject { get; set; }
-    public string Body { get; set; }
-    public bool IsBodyHtml { get; set; } = true;
+    public required string Sender { get; set; }
+    public required List<string> To { get; set; }
+    public List<string> CC { get; set; } = new List<string>();
+    public List<string> BCC { get; set; } = new List<string>();
+    public List<string> Attachments { get; set; } = new List<string>();
+    public required string Subject { get; set; }
+    public string Body { get; set; } = "";
 
-    public MailMessage message
+    public MimeMessage message
     {
         get
         {
-            message.From = new MailAddress(Sender);
-            foreach (var item in To) message.To.Add(item);
-            foreach (var item in CC) message.CC.Add(item);
-            foreach (var item in attachments) message.Attachments.Add(item);
             message.Subject = this.Subject;
-            message.Body = this.Body;
-            IsBodyHtml = this.IsBodyHtml;
+            message.Sender = new MailboxAddress(Sender, Sender);
+            foreach (var item in To) message.To.Add(new MailboxAddress(item, item));
+            foreach (var item in CC) message.Cc.Add(new MailboxAddress(item, item));
+            foreach (var item in BCC) message.Bcc.Add(new MailboxAddress(item, item));
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = this.Body;
+            foreach (var item in Attachments)
+            {
+                if (!File.Exists(item))
+                {
+                    throw new ArgumentException("File not found", nameof(item));
+                }
+                bodyBuilder.Attachments.Add(item);
+            }
+            message.Body = bodyBuilder.ToMessageBody();
             return message;
         }
         private set { message = value; }
@@ -33,21 +39,53 @@ public class MailDto
 
     public void setPicture(string ID, string FilePath, string Mime)
     {
-        AlternateView htmlview = AlternateView.CreateAlternateViewFromString(this.Body, null, MediaTypeNames.Text.Html);
-        LinkedResource imageLink = new LinkedResource(FilePath, Mime);
-        imageLink.ContentId = ID;
-        imageLink.TransferEncoding = TransferEncoding.Base64;
-        htmlview.LinkedResources.Add(imageLink);
-        this.message.AlternateViews.Add(htmlview);
+        if (!File.Exists(FilePath))
+        {
+            throw new ArgumentException("File not found", nameof(FilePath));
+        }
+        var bodyBuilder = new BodyBuilder();
+        bodyBuilder.HtmlBody = message.HtmlBody;
+
+        if(!bodyBuilder.HtmlBody.Contains($"cid:{ID}"))
+        {
+            throw new ArgumentException("ID not found in body", nameof(ID));
+        }
+
+        bodyBuilder.LinkedResources.Add(new MimePart(Mime)
+        {
+            ContentId = ID,
+            ContentTransferEncoding = ContentEncoding.Base64,
+            FileName = Path.GetFileName(FilePath),
+            ContentDisposition = new ContentDisposition(ContentDisposition.Inline)
+            {
+                IsAttachment = false
+            }
+        });
+        message.Body = bodyBuilder.ToMessageBody();
     }
     public void setPicture(MailPictureModel picture)
     {
-        AlternateView htmlview = AlternateView.CreateAlternateViewFromString(this.Body, null, MediaTypeNames.Text.Html);
-        LinkedResource imageLink = new LinkedResource(picture.FilePath, picture.Mime);
-        imageLink.ContentId = picture.ID;
-        imageLink.TransferEncoding = TransferEncoding.Base64;
-        htmlview.LinkedResources.Add(imageLink);
-        this.message.AlternateViews.Add(htmlview);
+        if (!File.Exists(picture.FilePath))
+        {
+            throw new ArgumentException("File not found", nameof(picture.FilePath));
+        }
+        var bodyBuilder = new BodyBuilder();
+        bodyBuilder.HtmlBody = message.HtmlBody;
+        if (!bodyBuilder.HtmlBody.Contains($"cid:{picture.ID}"))
+        {
+            throw new ArgumentException("ID not found in body", nameof(picture.ID));
+        }
+        bodyBuilder.LinkedResources.Add(new MimePart(picture.Mime)
+        {
+            ContentId = picture.ID,
+            ContentTransferEncoding = ContentEncoding.Base64,
+            FileName = Path.GetFileName(picture.FilePath),
+            ContentDisposition = new ContentDisposition(ContentDisposition.Inline)
+            {
+                IsAttachment = false
+            }
+        });
+        message.Body = bodyBuilder.ToMessageBody();
     }
     public void setPicture(List<MailPictureModel> pictures)
     {

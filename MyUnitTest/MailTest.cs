@@ -1,16 +1,18 @@
 ﻿using NUnit.Framework;
-using System.Net.Mail;
 using System.Collections.Generic;
 using Alien.Common.Mail;
 using Alien.Common.Mail.Models;
+using System;
 
 namespace TestMyLib;
 
 [TestFixture]
 public class MailTest
 {
-    [Test]
-    public void MailSender_SouldCallSendMethod()
+    private string htmlBody = @"Hi Leon,<br>Help me to do the unit test of mail module<br><img src='cid:logo1'></img><br><img src='cid:logo2'></img><br>Test Send Mail<br>";
+    [OneTimeSetUp]
+    [Test, Order(1)]
+    public void CallMailSuccess()
     {
         #region Arrange
         var fakeClient = new FakeMailCleint();
@@ -20,32 +22,95 @@ public class MailTest
             Sender = "test@demo.com",
             To = new List<string> { "test@demo.com" },
             CC = new List<string> { "test@demo.com" },
+            BCC = new List<string> { "test@demo.com" },
             Subject = "Test",
-            Body = "Hi Leon,<br>\r\nHelp me to do the unit test of mail module<br>\r\n<img src='cid:logo1'></img><br>\r\n<img src='cid:logo2'></img><br>\r\nTest Send Mail<br>",
-            IsBodyHtml = true,
-            attachments = new List<Attachment>
-            {
-                new Attachment(@".\icon.png")
-            }
+            Body = htmlBody,
+            Attachments = new List<string> { @".\icon.png" }
         };
+        #endregion
+
+        #region Act
         mail.setPicture(ID: "logo1", FilePath: @".\icon.png", Mime: "img/png");
         mail.setPicture(new List<MailPictureModel>
         {
             new MailPictureModel
             {
                 ID = "logo2",
-                FilePath = @".\icon.png",
-                Mime = "img/png"
+                FilePath = @".\icon.png"
             }
         });
-        #endregion
-
-        #region Act
         fakeClient.Send(mail);
         #endregion
 
         #region Assert
         Assert.That(fakeClient.Sent, Is.True);
+        #endregion
+    }
+
+    [Test, Order(2)]
+    public void CallMailFail_WrongPictureSetting()
+    {
+        #region Arrange
+        var fakeClient = new FakeMailCleint();
+        var config = new MailConfigDto { SMTPServer = "smtp.demo.com" };
+        var mail = new MailDto
+        {
+            Sender = "test@demo.com",
+            To = new List<string> { "test@demo.com" },
+            Subject = "Test",
+            Attachments = new List<string> { @".\icon.png" }
+        };
+        #endregion
+
+        #region Act
+        mail.setPicture(ID: "WrongID", FilePath: @".\icon.png", Mime: "img/png");
+        mail.setPicture(new List<MailPictureModel>
+        {
+            new MailPictureModel
+            {
+                ID = "logo2",
+                FilePath = @".\WrongPath.png"
+            }
+        });
+        #endregion
+
+        #region Assert
+        Assert.Throws<ArgumentException>(() => mail.setPicture(ID: "WrongID", FilePath: @".\icon.png", Mime: "img/png"), "File not found");
+        Assert.Throws<ArgumentException>(() => mail.setPicture(new List<MailPictureModel>
+        {
+            new MailPictureModel
+            {
+                ID = "logo2",
+                FilePath = @".\WrongPath.png"
+            }
+        }));
+        #endregion
+    }
+
+    [Test, Order(3)]
+    public void CallMailFail_WrongAttachement()
+    {
+        #region Arrange
+        var fakeClient = new FakeMailCleint();
+        var config = new MailConfigDto { SMTPServer = "smtp.demo.com" };
+        var mail = new MailDto
+        {
+            Sender = "test@demo.com",
+            To = new List<string> { "test@demo.com" },
+            Subject = "Test",
+            Attachments = new List<string> { @".\WrongPath.png" }
+        };
+        #endregion
+
+        #region Act
+        #endregion
+
+        #region Assert
+        Assert.Throws<ArgumentException>(() => { foreach(var item in mail.Attachments)
+            {
+                Console.WriteLine(item);
+            }
+        });
         #endregion
     }
 

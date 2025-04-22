@@ -2,8 +2,8 @@
 {
     public class MailPictureModel
     {
-        public string ID { get; set; }
-        public string FilePath { get; set; }
-        public string Mime { get; set; }
+        public required string ID { get; set; }
+        public required string FilePath { get; set; }
+        public string Mime { get; set; } = "img/png";
     }
 }
