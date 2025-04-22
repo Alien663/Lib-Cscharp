@@ -1,6 +1,6 @@
 # Alien.Common.Excel
 
-A utility library for importing/exporting Excel files using ClosedXML and OpenXML.
+A library for importing/exporting Excel files using NPOI.
 
 ## 📦 Installation
 
@@ -9,8 +9,11 @@ Install-Package Alien.Common.Excel
 ```
 
 ## 🚀 Features
-- Export data to Excel from List<T>
-- Import data from Excel into DataTable
+
+- Export data to Excel from List\<T>/DataTable/DataSet
+- Import data from Excel to List\<T>/DataTable/DataSet
+- Support for multiple sheets in a single file when exporting by DataSet
+- Support for setting the starting row for data
 - Apply styling and formatting
 
 ## 🧪 Example Usage
@@ -24,16 +27,20 @@ var data = new List<MyModel>
     new MyModel { Name = "Jane", Age = 25 }
 };
 
-var stream = ExcelExporter.ExportToExcel(data);
-File.WriteAllBytes("output.xlsx", stream.ToArray());
+using ExcelConverter excel = new ExcelConverter();
+using FileStream fs = File.Create(filename);
+byte[] data = excel.export(rawData);
+fs.Write(data, 0, data.Length);
 ```
 
 ## 📘 Dependencies
-- ClosedXML
-- DocumentFormat.OpenXml
+
+- NPOI
 
 ## 🛠 Compatibility
+
 - .NET 6 and above
 
 ## 🧙 Author
+
 Alien663

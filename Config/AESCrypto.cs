@@ -1,41 +1,37 @@
-﻿using System.Security.Cryptography;
+﻿using System.Globalization;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Alien.Common.Config;
 
 public class AESCrypto : IDisposable
 {
-    public AESCrypto(string key = "Alien19BxNd4BMFGSjROulGESLTVeZjC", string iv = "8b85a31a084Alien")
-    {
-        _key = key;
-        _iv = iv;
-    }
-
     private bool disposed = false;
-    private string _key;
-    private string _iv;
+    private byte[] once;
+    private byte[] _key;
+
+    public AESCrypto(string key = "Alien19BxNd4BMFGSjROulGESLTVeZjC", string iv = "8b85a31a084t")
+    {
+        _key = Encoding.UTF8.GetBytes(key);
+        once = Encoding.UTF8.GetBytes(iv);
+    }
 
     public string Encrypt(string plainText)
     {
-        using (Aes aesAlg = Aes.Create())
+        try
         {
-            aesAlg.Key = Encoding.UTF8.GetBytes(_key);
-            aesAlg.IV = Encoding.UTF8.GetBytes(_iv);
-            aesAlg.Mode = CipherMode.CFB;
-            aesAlg.Padding = PaddingMode.PKCS7;
-            ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
-
-            using (MemoryStream msEncrypt = new MemoryStream())
+            byte[] plaintextBytes = Encoding.UTF8.GetBytes(plainText);
+            byte[] ciphertext = new byte[plaintextBytes.Length];
+            byte[] tag = new byte[AesGcm.TagByteSizes.MaxSize];
+            using (AesGcm aesGcm = new AesGcm(_key, 16))
             {
-                using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                {
-                    using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
-                    {
-                        swEncrypt.Write(plainText);
-                    }
-                }
-                return Convert.ToBase64String(msEncrypt.ToArray());
+                aesGcm.Encrypt(once, plaintextBytes, ciphertext, tag);
+                return Convert.ToBase64String(once.Concat(ciphertext).Concat(tag).ToArray());
             }
+        }
+        catch (Exception ex)
+        {
+            throw new CryptographicException("Encryption failed", ex);
         }
     }
 
@@ -43,29 +39,21 @@ public class AESCrypto : IDisposable
     {
         try
         {
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = Encoding.UTF8.GetBytes(_key);
-                aesAlg.IV = Encoding.UTF8.GetBytes(_iv);
-                aesAlg.Mode = CipherMode.CFB;
-                aesAlg.Padding = PaddingMode.PKCS7;
-                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+            byte[] fullCipher = Convert.FromBase64String(cipherText);
+            byte[] tag = fullCipher.Skip(fullCipher.Length - AesGcm.TagByteSizes.MaxSize).ToArray();
+            byte[] ciphertext = fullCipher.Skip(AesGcm.NonceByteSizes.MaxSize).Take(fullCipher.Length - AesGcm.NonceByteSizes.MaxSize - AesGcm.TagByteSizes.MaxSize).ToArray();
+            byte[] plaintextBytes = new byte[ciphertext.Length];
 
-                using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText)))
-                {
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                    {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                        {
-                            return srDecrypt.ReadToEnd();
-                        }
-                    }
-                }
+            using (AesGcm aesGcm = new AesGcm(_key, 16))
+            {
+                aesGcm.Decrypt(once, ciphertext, tag, plaintextBytes);
             }
+
+            return Encoding.UTF8.GetString(plaintextBytes);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return "";
+            throw new CryptographicException("Decryption failed", ex);
         }
     }
 
@@ -82,6 +70,8 @@ public class AESCrypto : IDisposable
             if (disposing)
             {
                 // Dispose managed resources.
+                Array.Clear(_key, 0, _key.Length);
+                Array.Clear(once, 0, once.Length);
             }
             // Dispose unmanaged resources.
             disposed = true;
