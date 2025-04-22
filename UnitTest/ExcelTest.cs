@@ -46,6 +46,18 @@ public class ExcelConverter_DataTable
 
         #region Assert
         FileAssert.Exists(filename);
+        FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        using (ExcelConverter excel = new ExcelConverter())
+        {
+            DataTable result = excel.readFileDT(fs2);
+            for (int i = 0; i < result.Rows.Count; i++)
+            {
+                for (int j = 0; j < result.Columns.Count; j++)
+                {
+                    Assert.That(result.Rows[i][j].ToString(), Is.EqualTo(dtRawData.Rows[i][j].ToString()));
+                }
+            }
+        }
         #endregion
     }
 
@@ -70,6 +82,18 @@ public class ExcelConverter_DataTable
 
         #region Assert
         FileAssert.Exists(filename);
+        FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        using (ExcelConverter excel = new ExcelConverter())
+        {
+            DataTable result = excel.readFileDT(fs2);
+            for (int i = 0; i < result.Rows.Count; i++)
+            {
+                for (int j = 0; j < result.Columns.Count; j++)
+                {
+                    Assert.That(result.Rows[i][j].ToString(), Is.EqualTo(dtRawData.Rows[i][j].ToString()));
+                }
+            }
+        }
         #endregion
     }
 
@@ -93,59 +117,17 @@ public class ExcelConverter_DataTable
         #endregion
 
         #region Assert
-        #endregion
-    }
-
-    [Test, Order(4)]
-    public void Excel2DataTable()
-    {
-        #region Arrange
-        string filename = @".\Test01_DataTable2Excel.xlsx";
-        FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-        DataTable result = new DataTable();
-        #endregion
-
-        #region Act
+        FileAssert.Exists(filename);
+        FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
         using (ExcelConverter excel = new ExcelConverter())
         {
-            result = excel.readFileDT(fs);
-        }
-        #endregion
-
-        #region Assert
-        for (int i = 0; i < result.Rows.Count; i++)
-        {
-            for (int j = 0; j < result.Columns.Count; j++)
+            DataTable result = excel.readFileDT(fs2);
+            for (int i = 0; i < result.Rows.Count; i++)
             {
-                Assert.That(result.Rows[i][j].ToString() == dtRawData.Rows[i][j].ToString());
-            }
-        }
-        #endregion
-    }
-
-    [Test, Order(5)]
-    public void Excel2DataTable_Anchor()
-    {
-        #region Arrange
-        string filename = @".\Test02_DataTable2Excel_Anchor.xlsx";
-        FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-        DataTable result = new DataTable();
-        #endregion
-
-        #region Act
-        using (ExcelConverter excel = new ExcelConverter())
-        {
-            excel.setAnchor(2, 3);
-            result = excel.readFileDT(fs);
-        }
-        #endregion
-
-        #region Assert
-        for (int i = 0; i < result.Rows.Count; i++)
-        {
-            for (int j = 0; j < result.Columns.Count; j++)
-            {
-                Assert.That(result.Rows[i][j].ToString() == dtRawData.Rows[i][j].ToString());
+                for (int j = 0; j < result.Columns.Count; j++)
+                {
+                    Assert.That(result.Rows[i][j].ToString(), Is.EqualTo(dtRawData.Rows[i][j].ToString()));
+                }
             }
         }
         #endregion
@@ -177,34 +159,6 @@ public class ExcelConverter_DataTable
         #endregion
     }
     
-    [Test, Order(7)]
-    public void Excel2DataTable_DataType()
-    {
-        #region Arrange
-        string filename = @".\Test07_DataTable2Excel.xlsx";
-        FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-        DataTable result = new DataTable();
-        #endregion
-
-        #region Act
-        using (ExcelConverter excel = new ExcelConverter())
-        {
-            result = excel.readFileDT(fs);
-        }
-        #endregion
-
-        #region Assert
-        for (int i = 0; i < result.Rows.Count; i++)
-        {
-            for (int j = 0; j < result.Columns.Count; j++)
-            {
-                Assert.That(result.Rows[i][j].ToString() == dtRawData.Rows[i][j].ToString());
-            }
-        }
-        Console.WriteLine(JsonConvert.SerializeObject(result));
-        #endregion
-    }
-
     [OneTimeTearDown]
     public void CleanFile()
     {
@@ -236,9 +190,9 @@ public class ExcelConverter_DataSet
         dtRawData2.Columns.Add("StudentId", typeof(int));
         dtRawData2.Columns.Add("Name", typeof(string));
         dtRawData2.Columns.Add("Age", typeof(double));
-        dtRawData1.Rows.Add(10300, "Rose", 14.00);
-        dtRawData1.Rows.Add(10400, "Ted", 16.01);
-        dtRawData1.Rows.Add(10500, "Tamama", 21.123);
+        dtRawData2.Rows.Add(10300, "Rose", 14.00);
+        dtRawData2.Rows.Add(10400, "Ted", 16.01);
+        dtRawData2.Rows.Add(10500, "Tamama", 21.123);
 
         dsRawData.Tables.Add(dtRawData1);
         dsRawData.Tables.Add(dtRawData2);
@@ -264,6 +218,21 @@ public class ExcelConverter_DataSet
 
         #region Assert
         FileAssert.Exists(filename);
+        FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        using (ExcelConverter excel = new ExcelConverter())
+        {
+            DataSet result = excel.readFileDS(fs2);
+            for(int k = 0; k < result.Tables.Count; k++)
+            {
+                for (int i = 0; i < result.Tables[k].Rows.Count; i++)
+                {
+                    for (int j = 0; j < result.Tables[k].Columns.Count; j++)
+                    {
+                        Assert.That(result.Tables[k].Rows[i][j].ToString(), Is.EqualTo(dsRawData.Tables[k].Rows[i][j].ToString()));
+                    }
+                }
+            }
+        }
         #endregion
     }
 
@@ -288,6 +257,21 @@ public class ExcelConverter_DataSet
 
         #region Assert
         FileAssert.Exists(filename);
+        FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        using (ExcelConverter excel = new ExcelConverter())
+        {
+            DataSet result = excel.readFileDS(fs2);
+            for (int k = 0; k < result.Tables.Count; k++)
+            {
+                for (int i = 0; i < result.Tables[k].Rows.Count; i++)
+                {
+                    for (int j = 0; j < result.Tables[k].Columns.Count; j++)
+                    {
+                        Assert.That(result.Tables[k].Rows[i][j].ToString(), Is.EqualTo(dsRawData.Tables[k].Rows[i][j].ToString()));
+                    }
+                }
+            }
+        }
         #endregion
     }
 
@@ -312,6 +296,21 @@ public class ExcelConverter_DataSet
 
         #region Assert
         FileAssert.Exists(filename);
+        FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        using (ExcelConverter excel = new ExcelConverter())
+        {
+            DataSet result = excel.readFileDS(fs2);
+            for (int k = 0; k < result.Tables.Count; k++)
+            {
+                for (int i = 0; i < result.Tables[k].Rows.Count; i++)
+                {
+                    for (int j = 0; j < result.Tables[k].Columns.Count; j++)
+                    {
+                        Assert.That(result.Tables[k].Rows[i][j].ToString(), Is.EqualTo(dsRawData.Tables[k].Rows[i][j].ToString()));
+                    }
+                }
+            }
+        }
         #endregion
     }
 
@@ -335,69 +334,22 @@ public class ExcelConverter_DataSet
         #endregion
 
         #region Assert
-        #endregion
-    }
-
-    [Test, Order(5)]
-    public void Excel2DataSet()
-    {
-        #region Arrange
-        string filename = @".\Test01_DataSet2Excel.xlsx";
-        FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-        DataSet result = new DataSet();
-        #endregion
-
-        #region Act
+        FileAssert.Exists(filename);
+        FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
         using (ExcelConverter excel = new ExcelConverter())
         {
-            result = excel.readFileDS(fs);
-        }
-        #endregion
-
-        #region Assert
-        for (int k = 0; k < result.Tables.Count; k++)
-        {
-            for (int i = 0; i < result.Tables[k].Rows.Count; i++)
+            DataSet result = excel.readFileDS(fs2);
+            for (int k = 0; k < result.Tables.Count; k++)
             {
-                for (int j = 0; j < result.Tables[k].Columns.Count; j++)
+                for (int i = 0; i < result.Tables[k].Rows.Count; i++)
                 {
-                    Assert.That(result.Tables[k].Rows[i][j].ToString() == dsRawData.Tables[k].Rows[i][j].ToString());
+                    for (int j = 0; j < result.Tables[k].Columns.Count; j++)
+                    {
+                        Assert.That(result.Tables[k].Rows[i][j].ToString(), Is.EqualTo(dsRawData.Tables[k].Rows[i][j].ToString()));
+                    }
                 }
             }
         }
-        Console.WriteLine(JsonConvert.SerializeObject(result));
-        #endregion
-    }
-
-    [Test, Order(6)]
-    public void Excel2DataSet_Anchor()
-    {
-        #region Arrange
-        string filename = @".\Test02_DataSet2Excel_Anchor.xlsx";
-        FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-        DataSet result = new DataSet();
-        #endregion
-
-        #region Act
-        using (ExcelConverter excel = new ExcelConverter())
-        {
-            excel.setAnchor(2, 3);
-            result = excel.readFileDS(fs);
-        }
-        #endregion
-
-        #region Assert
-        for (int k = 0; k < result.Tables.Count; k++)
-        {
-            for (int i = 0; i < result.Tables[k].Rows.Count; i++)
-            {
-                for (int j = 0; j < result.Tables[k].Columns.Count; j++)
-                {
-                    Assert.That(result.Tables[k].Rows[i][j].ToString() == dsRawData.Tables[k].Rows[i][j].ToString());
-                }
-            }
-        }
-        Console.WriteLine(JsonConvert.SerializeObject(result));
         #endregion
     }
 
@@ -419,15 +371,20 @@ public class ExcelConverter_DataSet
         #endregion
 
         #region Assert
-        for (int i = 0; i < result.Tables.Count; i++)
+        Assert.That(result.Tables.Count, Is.EqualTo(2));
+        using (ExcelConverter excel = new ExcelConverter())
         {
-            Assert.That(result.Tables[i].Rows.Count == 1);
-            Assert.That(result.Tables[i].Columns.Count == 3);
-            Assert.That(result.Tables[i].Rows[0]["Name"].ToString() == "Jack");
-            Assert.That(result.Tables[i].Rows[0]["StudentId"].ToString() == "10000");
-            Assert.That(result.Tables[i].Rows[0]["Age"].ToString() == "15");
+            for (int k = 0; k < result.Tables.Count; k++)
+            {
+                for (int i = 0; i < result.Tables[k].Rows.Count; i++)
+                {
+                    for (int j = 0; j < result.Tables[k].Columns.Count; j++)
+                    {
+                        Assert.That(result.Tables[k].Rows[i][j].ToString(), Is.EqualTo(dsRawData.Tables[k].Rows[i][j].ToString()));
+                    }
+                }
+            }
         }
-        Console.WriteLine(JsonConvert.SerializeObject(result));
         #endregion
     }
 
@@ -436,37 +393,6 @@ public class ExcelConverter_DataSet
     {
         #region Arrange
         string filename = @".\Test04_DataSet2Excel_SheetRange.xlsx";
-        FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-        DataSet result = new DataSet();
-        #endregion
-
-        #region Act
-        using (ExcelConverter excel = new ExcelConverter())
-        {
-            result = excel.readFileDS(fs);
-        }
-        #endregion
-
-        #region Assert
-        for (int k = 0; k < result.Tables.Count; k++)
-        {
-            for (int i = 0; i < result.Tables[k].Rows.Count; i++)
-            {
-                for (int j = 0; j < result.Tables[k].Columns.Count; j++)
-                {
-                    Assert.That(result.Tables[k].Rows[i][j].ToString() == dsRawData.Tables[k].Rows[i][j].ToString());
-                }
-            }
-        }
-        Console.WriteLine(JsonConvert.SerializeObject(result));
-        #endregion
-    }
-
-    [Test, Order(9)]
-    public void Excel2DataSet_DataType()
-    {
-        #region Arrange
-        string filename = @".\Test09_Excel2DataSet_DataType.xlsx";
         FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
         DataSet result = new DataSet();
         #endregion
@@ -539,6 +465,17 @@ public class ExcelConverter_ClassModel
 
         #region Assert
         FileAssert.Exists(filename);
+        FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        using (ExcelConverter excel = new ExcelConverter())
+        {
+            List<StudentModel> result = excel.readFileDM<StudentModel>(fs2);
+            for(int i=0; i < result.Count; i++)
+            {
+                Assert.That(result[i].StudentId, Is.EqualTo(rawData[i].StudentId));
+                Assert.That(result[i].Name, Is.EqualTo(rawData[i].Name));
+                Assert.That(result[i].Age, Is.EqualTo(rawData[i].Age));
+            }
+        }
         #endregion
     }
 
@@ -563,6 +500,17 @@ public class ExcelConverter_ClassModel
 
         #region Assert
         FileAssert.Exists(filename);
+        FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        using (ExcelConverter excel = new ExcelConverter())
+        {
+            List<StudentModel> result = excel.readFileDM<StudentModel>(fs2);
+            for (int i = 0; i < result.Count; i++)
+            {
+                Assert.That(result[i].StudentId, Is.EqualTo(rawData[i].StudentId));
+                Assert.That(result[i].Name, Is.EqualTo(rawData[i].Name));
+                Assert.That(result[i].Age, Is.EqualTo(rawData[i].Age));
+            }
+        }
         #endregion
     }
 
@@ -586,67 +534,18 @@ public class ExcelConverter_ClassModel
         #endregion
 
         #region Assert
-        #endregion
-    }
-
-    [Test, Order(4)]
-    public void Excel2DataModel()
-    {
-        #region Arrange
-        string filename = @".\Test01_DataModel2Excel.xlsx";
-        FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-        List<StudentModel> result = new List<StudentModel>();
-        #endregion
-
-        #region Act
+        FileAssert.Exists(filename);
+        FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
         using (ExcelConverter excel = new ExcelConverter())
         {
-            result = excel.readFileDM<StudentModel>(fs);
+            List<StudentModel> result = excel.readFileDM<StudentModel>(fs2);
+            for (int i = 0; i < result.Count; i++)
+            {
+                Assert.That(result[i].StudentId, Is.EqualTo(rawData[i].StudentId));
+                Assert.That(result[i].Name, Is.EqualTo(rawData[i].Name));
+                Assert.That(result[i].Age, Is.EqualTo(rawData[i].Age));
+            }
         }
-        #endregion
-
-        #region Assert
-        for (int i = 0; i < result.Count; i++)
-        {
-            Assert.That(rawData[i].Name == result[i].Name);
-            Assert.That(rawData[i].StudentId == result[i].StudentId);
-            Assert.That(rawData[i].Age == result[i].Age);
-            Assert.That(rawData[i].Birth == result[i].Birth);
-            Assert.That(rawData[i].TestTime.ToString() == result[i].TestTime.ToString());
-            Assert.That(rawData[i].UpdateTime.ToString() == result[i].UpdateTime.ToString());
-        }
-        Console.WriteLine(JsonConvert.SerializeObject(result));
-        #endregion
-    }
-
-    [Test, Order(5)]
-    public void Excel2DataModel_Anchor()
-    {
-        #region Arrange
-        string filename = @".\Test02_DataModel2Excel_Anchor.xlsx";
-        FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-        List<StudentModel> result = new List<StudentModel>();
-        #endregion
-
-        #region Act
-        using (ExcelConverter excel = new ExcelConverter())
-        {
-            excel.setAnchor(2, 3);
-            result = excel.readFileDM<StudentModel>(fs);
-        }
-        #endregion
-
-        #region Assert
-        for (int i = 0; i < result.Count; i++)
-        {
-            Assert.That(rawData[i].Name == result[i].Name);
-            Assert.That(rawData[i].StudentId == result[i].StudentId);
-            Assert.That(rawData[i].Age == result[i].Age);
-            Assert.That(rawData[i].Birth == result[i].Birth);
-            Assert.That(rawData[i].TestTime.ToString() == result[i].TestTime.ToString());
-            Assert.That(rawData[i].UpdateTime.ToString() == result[i].UpdateTime.ToString());
-        }
-        Console.WriteLine(JsonConvert.SerializeObject(result));
         #endregion
     }
 
@@ -676,36 +575,6 @@ public class ExcelConverter_ClassModel
         #endregion
     }
 
-
-    [Test, Order(7)]
-    public void Excel2DataModel_DataType2()
-    {
-        #region Arrange
-        string filename = @".\Test07_Excel2DataModel_DataType.xlsx";
-        FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-        List<StudentModel> result = new List<StudentModel>();
-        #endregion
-
-        #region Act
-        using (ExcelConverter excel = new ExcelConverter())
-        {
-            result = excel.readFileDM<StudentModel>(fs);
-        }
-        #endregion
-
-        #region Assert
-        for (int i = 0; i < result.Count; i++)
-        {
-            Assert.That(rawData[i].Name == result[i].Name);
-            Assert.That(rawData[i].StudentId == result[i].StudentId);
-            Assert.That(rawData[i].Age == result[i].Age);
-            Assert.That(rawData[i].Birth == result[i].Birth);
-            Assert.That(rawData[i].TestTime.ToString() == result[i].TestTime.ToString());
-            Assert.That(rawData[i].UpdateTime.ToString() == result[i].UpdateTime.ToString());
-        }
-        Console.WriteLine(JsonConvert.SerializeObject(result));
-        #endregion
-    }
 
     [OneTimeTearDown]
     public void CleanFile()
