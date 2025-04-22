@@ -12,7 +12,7 @@
 ### AppConfig
 
 ```csharp
-var config = new Config.Extention.AppConfig("appsettings.json");
+var config = new Config.Extension.AppConfig("appsettings.json");
 var settingValue = config.Configuration["SettingKey"];
 ```
 

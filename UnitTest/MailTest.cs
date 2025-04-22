@@ -15,7 +15,7 @@ public class MailTest
     public void CallMailSuccess()
     {
         #region Arrange
-        var fakeClient = new FakeMailCleint();
+        var fakeClient = new FakeSmtpClientWrapper();
         var config = new MailConfigDto { SMTPServer = "smtp.demo.com" };
         var mail = new MailDto
         {
@@ -51,7 +51,7 @@ public class MailTest
     public void CallMailFail_WrongPictureSetting()
     {
         #region Arrange
-        var fakeClient = new FakeMailCleint();
+        var fakeClient = new FakeSmtpClientWrapper();
         var config = new MailConfigDto { SMTPServer = "smtp.demo.com" };
         var mail = new MailDto
         {
@@ -91,7 +91,7 @@ public class MailTest
     public void CallMailFail_WrongAttachement()
     {
         #region Arrange
-        var fakeClient = new FakeMailCleint();
+        var fakeClient = new FakeSmtpClientWrapper();
         var config = new MailConfigDto { SMTPServer = "smtp.demo.com" };
         var mail = new MailDto
         {
@@ -114,9 +114,10 @@ public class MailTest
         #endregion
     }
 
-    public class FakeMailCleint : IMailClient
+    public class FakeSmtpClientWrapper : ISmtpClientWrapper
     {
         public bool Sent = false;
         public void Send(MailDto dto) => Sent = true;
+        public void Send(IEnumerable<MailDto> mails) => Sent = true;
     }
 }

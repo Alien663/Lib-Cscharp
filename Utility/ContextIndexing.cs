@@ -2,58 +2,74 @@
 
 public static class ContextIndexing
 {
-    public static List<TokenModel> Segment(string context)
+    public static List<TokenModel> Segment(string context, List<string>? customPunctuationMarks = null)
     {
-        string temp = context;
+        if (string.IsNullOrEmpty(context))
+        {
+            throw new ArgumentException("Input context cannot be null or empty.", nameof(context));
+        }
+
+        ReadOnlySpan<char> temp = context.AsSpan();
         List<TokenModel> result = new List<TokenModel>();
-        List<string> AllPunctuationMarks = new List<string>
+        List<string> AllPunctuationMarks = customPunctuationMarks?? new List<string>
         {
             ",",".","?","!","，","。","？","！",";",":","：",
             "；","'","\"","(",")","[","]","{","}","（","）",
             "［","］","｛","｝","「","」","『","』","\n",
         };
-        List<string> PunctuationMarks = AllPunctuationMarks.Where(p => context.IndexOf(p) >= 0).ToList();
+        List<string> PunctuationMarks = AllPunctuationMarks.Where(p => context.Contains(p)).ToList();
         int ID = 1;
-        while (temp.Length > 0)
+        while (!temp.IsEmpty)
         {
             int min_index = int.MaxValue;
             string mark = "";
-            PunctuationMarks.ForEach(item =>
+            foreach(var item in PunctuationMarks)
             {
-                int indexof = temp.IndexOf(item);
-                if (indexof >= 0 && indexof < min_index)
+                int index = temp.IndexOf(item.AsSpan());
+                if(index >=0 && index < min_index)
                 {
-                    min_index = indexof;
+                    min_index = index;
                     mark = item;
                 }
-            });
+            }
 
             if (min_index == int.MaxValue)
             {
                 min_index = temp.Length;
             }
-            if (!string.IsNullOrWhiteSpace(temp.Substring(0, min_index)))
+
+            if(!temp.Slice(0, min_index).IsWhiteSpace())
+            {
                 result.Add(new TokenModel
                 {
                     ID = ID++,
-                    Context = temp.Substring(0, min_index),
+                    Context = temp.Slice(0, min_index).ToString(),
                     Mark = mark,
                 });
+            }
+
             if (min_index == int.MaxValue) break;
-            temp = temp.Substring(min_index + 1);
+            temp = temp.Slice(min_index + 1);
         }
         return result;
     }
 
     public static List<TokenModel> Tokenize(string context, int window = 6)
     {
+        if (string.IsNullOrEmpty(context))
+        {
+            throw new ArgumentException("Input context cannot be null or empty.", nameof(context));
+        }
+
+        ReadOnlySpan<char> temp = context.AsSpan();
         List<TokenModel> result = new List<TokenModel>();
         int ID = 1;
+
         for (int i = 1; i <= window; i++)
         {
-            for (int j = 0; j <= context.Length - i; j++)
+            for (int j = 0; j <= temp.Length - i; j++)
             {
-                result.Add(new TokenModel { ID = ID++, Context = context.Substring(j, i) });
+                result.Add(new TokenModel { ID = ID++, Context = temp.Slice(j, i).ToString() });
             }
         }
         return result;

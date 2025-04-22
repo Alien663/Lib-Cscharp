@@ -35,7 +35,7 @@ public class ConfigTest
         #endregion
 
         #region Assert
-        Assert.That(encrypted == "JeYrjV9buz+kZ902e0pD");
+        Assert.That(encrypted, Is.EqualTo("OGI4NWEzMWEwODR01MCWogPWCwete8VJBxkJU0ZoC3R77TTD7TtzwaKo"));
         #endregion
     }
 
@@ -47,7 +47,7 @@ public class ConfigTest
         #endregion
 
         #region Action
-        string decrypted = crypto.Decrypt("JeYrjV9buz+kZ902e0pD");
+        string decrypted = crypto.Decrypt("OGI4NWEzMWEwODR01MCWogPWCwete8VJBxkJU0ZoC3R77TTD7TtzwaKo");
         #endregion
 
         #region Assert
