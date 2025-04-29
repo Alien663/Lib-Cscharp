@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System;
 using System.IO;
 using System.Data;
@@ -47,9 +47,12 @@ public class ExcelConverter_DataTable
         #region Assert
         FileAssert.Exists(filename);
         FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms2 = new MemoryStream();
+        fs2.CopyTo(ms2);
+        ms2.Position = 0;
         using (ExcelConverter excel = new ExcelConverter())
         {
-            DataTable result = excel.readFileDT(fs2);
+            DataTable result = excel.readFileDT(ms2);
             for (int i = 0; i < result.Rows.Count; i++)
             {
                 for (int j = 0; j < result.Columns.Count; j++)
@@ -83,9 +86,12 @@ public class ExcelConverter_DataTable
         #region Assert
         FileAssert.Exists(filename);
         FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms2 = new MemoryStream();
+        fs2.CopyTo(ms2);
+        ms2.Position = 0;
         using (ExcelConverter excel = new ExcelConverter())
         {
-            DataTable result = excel.readFileDT(fs2);
+            DataTable result = excel.readFileDT(ms2);
             for (int i = 0; i < result.Rows.Count; i++)
             {
                 for (int j = 0; j < result.Columns.Count; j++)
@@ -119,9 +125,12 @@ public class ExcelConverter_DataTable
         #region Assert
         FileAssert.Exists(filename);
         FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms2 = new MemoryStream();
+        fs2.CopyTo(ms2 );
+        ms2.Position = 0;
         using (ExcelConverter excel = new ExcelConverter())
         {
-            DataTable result = excel.readFileDT(fs2);
+            DataTable result = excel.readFileDT(ms2);
             for (int i = 0; i < result.Rows.Count; i++)
             {
                 for (int j = 0; j < result.Columns.Count; j++)
@@ -139,6 +148,9 @@ public class ExcelConverter_DataTable
         #region Arrange
         string filename = @".\Test01_DataTable2Excel.xlsx";
         FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms = new MemoryStream();
+        fs.CopyTo(ms);
+        ms.Position = 0;
         DataTable result = new DataTable();
         #endregion
 
@@ -146,7 +158,7 @@ public class ExcelConverter_DataTable
         using (ExcelConverter excel = new ExcelConverter())
         {
             excel.setDataRange(3, 1);
-            result = excel.readFileDT(fs);
+            result = excel.readFileDT(ms);
         }
         #endregion
 
@@ -219,9 +231,12 @@ public class ExcelConverter_DataSet
         #region Assert
         FileAssert.Exists(filename);
         FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms2 = new MemoryStream();
+        fs2.CopyTo(ms2);
+        ms2.Position = 0;
         using (ExcelConverter excel = new ExcelConverter())
         {
-            DataSet result = excel.readFileDS(fs2);
+            DataSet result = excel.readFileDS(ms2);
             for(int k = 0; k < result.Tables.Count; k++)
             {
                 for (int i = 0; i < result.Tables[k].Rows.Count; i++)
@@ -258,9 +273,12 @@ public class ExcelConverter_DataSet
         #region Assert
         FileAssert.Exists(filename);
         FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms2 = new MemoryStream();
+        fs2.CopyTo(ms2);
+        ms2.Position = 0;
         using (ExcelConverter excel = new ExcelConverter())
         {
-            DataSet result = excel.readFileDS(fs2);
+            DataSet result = excel.readFileDS(ms2);
             for (int k = 0; k < result.Tables.Count; k++)
             {
                 for (int i = 0; i < result.Tables[k].Rows.Count; i++)
@@ -297,9 +315,12 @@ public class ExcelConverter_DataSet
         #region Assert
         FileAssert.Exists(filename);
         FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms2 = new MemoryStream();
+        fs2.CopyTo(ms2);
+        ms2.Position = 0;
         using (ExcelConverter excel = new ExcelConverter())
         {
-            DataSet result = excel.readFileDS(fs2);
+            DataSet result = excel.readFileDS(ms2);
             for (int k = 0; k < result.Tables.Count; k++)
             {
                 for (int i = 0; i < result.Tables[k].Rows.Count; i++)
@@ -336,9 +357,12 @@ public class ExcelConverter_DataSet
         #region Assert
         FileAssert.Exists(filename);
         FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms2 = new MemoryStream();
+        fs2.CopyTo(ms2);
+        ms2.Position = 0;
         using (ExcelConverter excel = new ExcelConverter())
         {
-            DataSet result = excel.readFileDS(fs2);
+            DataSet result = excel.readFileDS(ms2);
             for (int k = 0; k < result.Tables.Count; k++)
             {
                 for (int i = 0; i < result.Tables[k].Rows.Count; i++)
@@ -359,6 +383,9 @@ public class ExcelConverter_DataSet
         #region Arrange
         string filename = @".\Test01_DataSet2Excel.xlsx";
         FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms = new MemoryStream();
+        fs.CopyTo(ms);
+        ms.Position = 0;
         DataSet result = new DataSet();
         #endregion
 
@@ -366,7 +393,7 @@ public class ExcelConverter_DataSet
         using (ExcelConverter excel = new ExcelConverter())
         {
             excel.setDataRange(3, 1);
-            result = excel.readFileDS(fs);
+            result = excel.readFileDS(ms);
         }
         #endregion
 
@@ -394,13 +421,16 @@ public class ExcelConverter_DataSet
         #region Arrange
         string filename = @".\Test04_DataSet2Excel_SheetRange.xlsx";
         FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms = new MemoryStream();
+        fs.CopyTo(ms);
+        ms.Position = 0;
         DataSet result = new DataSet();
         #endregion
 
         #region Act
         using (ExcelConverter excel = new ExcelConverter())
         {
-            result = excel.readFileDS(fs);
+            result = excel.readFileDS(ms);
         }
         #endregion
 
@@ -466,9 +496,12 @@ public class ExcelConverter_ClassModel
         #region Assert
         FileAssert.Exists(filename);
         FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms2 = new MemoryStream();
+        fs2.CopyTo(ms2);
+        ms2.Position = 0;
         using (ExcelConverter excel = new ExcelConverter())
         {
-            List<StudentModel> result = excel.readFileDM<StudentModel>(fs2);
+            List<StudentModel> result = excel.readFileDM<StudentModel>(ms2);
             for(int i=0; i < result.Count; i++)
             {
                 Assert.That(result[i].StudentId, Is.EqualTo(rawData[i].StudentId));
@@ -501,9 +534,12 @@ public class ExcelConverter_ClassModel
         #region Assert
         FileAssert.Exists(filename);
         FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms2 = new MemoryStream();
+        fs2.CopyTo(ms2);
+        ms2.Position = 0;
         using (ExcelConverter excel = new ExcelConverter())
         {
-            List<StudentModel> result = excel.readFileDM<StudentModel>(fs2);
+            List<StudentModel> result = excel.readFileDM<StudentModel>(ms2);
             for (int i = 0; i < result.Count; i++)
             {
                 Assert.That(result[i].StudentId, Is.EqualTo(rawData[i].StudentId));
@@ -536,9 +572,12 @@ public class ExcelConverter_ClassModel
         #region Assert
         FileAssert.Exists(filename);
         FileStream fs2 = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms2 = new MemoryStream();
+        fs2.CopyTo(ms2);
+        ms2.Position = 0;
         using (ExcelConverter excel = new ExcelConverter())
         {
-            List<StudentModel> result = excel.readFileDM<StudentModel>(fs2);
+            List<StudentModel> result = excel.readFileDM<StudentModel>(ms2);
             for (int i = 0; i < result.Count; i++)
             {
                 Assert.That(result[i].StudentId, Is.EqualTo(rawData[i].StudentId));
@@ -555,6 +594,9 @@ public class ExcelConverter_ClassModel
         #region Arrange
         string filename = @".\Test01_DataModel2Excel.xlsx";
         FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
+        MemoryStream ms = new MemoryStream();
+        fs.CopyTo(ms);
+        ms.Position = 0;
         List<StudentModel> result = new List<StudentModel>();
         #endregion
 
@@ -562,7 +604,7 @@ public class ExcelConverter_ClassModel
         using (ExcelConverter excel = new ExcelConverter())
         {
             excel.setDataRange(3, 1);
-            result = excel.readFileDM<StudentModel>(fs);
+            result = excel.readFileDM<StudentModel>(ms);
         }
         #endregion
 

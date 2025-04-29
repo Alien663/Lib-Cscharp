@@ -1,4 +1,4 @@
-﻿using NPOI.HSSF.UserModel;
+using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System.ComponentModel;
@@ -74,7 +74,7 @@ public class ExcelConverter : IDisposable
         return result;
     }
 
-    public DataTable readFileDT(FileStream fs)
+    public DataTable readFileDT(MemoryStream fs)
     {
         try
         {
@@ -92,7 +92,7 @@ public class ExcelConverter : IDisposable
         }
     }
 
-    public DataSet readFileDS(FileStream fs)
+    public DataSet readFileDS(MemoryStream fs)
     {
         try
         {
@@ -115,7 +115,7 @@ public class ExcelConverter : IDisposable
         }
     }
 
-    public List<T> readFileDM<T>(FileStream fs) where T : new()
+    public List<T> readFileDM<T>(MemoryStream fs) where T : new()
     {
         workbook = new XSSFWorkbook(fs);
         ISheet sheet = workbook.GetSheetAt(sheetRange.StartIndex);
