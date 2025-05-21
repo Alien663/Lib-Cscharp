@@ -1,4 +1,4 @@
-﻿using System.Data;
+using System.Data;
 using System.Reflection;
 
 namespace Alien.Common.Utility;
@@ -31,3 +31,6 @@ public static class DataTableExtensions
         return result;
     }
 }
+
+
+// Test Incremental Scanning
